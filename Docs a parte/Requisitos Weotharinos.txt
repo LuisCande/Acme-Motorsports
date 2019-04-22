@@ -1,0 +1,6 @@
+Hay que meter qualifying y carrera como (composicion) de grand prix
+En cada uno de estos hay que poner moment, laps..etc
+Solo se puede poner a finalMode un grand prix si tiene una carrera y al menos un qualifying, si esta en final mode no se pueden asociar qualis ni carrera,el start date del grand prix debe ser antes del start moment del qualifying 1 y el endmoment tiene que ser (media hora) despues del endmoment de la carrera (por el podium o lo que sea). Hay que secuenciar los qualifying entre ellos (30 min) y la carrera del ultimo qualifing (1 dia). La hora que se pone en los moment es la hora local del pais del circuito.
+
+Si el maxriders ya se ha completado, (con x applications accepted) no se puede hacer ninguna otra application.
+ 
