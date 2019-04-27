@@ -50,7 +50,6 @@ public class Rider extends Actor {
 	}
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = true)
 	public Team getTeam() {
 		return this.team;
