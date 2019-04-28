@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +27,7 @@ public class Forecast extends DomainEntity {
 	//Relationships
 
 	private RaceDirector	raceDirector;
+	private GrandPrix		grandPrix;
 
 
 	//Getters
@@ -65,6 +67,13 @@ public class Forecast extends DomainEntity {
 		return this.raceDirector;
 	}
 
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public GrandPrix getGrandPrix() {
+		return this.grandPrix;
+	}
+
 	//Setters
 	public void setAsphaltTemperature(final Integer asphaltTemperature) {
 		this.asphaltTemperature = asphaltTemperature;
@@ -89,5 +98,9 @@ public class Forecast extends DomainEntity {
 	}
 	public void setRaceDirector(final RaceDirector raceDirector) {
 		this.raceDirector = raceDirector;
+	}
+
+	public void setGrandPrix(final GrandPrix grandPrix) {
+		this.grandPrix = grandPrix;
 	}
 }
