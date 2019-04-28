@@ -29,7 +29,7 @@ public class Answer extends DomainEntity {
 
 	//Relationships
 
-	private RaceDirector	raceDirector;
+	private Manager			manager;
 	private Announcement	announcement;
 
 
@@ -60,8 +60,8 @@ public class Answer extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-	public RaceDirector getRaceDirector() {
-		return this.raceDirector;
+	public Manager getManager() {
+		return this.manager;
 	}
 
 	@Valid
@@ -88,8 +88,8 @@ public class Answer extends DomainEntity {
 		this.reason = reason;
 	}
 
-	public void setRaceDirector(final RaceDirector raceDirector) {
-		this.raceDirector = raceDirector;
+	public void setManager(final Manager manager) {
+		this.manager = manager;
 	}
 
 	public void setAnnouncement(final Announcement announcement) {
