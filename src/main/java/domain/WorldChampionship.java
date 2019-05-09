@@ -32,7 +32,7 @@ public class WorldChampionship extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getDescrption() {
+	public String getDescription() {
 		return this.description;
 	}
 

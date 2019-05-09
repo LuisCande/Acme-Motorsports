@@ -50,7 +50,7 @@ public class GrandPrix extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getDescrption() {
+	public String getDescription() {
 		return this.description;
 	}
 

@@ -295,6 +295,10 @@
 		<property name="phone" value="639854163" />
 		<property name="address" value="c/Sevilla 34" />
 		<property name="suspicious" value="false" />
+		<property name="number" value="22" />
+		<property name="country" value="Italia" />
+		<property name="age" value="18" />
+		<property name="score" value="0.0" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 	
@@ -307,6 +311,10 @@
 		<property name="phone" value="644854163" />
 		<property name="address" value="c/Esmeralda 12" />
 		<property name="suspicious" value="false" />
+		<property name="number" value="45" />
+		<property name="country" value="Francia" />
+		<property name="age" value="23" />
+		<property name="score" value="0.0" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
 	
@@ -319,6 +327,10 @@
 		<property name="phone" value="639854223" />
 		<property name="address" value="c/Tarfia 63" />
 		<property name="suspicious" value="false" />
+		<property name="number" value="66" />
+		<property name="country" value="Alemania" />
+		<property name="age" value="28" />
+		<property name="score" value="0.0" />
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
 	
@@ -443,6 +455,7 @@
 		<property name="phone" value="639854925" />
 		<property name="address" value="c/Talabo 13" />
 		<property name="suspicious" value="false" />
+		<property name="score" value="0.0" />
 		<property name="userAccount" ref="userAccount14" />
 	</bean>
 	
@@ -455,6 +468,7 @@
 		<property name="phone" value="632584155" />
 		<property name="address" value="c/Cantarranas 10" />
 		<property name="suspicious" value="false" />
+		<property name="score" value="0.0" />
 		<property name="userAccount" ref="userAccount15" />
 	</bean>
 	
@@ -467,6 +481,7 @@
 		<property name="phone" value="639854695" />
 		<property name="address" value="c/Madril 69" />
 		<property name="suspicious" value="false" />
+		<property name="score" value="0.0" />
 		<property name="userAccount" ref="userAccount16" />
 	</bean>
 	
@@ -1067,7 +1082,7 @@
 	<bean id="announcement1" class="domain.Announcement">
 		<property name="moment" value="15/03/2014 10:12" />
 		<property name="title" value="This is an announcement for a grand prix!" />
-		<property name="description" ref="This grand prix is organised by the race director 1!" />
+		<property name="description" value="This grand prix is organised by the race director 1!" />
 		<property name="attachments" value="http://www.twitter.com"/>
 		<property name="finalMode" value="false"/>
 		<property name="raceDirector" ref="raceDirector1"/>
@@ -1077,7 +1092,7 @@
 	<bean id="announcement2" class="domain.Announcement">
 		<property name="moment" value="15/03/2015 10:12" />
 		<property name="title" value="This is indeed an announcement for a grand prix!" />
-		<property name="description" ref="This grand prix is organised by the race director 1!" />
+		<property name="description" value="This grand prix is organised by the race director 1!" />
 		<property name="attachments" value="http://www.twitter.com"/>
 		<property name="finalMode" value="true"/>
 		<property name="raceDirector" ref="raceDirector1"/>
@@ -1087,7 +1102,7 @@
 	<bean id="announcement3" class="domain.Announcement">
 		<property name="moment" value="15/03/2016 10:12" />
 		<property name="title" value="This is NOT an announcement for a grand prix!" />
-		<property name="description" ref="This grand prix is organised by the race director 2, my fav!" />
+		<property name="description" value="This grand prix is organised by the race director 2, my fav!" />
 		<property name="attachments" value="http://www.twitter.com"/>
 		<property name="finalMode" value="false"/>
 		<property name="raceDirector" ref="raceDirector2"/>
@@ -1494,7 +1509,7 @@
 		<property name="banner"><null/></property>
 		<property name="pictures"><null/></property>
 		<property name="representative" ref="representative1" />
-		<property name="rider" value="rider1" />
+		<property name="rider" ref="rider1" />
 	</bean>	
 	
 	<bean id="fanClub2" class="domain.FanClub">
@@ -1505,7 +1520,7 @@
 		<property name="banner"><null/></property>
 		<property name="pictures"><null/></property>
 		<property name="representative" ref="representative1" />
-		<property name="rider" value="rider2" />
+		<property name="rider" ref="rider2" />
 	</bean>	
 	
 	<bean id="fanClub3" class="domain.FanClub">
@@ -1516,7 +1531,7 @@
 		<property name="banner"><null/></property>
 		<property name="pictures"><null/></property>
 		<property name="representative" ref="representative2" />
-		<property name="rider" value="rider3" />
+		<property name="rider" ref="rider3" />
 	</bean>	
 	
 	<!-- FastestLap beans -->
@@ -1526,7 +1541,7 @@
 		<property name="category" value="MotoGP" />
 		<property name="circuitName" value="Jerez" />
 		<property name="rider" ref="rider1"/>
-		<property name="time" value="00:01"/>
+		<property name="miliseconds" value="60000"/>
 		<property name="lap" value="10" />
 		<property name="comments" value="I remember it was so intense" />
 	</bean>	
@@ -1537,7 +1552,7 @@
 		<property name="category" value="MotoGP" />
 		<property name="circuitName" value="Montmeló" />
 		<property name="rider" ref="rider1"/>
-		<property name="time" value="00:01"/>
+		<property name="miliseconds" value="60201"/>
 		<property name="lap" value="12" />
 		<property name="comments" value="I got it although I was not feeling pretty well" />
 	</bean>	
@@ -1548,7 +1563,7 @@
 		<property name="category" value="Moto2" />
 		<property name="circuitName" value="Jerez" />
 		<property name="rider" ref="rider1"/>
-		<property name="time" value="00:01"/>
+		<property name="miliseconds" value="63211"/>
 		<property name="lap" value="8" />
 		<property name="comments" value="My first fastest lap ever!"/>
 	</bean>	
@@ -1561,7 +1576,7 @@
 		<property name="category"><null /></property>
 		<property name="circuit"><null /></property>
 		<property name="moment"><null /></property>
-		<property name="grandPrixes">
+		<property name="grandPrixs">
 			<list>
 			</list>
 		</property>
@@ -1574,7 +1589,7 @@
 		<property name="category"><null /></property>
 		<property name="circuit"><null /></property>
 		<property name="moment"><null /></property>
-		<property name="grandPrixes">
+		<property name="grandPrixs">
 			<list>
 			</list>
 		</property>
@@ -1646,7 +1661,7 @@
 	<bean id="grandPrix3" class="domain.GrandPrix">
 		<property name="ticker" value="050414-W2AG" />
 		<property name="description" value="Grand prix of Indianapolis 2014" />
-		<property name="publishDate"><null/></property>
+		<property name="publishDate" value="22/02/2014 13:00" />
 		<property name="startDate" value="22/03/2014 11:00" />
 		<property name="endDate" value="24/03/2014 16:30"/>
 		<property name="maxRiders" value="22"/>
@@ -1740,7 +1755,7 @@
 		<property name="category" value="MotoGP" />
 		<property name="circuitName" value="Jerez" />
 		<property name="rider" ref="rider1"/>
-		<property name="time" value="01:31:01" />
+		<property name="miliseconds" value="60231" />
 	</bean>
 	
 	<!-- Qualifying beans -->
@@ -1870,7 +1885,7 @@
 	</bean>
 	
 	<!-- Team beans -->
-	<bean id="team1" class="domain.Team1">
+	<bean id="team1" class="domain.Team">
 		<property name="name" value="Yamaha" />
 		<property name="moment" value="21/01/2005 10:00" />
 		<property name="contractYears" value="3" />
@@ -1881,7 +1896,7 @@
 		<property name="manager" ref="manager1" />
 	</bean>
 	
-	<bean id="team2" class="domain.Team1">
+	<bean id="team2" class="domain.Team">
 		<property name="name" value="Repsol" />
 		<property name="moment" value="20/11/2005 10:00" />
 		<property name="contractYears" value="5" />
@@ -1892,7 +1907,7 @@
 		<property name="manager" ref="manager2" />
 	</bean>
 	
-	<bean id="team3" class="domain.Team1">
+	<bean id="team3" class="domain.Team">
 		<property name="name" value="Ducati" />
 		<property name="moment" value="24/12/2006 10:00" />
 		<property name="contractYears" value="2" />
