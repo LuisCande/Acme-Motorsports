@@ -1,0 +1,1990 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2019 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="rider1" />
+		<property name="password" value="8cc8c70aa3011732ee45b6d026ef2fcb" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="RIDER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="rider2" />
+		<property name="password" value="c3fb22121bb41febbea12da483c05f30" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="RIDER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="rider3" />
+		<property name="password" value="e3de700d034f23c0b4b5a8c4509518fa" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="RIDER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="manager1" />
+		<property name="password" value="c240642ddef994358c96da82c0361a58" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="manager2" />
+		<property name="password" value="8df5127cd164b5bc2d2b78410a7eea0c" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="manager3" />
+		<property name="password" value="2d3a5db4a2a9717b43698520a8de57d0" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="raceDirector1" />
+		<property name="password" value="9ddd35ce5d941da9dca92469fbc7d273" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="RACEDIRECTOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="raceDirector2" />
+		<property name="password" value="2dd1692b707ad8f7a7ec7334099f7d85" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="RACEDIRECTOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="raceDirector3" />
+		<property name="password" value="ac1d040e218b8fe2a111c0f346195f35" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="RACEDIRECTOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="sponsor3" />
+		<property name="password" value="857a54956061fdc1b88d7722cafe6519" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount14" class="security.UserAccount">
+		<property name="username" value="representative1" />
+		<property name="password" value="c8ff7ce9818117ca225ba83d55ad1455" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REPRESENTATIVE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="representative2" />
+		<property name="password" value="b29a238cb9848df9321085c10f881373" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REPRESENTATIVE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount16" class="security.UserAccount">
+		<property name="username" value="representative3" />
+		<property name="password" value="e97f5a0bb302f8d23108cb37d035728d" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="REPRESENTATIVE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	  <bean id="userAccount17" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="RIDER" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="RACEDIRECTOR" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="REPRESENTATIVE" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Other domain beans come here -->
+	
+	<!-- Administrator beans -->
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Amador" />
+		<property name="surnames" value="Guerrero Matamoros" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="amaguemat@gmail.com" />
+		<property name="phone" value="639854163" />
+		<property name="address" value="c/Sevilla 34" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<!-- Rider beans -->
+	<bean id="rider1" class="domain.Rider">
+		<property name="name" value="Luis" />
+		<property name="surnames" value="Candelario Luna" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="liisitilini@gmail.com" />
+		<property name="phone" value="639854163" />
+		<property name="address" value="c/Sevilla 34" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+	
+	<bean id="rider2" class="domain.Rider">
+		<property name="name" value="Juanjo" />
+		<property name="surnames" value="Pichardo Bufón" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="pichardito@gmail.com" />
+		<property name="phone" value="644854163" />
+		<property name="address" value="c/Esmeralda 12" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+	
+	<bean id="rider3" class="domain.Rider">
+		<property name="name" value="Sergio" />
+		<property name="surnames" value="Morante Mortero" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="sermormormor@gmail.com" />
+		<property name="phone" value="639854223" />
+		<property name="address" value="c/Tarfia 63" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount4" />
+	</bean>
+	
+	<!-- Manager beans -->
+	<bean id="manager1" class="domain.Manager">
+		<property name="name" value="Antonio" />
+		<property name="surnames" value="Carrasco Márquez" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="antonidos@gmail.com" />
+		<property name="phone" value="639812163" />
+		<property name="address" value="c/Puerto peña 54" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount5" />
+	</bean>
+	
+	<bean id="manager2" class="domain.Manager">
+		<property name="name" value="Francisco" />
+		<property name="surnames" value="Orellana del Río" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="flamarore@gmail.com" />
+		<property name="phone" value="639854155" />
+		<property name="address" value="c/Babel 10" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount6" />
+	</bean>
+	
+	<bean id="manager3" class="domain.Manager">
+		<property name="name" value="Luis" />
+		<property name="surnames" value="Gil Paladín" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="luipala@gmail.com" />
+		<property name="phone" value="637754155" />
+		<property name="address" value="c/Dunmor 120" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount7" />
+	</bean>
+	
+	<!-- RaceDirector beans -->
+	<bean id="raceDirector1" class="domain.RaceDirector">
+		<property name="name" value="Juanma" />
+		<property name="surnames" value="Mármol Moreno" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="juanmamo@gmail.com" />
+		<property name="phone" value="639853452" />
+		<property name="address" value="c/Malagón 4" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount8" />
+	</bean>
+	
+	<bean id="raceDirector2" class="domain.RaceDirector">
+		<property name="name" value="Óscar" />
+		<property name="surnames" value="Tirado Persiana" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="osctiri@gmail.com" />
+		<property name="phone" value="639858855" />
+		<property name="address" value="c/Villaverde 96" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount9" />
+	</bean>
+	
+	<bean id="raceDirector3" class="domain.RaceDirector">
+		<property name="name" value="Francisco" />
+		<property name="surnames" value="Wigueras Galven" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="wigueriras@gmail.com" />
+		<property name="phone" value="639854115" />
+		<property name="address" value="c/Utrerira 1" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount10" />
+	</bean>
+	
+	<!-- Sponsor beans -->
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="Jose Antonio" />
+		<property name="surnames" value="Candelario Gomez" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="carrykffflepa@gmail.com" />
+		<property name="phone" value="639852255" />
+		<property name="address" value="c/Santos 5" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount11" />
+	</bean>
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="Sergio" />
+		<property name="surnames" value="Casol Torrija" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="casol96@gmail.com" />
+		<property name="phone" value="639811155" />
+		<property name="address" value="c/Guadaltech 4" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount12" />
+	</bean>
+	
+	<bean id="sponsor3" class="domain.Sponsor">
+		<property name="name" value="Sixto" />
+		<property name="surnames" value="Mejide Llácer" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="sixdia@gmail.com" />
+		<property name="phone" value="639833875" />
+		<property name="address" value="c/Leveo 119" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount13" />
+	</bean>
+	
+	<!-- Representative beans -->
+	<bean id="representative1" class="domain.Representative">
+		<property name="name" value="Rafael" />
+		<property name="surnames" value="Abril Farme" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="Rafitabril@gmail.com" />
+		<property name="phone" value="639854925" />
+		<property name="address" value="c/Talabo 13" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount14" />
+	</bean>
+	
+	<bean id="representative2" class="domain.Representative">
+		<property name="name" value="Mariano" />
+		<property name="surnames" value="Radiador Simón" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="maniano@gmail.com" />
+		<property name="phone" value="632584155" />
+		<property name="address" value="c/Cantarranas 10" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount15" />
+	</bean>
+	
+	<bean id="representative3" class="domain.Representative">
+		<property name="name" value="Paula" />
+		<property name="surnames" value="Planta Pez" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="paulitavege@gmail.com" />
+		<property name="phone" value="639854695" />
+		<property name="address" value="c/Madril 69" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount16" />
+	</bean>
+	
+	<!-- Box (Vox) beans -->
+	<!-- admin boxes -->
+	<bean id="inBox1" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox1" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox1" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox1" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- rider1 boxes -->
+	<bean id="inBox2" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox2" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox2" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox2" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- rider2 boxes -->
+	<bean id="inBox3" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox3" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox3" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox3" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- rider3 boxes -->
+	<bean id="inBox4" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox4" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox4" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox4" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="rider3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- manager1 boxes -->
+	<bean id="inBox5" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox5" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox5" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox5" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- manager2 boxes -->
+	<bean id="inBox6" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox6" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox6" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox6" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- manager3 boxes -->
+	<bean id="inBox7" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox7" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox7" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox7" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="manager3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- raceDirector1 boxes -->
+	<bean id="inBox8" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox8" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox8" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox8" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- raceDirector2 boxes -->
+	<bean id="inBox9" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox9" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox9" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox9" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- raceDirector3 boxes -->
+	<bean id="inBox10" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox10" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox10" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox10" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="raceDirector3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- sponsor1 boxes -->
+	<bean id="inBox11" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox11" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox11" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox11" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- sponsor2 boxes -->
+	<bean id="inBox12" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox12" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox12" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox12" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- sponsor3 boxes -->
+	<bean id="inBox13" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox13" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox13" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox13" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="sponsor3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- representative1 boxes -->
+	<bean id="inBox14" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox14" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox14" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox14" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative1" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+		<!-- representative2 boxes -->
+	<bean id="inBox15" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox15" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox15" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox15" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative2" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+		<!-- representative3 boxes -->
+	<bean id="inBox16" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox16" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox16" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox16" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="representative3" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- Announcement beans -->
+	<bean id="announcement1" class="domain.Announcement">
+		<property name="moment" value="15/03/2014 10:12" />
+		<property name="title" value="This is an announcement for a grand prix!" />
+		<property name="description" ref="This grand prix is organised by the race director 1!" />
+		<property name="attachments" value="http://www.twitter.com"/>
+		<property name="finalMode" value="false"/>
+		<property name="raceDirector" ref="raceDirector1"/>
+		<property name="grandPrix" ref="grandPrix1"/>
+	</bean>
+	
+	<bean id="announcement2" class="domain.Announcement">
+		<property name="moment" value="15/03/2015 10:12" />
+		<property name="title" value="This is indeed an announcement for a grand prix!" />
+		<property name="description" ref="This grand prix is organised by the race director 1!" />
+		<property name="attachments" value="http://www.twitter.com"/>
+		<property name="finalMode" value="true"/>
+		<property name="raceDirector" ref="raceDirector1"/>
+		<property name="grandPrix" ref="grandPrix1"/>
+	</bean>
+	
+	<bean id="announcement3" class="domain.Announcement">
+		<property name="moment" value="15/03/2016 10:12" />
+		<property name="title" value="This is NOT an announcement for a grand prix!" />
+		<property name="description" ref="This grand prix is organised by the race director 2, my fav!" />
+		<property name="attachments" value="http://www.twitter.com"/>
+		<property name="finalMode" value="false"/>
+		<property name="raceDirector" ref="raceDirector2"/>
+		<property name="grandPrix" ref="grandPrix2"/>
+	</bean>
+	
+	<!-- Answer beans -->
+	<bean id="answer1" class="domain.Answer">
+		<property name="moment" value="15/03/2014 10:12" />
+		<property name="comment" value="This is an answer!" />
+		<property name="agree" value="false"/>
+		<property name="reason" value="I don't like this kind of announcements"/>
+		<property name="manager" ref="manager1"/>
+		<property name="announcement" ref="announcement1"/>
+	</bean>
+	
+	<bean id="answer2" class="domain.Answer">
+		<property name="moment" value="15/03/2013 10:12" />
+		<property name="comment" value="This is a good answer!" />
+		<property name="agree" value="true"/>
+		<property name="reason" value="I love this!"/>
+		<property name="manager" ref="manager1"/>
+		<property name="announcement" ref="announcement1"/>
+	</bean>
+	
+	<bean id="answer3" class="domain.Answer">
+		<property name="moment" value="15/03/2015 10:12" />
+		<property name="comment" value="This is a shit!" />
+		<property name="agree" value="false"/>
+		<property name="reason" value="I don't like you!"/>
+		<property name="manager" ref="manager2"/>
+		<property name="announcement" ref="announcement2"/>
+	</bean>
+	
+	<!-- Application beans -->
+	<bean id="application1" class="domain.Application">
+		<property name="moment" value="16/03/2014 10:12" />
+		<property name="status" value="REJECTED"/>
+		<property name="comments" value="This is an application" />
+		<property name="reason" value="Your application is bargage"/>
+		<property name="grandPrix" ref="grandPrix1"/>
+		<property name="rider" ref="rider1"/>
+	</bean>
+	
+	<bean id="application2" class="domain.Application">
+		<property name="moment" value="16/03/2014 10:15" />
+		<property name="status" value="ACCEPTED"/>
+		<property name="comments" value="Accept me, I'm the best hehe" />
+		<property name="reason"><null/></property>
+		<property name="grandPrix" ref="grandPrix1"/>
+		<property name="rider" ref="rider2"/>
+	</bean>
+	
+	<bean id="application3" class="domain.Application">
+		<property name="moment" value="16/03/2014 10:20" />
+		<property name="status" value="PENDING"/>
+		<property name="comments" value="Please accept me" />
+		<property name="reason"><null/></property>
+		<property name="grandPrix" ref="grandPrix1"/>
+		<property name="rider" ref="rider3"/>
+	</bean>
+	
+	<!-- Category beans -->
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="CATEGORY" />
+		<property name="parent"><null/></property>
+	</bean>
+	
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="Motorbikes" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="Cars" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="Quads" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Trucks" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category6" class="domain.Category">
+		<property name="name" value="Buggles" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Moto3" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Moto2" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category9" class="domain.Category">
+		<property name="name" value="MotoGP" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category10" class="domain.Category">
+		<property name="name" value="MxGP" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category11" class="domain.Category">
+		<property name="name" value="MxGP2" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category12" class="domain.Category">
+		<property name="name" value="Superbikes" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category13" class="domain.Category">
+		<property name="name" value="Supermoto" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category14" class="domain.Category">
+		<property name="name" value="CEV" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category15" class="domain.Category">
+		<property name="name" value="Enduro" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category16" class="domain.Category">
+		<property name="name" value="Superenduro" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category17" class="domain.Category">
+		<property name="name" value="Dirt track" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category18" class="domain.Category">
+		<property name="name" value="Formula 1" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category19" class="domain.Category">
+		<property name="name" value="GP2" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category20" class="domain.Category">
+		<property name="name" value="Rallycross" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category21" class="domain.Category">
+		<property name="name" value="Land Rush" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category22" class="domain.Category">
+		<property name="name" value="Rally" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category23" class="domain.Category">
+		<property name="name" value="Nascar" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category24" class="domain.Category">
+		<property name="name" value="Raid" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category25" class="domain.Category">
+		<property name="name" value="Indianapolis" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category26" class="domain.Category">
+		<property name="name" value="Drift" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category27" class="domain.Category">
+		<property name="name" value="Quad cross" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category28" class="domain.Category">
+		<property name="name" value="Beach Cross" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category29" class="domain.Category">
+		<property name="name" value="Endurance Racing" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category30" class="domain.Category">
+		<property name="name" value="Quad Tournament" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category31" class="domain.Category">
+		<property name="name" value="Monster Jam" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category32" class="domain.Category">
+		<property name="name" value="Trade Trucks" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category33" class="domain.Category">
+		<property name="name" value="Volvo Trucks" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category34" class="domain.Category">
+		<property name="name" value="Tuff Challenge" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category35" class="domain.Category">
+		<property name="name" value="Tough Challenge" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category36" class="domain.Category">
+		<property name="name" value="Super Trucks" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category37" class="domain.Category">
+		<property name="name" value="Baja" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category38" class="domain.Category">
+		<property name="name" value="Club Handicap" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category39" class="domain.Category">
+		<property name="name" value="Greenock" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category40" class="domain.Category">
+		<property name="name" value="Peter Lynn Competition" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category41" class="domain.Category">
+		<property name="name" value="Belton Park" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category42" class="domain.Category">
+		<property name="name" value="Extreme" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<!-- Circuit beans -->
+	<bean id="circuit1" class="domain.Circuit">
+		<property name="name" value="Jerez" />
+		<property name="terms" value="These are the terms"/>
+		<property name="country" value="Spain" />
+		<property name="rightCorners" value="6"/>
+		<property name="leftCorners" value="8"/>
+		<property name="length" value="80"/>
+	</bean>
+	
+	<bean id="circuit2" class="domain.Circuit">
+		<property name="name" value="Indianápolis" />
+		<property name="terms" value="These are the terms of my circuit"/>
+		<property name="country" value="USA" />
+		<property name="rightCorners" value="5"/>
+		<property name="leftCorners" value="10"/>
+		<property name="length" value="75"/>
+	</bean>
+	
+	<bean id="circuit3" class="domain.Circuit">
+		<property name="name" value="Montmeló" />
+		<property name="terms" value="Minmilí"/>
+		<property name="country" value="Somewhere" />
+		<property name="rightCorners" value="9"/>
+		<property name="leftCorners" value="7"/>
+		<property name="length" value="90"/>
+	</bean>
+	
+	<!-- Configuration beans -->
+	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="systemName" value="Acme Motoresports" />
+		<property name="banner"
+			value="https://www.motorsportsafety.org/sites/default/files/memberprofilebanner.png" />
+		<property name="welcomeES"
+			value="¡Bienvenidos a Acme Motorsports Carreras, calidad y competicion en el mismo sitio" />
+		<property name="welcomeEN"
+			value="Welcome to Acme Motorsports! Racing, quality, and competition in a single place" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you’ve been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>
+		<property name="countryCode" value="+34 " />
+		<property name="expireFinderMinutes" value="60" />
+		<property name="maxFinderResults" value="10" />
+		<property name="positiveWords">
+			<list>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+				<value>beautiful</value>
+				<value>bueno</value>
+				<value>fantástico</value>
+				<value>excelente</value>
+				<value>increíble</value>
+				<value>genial</value>
+				<value>estupendo</value>
+				<value>hermoso</value>
+			</list>
+		</property>
+		<property name="negativeWords">
+			<list>
+				<value>not</value>
+				<value>bad</value>
+				<value>horrible</value>
+				<value>average</value>
+				<value>disaster</value>
+				<value>no</value>
+				<value>malo</value>
+				<value>mediocre</value>
+				<value>desastre</value>
+			</list>
+		</property>
+		<property name="creditCardList">
+			<list>
+				<value>VISA</value>
+				<value>MASTER</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
+			</list>
+		</property>
+	<property name="vat" value="1.21" />
+	</bean>
+	
+	<!-- CreditCard beans -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="Juan Respe Rodriguez" />
+		<property name="make" value="MASTER" />
+		<property name="number" value="5564157826282522" />
+		<property name="expMonth" value="10" />
+		<property name="expYear" value="2020" />
+		<property name="cvv" value="150" />
+	</bean>
+
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holder" value="Sergio Morales" />
+		<property name="make" value="VISA" />
+		<property name="number" value="4716665991180313" />
+		<property name="expMonth" value="12" />
+		<property name="expYear" value="2021" />
+		<property name="cvv" value="220" />
+	</bean>
+
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holder" value="Juan Antonio Montaño" />
+		<property name="make" value="AMEX" />
+		<property name="number" value="370087233058204" />
+		<property name="expMonth" value="11" />
+		<property name="expYear" value="2022" />
+		<property name="cvv" value="678" />
+	</bean>
+	
+	<!-- FanClub beans -->
+	<bean id="fanClub1" class="domain.FanClub">
+		<property name="name" value="Luis Rossi F.C" />
+		<property name="summary" value="We love the best rider ever, Luisito!" />
+		<property name="numberOfFans" value="1020" />
+		<property name="establishmentDate" value="10/12/2013 12:12" />
+		<property name="banner"><null/></property>
+		<property name="pictures"><null/></property>
+		<property name="representative" ref="representative1" />
+		<property name="rider" value="rider1" />
+	</bean>	
+	
+	<bean id="fanClub2" class="domain.FanClub">
+		<property name="name" value="Juanjito Pichardo F.C" />
+		<property name="summary" value="We love the best guitarist ever, Juanjiyo!" />
+		<property name="numberOfFans" value="10" />
+		<property name="establishmentDate" value="10/12/2018 23:59" />
+		<property name="banner"><null/></property>
+		<property name="pictures"><null/></property>
+		<property name="representative" ref="representative1" />
+		<property name="rider" value="rider2" />
+	</bean>	
+	
+	<bean id="fanClub3" class="domain.FanClub">
+		<property name="name" value="Whoever F.C" />
+		<property name="summary" value="We love the winner!" />
+		<property name="numberOfFans" value="100" />
+		<property name="establishmentDate" value="01/01/2014" />
+		<property name="banner"><null/></property>
+		<property name="pictures"><null/></property>
+		<property name="representative" ref="representative2" />
+		<property name="rider" value="rider3" />
+	</bean>	
+	
+	<!-- FastestLap beans -->
+	<bean id="fastestLap1" class="domain.FastestLap">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="time" value="00:01"/>
+		<property name="lap" value="10" />
+		<property name="comments" value="I remember it was so intense" />
+	</bean>	
+	
+	<bean id="fastestLap2" class="domain.FastestLap">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Montmeló" />
+		<property name="rider" ref="rider1"/>
+		<property name="time" value="00:01"/>
+		<property name="lap" value="12" />
+		<property name="comments" value="I got it although I was not feeling pretty well" />
+	</bean>	
+	
+	<bean id="fastestLap3" class="domain.FastestLap">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2010" />
+		<property name="category" value="Moto2" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="time" value="00:01"/>
+		<property name="lap" value="8" />
+		<property name="comments" value="My first fastest lap ever!"/>
+	</bean>	
+	
+	<!-- Finder beans -->
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyWord"><null /></property>
+		<property name="dateStart"><null /></property>
+		<property name="dateEnd"><null /></property>
+		<property name="category"><null /></property>
+		<property name="circuit"><null /></property>
+		<property name="moment"><null /></property>
+		<property name="grandPrixes">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyWord"><null /></property>
+		<property name="dateStart"><null /></property>
+		<property name="dateEnd"><null /></property>
+		<property name="category"><null /></property>
+		<property name="circuit"><null /></property>
+		<property name="moment"><null /></property>
+		<property name="grandPrixes">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Forecast beans -->
+	<bean id="forecast1" class="domain.Forecast">
+		<property name="asphaltTemperature" value="40" />
+		<property name="ambientTemperature" value="20" />
+		<property name="windSpeed" value="15" />
+		<property name="windDirection" value="West" />
+		<property name="rainMm" value="0"/>
+		<property name="cloudPercentage" value="20"/>
+		<property name="raceDirector" ref="raceDirector1" />
+		<property name="grandPrix" ref="grandPrix1" />
+	</bean>	
+	
+	<bean id="forecast2" class="domain.Forecast">
+		<property name="asphaltTemperature" value="50" />
+		<property name="ambientTemperature" value="27" />
+		<property name="windSpeed" value="12" />
+		<property name="windDirection" value="North" />
+		<property name="rainMm" value="0"/>
+		<property name="cloudPercentage" value="12"/>
+		<property name="raceDirector" ref="raceDirector1" />
+		<property name="grandPrix" ref="grandPrix2" />
+	</bean>	
+	
+	<bean id="forecast3" class="domain.Forecast">
+		<property name="asphaltTemperature" value="31" />
+		<property name="ambientTemperature" value="12" />
+		<property name="windSpeed" value="27" />
+		<property name="windDirection" value="East" />
+		<property name="rainMm" value="24"/>
+		<property name="cloudPercentage" value="87"/>
+		<property name="raceDirector" ref="raceDirector2" />
+		<property name="grandPrix" ref="grandPrix3" />
+	</bean>	
+		
+	<!-- GrandPrix beans -->
+	<bean id="grandPrix1" class="domain.GrandPrix">
+		<property name="ticker" value="080314-W2AG" />
+		<property name="description" value="Grand prix of Jerez 2014" />
+		<property name="publishDate" value="10/03/2014 13:00" />
+		<property name="startDate" value="22/03/2014 11:00" />
+		<property name="endDate" value="24/03/2014 16:30"/>
+		<property name="maxRiders" value="22"/>
+		<property name="finalMode" value="true" />
+		<property name="cancelled" value="false" />
+		<property name="worldChampionship" ref="worldChampionship1" />
+		<property name="category" ref="category9" />
+		<property name="circuit" ref="circuit1" />
+	</bean>
+	
+	<bean id="grandPrix2" class="domain.GrandPrix">
+		<property name="ticker" value="200314-W2AG" />
+		<property name="description" value="Grand prix of Montmelo 2014" />
+		<property name="publishDate" value="22/03/2014 13:00" />
+		<property name="startDate" value="28/03/2014 11:00" />
+		<property name="endDate" value="30/03/2014 16:30"/>
+		<property name="maxRiders" value="22"/>
+		<property name="finalMode" value="true" />
+		<property name="cancelled" value="true" />
+		<property name="worldChampionship" ref="worldChampionship1" />
+		<property name="category" ref="category9" />
+		<property name="circuit" ref="circuit2" />
+	</bean>
+	
+	<bean id="grandPrix3" class="domain.GrandPrix">
+		<property name="ticker" value="050414-W2AG" />
+		<property name="description" value="Grand prix of Indianapolis 2014" />
+		<property name="publishDate"><null/></property>
+		<property name="startDate" value="22/03/2014 11:00" />
+		<property name="endDate" value="24/03/2014 16:30"/>
+		<property name="maxRiders" value="22"/>
+		<property name="finalMode" value="false" />
+		<property name="cancelled" value="false" />
+		<property name="worldChampionship" ref="worldChampionship1" />
+		<property name="category" ref="category9" />
+		<property name="circuit" ref="circuit3" />
+	</bean>
+	
+	<!-- Meeting beans -->
+	<bean id="meeting1" class="domain.Meeting">
+		<property name="moment" value="24/03/2014 17:30" />
+		<property name="comments" value="Come and meet your favorite rider." />
+		<property name="place" value="Yamaha boxes"/>
+		<property name="signatures" value="25" />
+		<property name="photos" value="20"/>
+		<property name="duration" value="45"/>
+		<property name="riderToRepresentative" value="false" />
+		<property name="rider" ref="rider1" />
+		<property name="representative" ref="representative1" />
+	</bean>
+		
+	<bean id="meeting2" class="domain.Meeting">
+		<property name="moment" value="30/03/2014 17:30" />
+		<property name="comments" value="Come and meet your favorite rider." />
+		<property name="place" value="Yamaha boxes"/>
+		<property name="signatures" value="25" />
+		<property name="photos" value="20"/>
+		<property name="duration" value="45"/>
+		<property name="riderToRepresentative" value="false" />
+		<property name="rider" ref="rider1" />
+		<property name="representative" ref="representative1" />
+	</bean>
+	
+	<bean id="meeting3" class="domain.Meeting">
+		<property name="moment" value="06/04/2014 17:30" />
+		<property name="comments" value="I'll be on our boxes for 1 hour!" />
+		<property name="place" value="Yamaha boxes"/>
+		<property name="signatures" value="40" />
+		<property name="photos" value="25"/>
+		<property name="duration" value="60"/>
+		<property name="riderToRepresentative" value="true" />
+		<property name="rider" ref="rider1" />
+		<property name="representative" ref="representative1" />
+	</bean>
+	
+	<!-- Message beans (Not added for the moment)-->
+	
+	<!-- Podium beans -->
+	<bean id="podium1" class="domain.Podium">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="position" value="1" />
+	</bean>
+	
+	<bean id="podium2" class="domain.Podium">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Montmeló" />
+		<property name="rider" ref="rider1"/>
+		<property name="position" value="1" />
+	</bean>
+	
+	<bean id="podium3" class="domain.Podium">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Indianapolis" />
+		<property name="rider" ref="rider1"/>
+		<property name="position" value="2" />
+	</bean>
+	
+	<bean id="podium4" class="domain.Podium">
+		<property name="team" value="Repsol" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider2"/>
+		<property name="position" value="2" />
+	</bean>
+	
+	<!-- Pole beans -->
+	<bean id="pole1" class="domain.Pole">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="time" value="01:31:01" />
+	</bean>
+	
+	<!-- Qualifying beans -->
+	<bean id="qualifying1" class="domain.Qualifying">
+		<property name="name" value="Qualifying 1 for Jerez" />
+		<property name="duration" value="70" />
+		<property name="startMoment" value="22/03/2014 11:15" />
+		<property name="endMoment" value="22/03/2014 12:25" />
+		<property name="grandPrix" ref="grandPrix1"/>
+	</bean>
+	
+	<bean id="qualifying2" class="domain.Qualifying">
+		<property name="name" value="Qualifying 2 for Jerez" />
+		<property name="duration" value="70" />
+		<property name="startMoment" value="22/03/2014 13:00" />
+		<property name="endMoment" value="22/03/2014 14:10" />
+		<property name="grandPrix" ref="grandPrix1"/>
+	</bean>
+	
+	<bean id="qualifying3" class="domain.Qualifying">
+		<property name="name" value="Qualifying 3 for Jerez" />
+		<property name="duration" value="100" />
+		<property name="startMoment" value="23/03/2014 11:15" />
+		<property name="endMoment" value="23/03/2014 12:55" />
+		<property name="grandPrix" ref="grandPrix1"/>
+	</bean>
+	
+	<!-- Race beans -->
+	<bean id="race1" class="domain.Race">
+		<property name="laps" value="19" />
+		<property name="startMoment" value="24/03/2014 14:30" />
+		<property name="endMoment" value="24/03/2014 16:00" />
+		<property name="grandPrix" ref="grandPrix1"/>
+	</bean>
+	
+	<bean id="race2" class="domain.Race">
+		<property name="laps" value="21" />
+		<property name="startMoment" value="30/03/2014 14:30" />
+		<property name="endMoment" value="30/03/2014 16:00" />
+		<property name="grandPrix" ref="grandPrix2"/>
+	</bean>
+	
+	<!-- Sector beans -->
+	<bean id="sector1" class="domain.Sector">
+		<property name="stand" value="High floor" />
+		<property name="rows" value="10" />
+		<property name="columns" value="20" />
+		<property name="fanClub" ref="fanClub1"/>
+		<property name="circuit" ref="circuit1"/>
+	</bean>
+	
+	<bean id="sector2" class="domain.Sector">
+		<property name="stand" value="Low floor" />
+		<property name="rows" value="3" />
+		<property name="columns" value="10" />
+		<property name="fanClub" ref="fanClub2"/>
+		<property name="circuit" ref="circuit1"/>
+	</bean>
+	
+	<!-- Social Profile beans -->
+	
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="Luis1" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="profileLink" value="https://www.instagram.com" />
+		<property name="actor" ref="rider1" />
+	</bean>
+
+	<bean id="socialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="Juan2" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="profileLink" value="https://www.instagram.com" />
+		<property name="actor" ref="rider1" />
+	</bean>
+
+	<bean id="socialProfile3" class="domain.SocialProfile">
+		<property name="nick" value="Antonio3" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="profileLink" value="https://www.instagram.com" />
+		<property name="actor" ref="rider2" />
+	</bean>
+
+	<bean id="socialProfile4" class="domain.SocialProfile">
+		<property name="nick" value="Kristosito69" />
+		<property name="socialNetwork" value="You tube" />
+		<property name="profileLink" value="https://www.youtube.com" />
+		<property name="actor" ref="rider2" />
+	</bean>
+	
+	<bean id="socialProfile5" class="domain.SocialProfile">
+		<property name="nick" value="kristoAlphaSniper" />
+		<property name="socialNetwork" value="Twitter" />
+		<property name="profileLink" value="https://www.twitter.com" />
+		<property name="actor" ref="manager1" />
+	</bean>
+	
+	<bean id="socialProfile6" class="domain.SocialProfile">
+		<property name="nick" value="TammyGenteConLasManoArriba" />
+		<property name="socialNetwork" value="Twiter" />
+		<property name="profileLink" value="https://www.twitter.com" />
+		<property name="actor" ref="manager2" />
+	</bean>
+	
+	<!-- Sponsorship beans -->
+	
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="banner" value="http://store.latingamers.net/image/cache/catalog/Manufacturers/Intel-400x200.png" />
+		<property name="link" value="https://www.intel.es/content/www/es/es/homepage.html" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="team" ref="team1" />
+		<property name="sponsor" ref="sponsor1" />
+	</bean>
+	
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="banner" value="https://s03.s3c.es/imag/_v0/640x319/4/5/e/telegram.jpg" />
+		<property name="link" value="http://telegram.com.es/" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="team" ref="team2" />
+		<property name="sponsor" ref="sponsor2" />
+	</bean>
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="banner" value="https://upload.wikimedia.org/wikipedia/commons/7/71/DAZN_logo.svg" />
+		<property name="link" value="https://www.dazn.com" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="team" ref="team3" />
+		<property name="sponsor" ref="sponsor2" />
+	</bean>
+	
+	<!-- Team beans -->
+	<bean id="team1" class="domain.Team1">
+		<property name="name" value="Yamaha" />
+		<property name="moment" value="21/01/2005 10:00" />
+		<property name="contractYears" value="3" />
+		<property name="colours" value="blue-white" />
+		<property name="logo" value="http://www.youtube.com" />
+		<property name="factory" value="Yamaha" />
+		<property name="yearBudget" value="150000" />
+		<property name="manager" ref="manager1" />
+	</bean>
+	
+	<bean id="team2" class="domain.Team1">
+		<property name="name" value="Repsol" />
+		<property name="moment" value="20/11/2005 10:00" />
+		<property name="contractYears" value="5" />
+		<property name="colours" value="orange" />
+		<property name="logo" value="http://www.youtube.com" />
+		<property name="factory" value="Repsol" />
+		<property name="yearBudget" value="220000" />
+		<property name="manager" ref="manager2" />
+	</bean>
+	
+	<bean id="team3" class="domain.Team1">
+		<property name="name" value="Ducati" />
+		<property name="moment" value="24/12/2006 10:00" />
+		<property name="contractYears" value="2" />
+		<property name="colours" value="red" />
+		<property name="logo" value="http://www.youtube.com" />
+		<property name="factory" value="Ducati" />
+		<property name="yearBudget" value="3150000" />
+		<property name="manager" ref="manager3" />
+	</bean>
+	
+	<!-- Victory beans -->
+	<bean id="victory1" class="domain.Victory">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="photos" value="http://www.facebook.com"/>
+		<property name="attachments"><null/></property>
+	</bean>	
+	
+	<bean id="victory2" class="domain.Victory">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Montmeló" />
+		<property name="rider" ref="rider1"/>
+		<property name="photos" value="http://www.facebook.com"/>
+		<property name="attachments"><null/></property>
+	</bean>	
+	
+	<bean id="victory3" class="domain.Victory">
+		<property name="team" value="Repsol" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Indianapolis" />
+		<property name="rider" ref="rider2"/>
+		<property name="photos" value="http://www.facebook.com"/>
+		<property name="attachments"><null/></property>
+	</bean>	
+	
+	<!-- WorldChampion beans -->
+	<bean id="worldChampion1" class="domain.WorldChampion">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2014" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="photos" value="http://www.facebook.com"/>
+		<property name="points" value="121" />
+		<property name="specialThanks" value="Mom and dad" />
+	</bean>		
+	
+	<bean id="worldChampion2" class="domain.WorldChampion">
+		<property name="team" value="Yamaha" />
+		<property name="year" value="2015" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Jerez" />
+		<property name="rider" ref="rider1"/>
+		<property name="photos" value="http://www.facebook.com"/>
+		<property name="points" value="110" />
+		<property name="specialThanks" value="Grandpa" />
+	</bean>		
+	
+	<bean id="worldChampion3" class="domain.WorldChampion">
+		<property name="team" value="Repsol" />
+		<property name="year" value="2016" />
+		<property name="category" value="MotoGP" />
+		<property name="circuitName" value="Montmelo" />
+		<property name="rider" ref="rider2"/>
+		<property name="photos" value="http://www.facebook.com"/>
+		<property name="points" value="141" />
+		<property name="specialThanks" value="The team" />
+	</bean>		
+	
+	<!-- WorldChampionship beans -->
+	
+	<bean id="worldChampionship1" class="domain.WorldChampionship">
+		<property name="name" value="MotoGP 2014 World championship" />
+		<property name="description" value="This is the world championship for 2014" />
+		<property name="raceDirector" ref="raceDirector1" />
+	</bean>		
+	
+	<bean id="worldChampionship2" class="domain.WorldChampionship">
+		<property name="name" value="MotoGP 2015 World championship" />
+		<property name="description" value="This is the world championship for 2015" />
+		<property name="raceDirector" ref="raceDirector1" />
+	</bean>	
+	
+	<bean id="worldChampionship3" class="domain.WorldChampionship">
+		<property name="name" value="MotoGP 2016 World championship" />
+		<property name="description" value="This is the world championship for 2016" />
+		<property name="raceDirector" ref="raceDirector2" />
+	</bean>	
+</beans>

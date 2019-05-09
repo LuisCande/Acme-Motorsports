@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * converters.xml
+ *
+ * Copyright (C) 2019 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd		
+	">
+
+	<util:list id="converters">
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+		
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		
+		<bean class="converters.AnnouncementToStringConverter" />
+		<bean class="converters.StringToAnnouncementConverter" />
+		
+		<bean class="converters.AnswerToStringConverter" />
+		<bean class="converters.StringToAnswerConverter" />
+		
+		<bean class="converters.ApplicationToStringConverter" />
+		<bean class="converters.StringToApplicationConverter" />
+		
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
+		
+		<bean class="converters.BoxToStringConverter" />
+		<bean class="converters.StringToBoxConverter" />
+		
+		<bean class="converters.CategoryToStringConverter" />
+		<bean class="converters.StringToCategoryConverter" />
+		
+		<bean class="converters.CircuitToStringConverter" />
+		<bean class="converters.StringToCircuitConverter" />
+		
+		<bean class="converters.ConfigurationToStringConverter" />
+		<bean class="converters.StringToConfigurationConverter" />
+		
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
+		
+		<bean class="converters.FanClubToStringConverter" />
+		<bean class="converters.StringToFanClubConverter" />
+		
+		<bean class="converters.FastestLapToStringConverter" />
+		<bean class="converters.StringToFastestLapConverter" />
+		
+		<bean class="converters.FinderToStringConverter" />
+		<bean class="converters.StringToFinderConverter" />
+				
+		<bean class="converters.ForecastToStringConverter" />
+		<bean class="converters.StringToForecastConverter" />
+		
+		<bean class="converters.GrandPrixToStringConverter" />
+		<bean class="converters.StringToGrandPrixConverter" />
+		
+		<bean class="converters.ManagerToStringConverter" />
+		<bean class="converters.StringToManagerConverter" />
+		
+		<bean class="converters.MeetingToStringConverter" />
+		<bean class="converters.StringToMeetingConverter" />
+		
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
+		
+		<bean class="converters.PalmaresToStringConverter" />
+		<bean class="converters.StringToPalmaresConverter" />
+		
+		<bean class="converters.PodiumToStringConverter" />
+		<bean class="converters.StringToPodiumConverter" />
+		
+		<bean class="converters.PoleToStringConverter" />
+		<bean class="converters.StringToPoleConverter" />
+		
+		<bean class="converters.QualifyingToStringConverter" />
+		<bean class="converters.StringToQualifyingConverter" />
+		
+		<bean class="converters.RaceToStringConverter" />
+		<bean class="converters.StringToRaceConverter" />
+		
+		<bean class="converters.RaceDirectorToStringConverter" />
+		<bean class="converters.StringToRaceDirectorConverter" />
+		
+		<bean class="converters.RepresentativeToStringConverter" />
+		<bean class="converters.StringToRepresentativeConverter" />
+		
+		<bean class="converters.RiderToStringConverter" />
+		<bean class="converters.StringToRiderConverter" />
+		
+		<bean class="converters.SectorToStringConverter" />
+		<bean class="converters.StringToSectorConverter" />
+		
+		<bean class="converters.SocialProfileToStringConverter" />
+		<bean class="converters.StringToSocialProfileConverter" />
+		
+		<bean class="converters.SponsorToStringConverter" />
+		<bean class="converters.StringToSponsorConverter" />
+		
+		<bean class="converters.SponsorshipToStringConverter" />
+		<bean class="converters.StringToSponsorshipConverter" />
+		
+		<bean class="converters.TeamToStringConverter" />
+		<bean class="converters.StringToTeamConverter" />
+		
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
+		
+		<bean class="converters.VictoryToStringConverter" />
+		<bean class="converters.StringToVictoryConverter" />
+		
+		<bean class="converters.WorldChampionToStringConverter" />
+		<bean class="converters.StringToWorldChampionConverter" />
+		
+		<bean class="converters.WorldChampionshipToStringConverter" />
+		<bean class="converters.StringToWorldChampionshipConverter" />
+		
+	</util:list>
+	
+</beans>
