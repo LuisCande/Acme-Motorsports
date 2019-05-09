@@ -7,10 +7,10 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -57,16 +57,19 @@ public class Meeting extends DomainEntity {
 	}
 
 	@NotNull
+	@Min(0)
 	public Integer getSignatures() {
 		return this.signatures;
 	}
 
 	@NotNull
+	@Min(0)
 	public Integer getPhotos() {
 		return this.photos;
 	}
 
 	@NotNull
+	@Min(0)
 	public Integer getDuration() {
 		return this.duration;
 	}
@@ -78,7 +81,7 @@ public class Meeting extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public Representative getRepresentative() {
 		return this.representative;
 	}

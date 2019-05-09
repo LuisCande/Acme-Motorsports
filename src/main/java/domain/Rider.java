@@ -39,6 +39,7 @@ public class Rider extends Actor {
 	}
 
 	@NotNull
+	@Min(10)
 	public Integer getAge() {
 		return this.age;
 	}
