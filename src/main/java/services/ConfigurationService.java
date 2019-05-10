@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
@@ -51,12 +50,6 @@ public class ConfigurationService {
 		//Assertion that the user modifying this configuration has the correct privilege.
 		Assert.isTrue(a.getUserAccount().getAuthorities().contains(auth));
 
-		//Checking that the configuration at least has the 3 basic priorities: LOW, NEUTRAL and HIGH
-		//this.checkPriorities(configuration);
-
-		//Checking that the configuration at least has the 5 basic makes: VISA, MCARD, AMEX, DINNERS, FLY
-		this.checkCreditCardList(configuration);
-
 		//Assertion to make sure that the country code is valid.
 		Assert.isTrue(this.checkCountryCode(configuration));
 
@@ -64,55 +57,6 @@ public class ConfigurationService {
 
 		return saved;
 	}
-
-	private Collection<String> checkCreditCardList(final Configuration configuration) {
-
-		if (configuration.getCreditCardList() == null)
-			configuration.setCreditCardList(new ArrayList<String>());
-
-		if (configuration.getCreditCardList().isEmpty()) {
-			configuration.getCreditCardList().add("VISA");
-			configuration.getCreditCardList().add("MCARD");
-			configuration.getCreditCardList().add("AMEX");
-			configuration.getCreditCardList().add("DINNERS");
-			configuration.getCreditCardList().add("FLY");
-		} else if (!configuration.getCreditCardList().contains("VISA") || !configuration.getCreditCardList().contains("MCARD") || !configuration.getCreditCardList().contains("AMEX") || !configuration.getCreditCardList().contains("DINNERS")
-			|| !configuration.getCreditCardList().contains("FLY")) {
-
-			if (!configuration.getCreditCardList().contains("VISA"))
-				configuration.getCreditCardList().add("VISA");
-			if (!configuration.getCreditCardList().contains("MCARD"))
-				configuration.getCreditCardList().add("MCARD");
-			if (!configuration.getCreditCardList().contains("AMEX"))
-				configuration.getCreditCardList().add("AMEX");
-			if (!configuration.getCreditCardList().contains("DINNERS"))
-				configuration.getCreditCardList().add("DINNERS");
-			if (!configuration.getCreditCardList().contains("FLY"))
-				configuration.getCreditCardList().add("FLY");
-		}
-		return configuration.getCreditCardList();
-	}
-
-	//TODO check prioridades, hace falta? No lo tengo claro jeje estoy borracho en el bus :)
-	//	private Collection<String> checkPriorities(final Configuration configuration) {
-	//
-	//		if (configuration.getPriorityList() == null)
-	//			configuration.setPriorityList(new ArrayList<String>());
-	//
-	//		if (configuration.getPriorityList().isEmpty()) {
-	//			configuration.getPriorityList().add("LOW");
-	//			configuration.getPriorityList().add("NEUTRAL");
-	//			configuration.getPriorityList().add("HIGH");
-	//		} else if (!configuration.getPriorityList().contains("LOW") || !configuration.getPriorityList().contains("NEUTRAL") || !configuration.getPriorityList().contains("HIGH")) {
-	//			if (!configuration.getPriorityList().contains("LOW"))
-	//				configuration.getPriorityList().add("LOW");
-	//			if (!configuration.getPriorityList().contains("NEUTRAL"))
-	//				configuration.getPriorityList().add("NEUTRAL");
-	//			if (!configuration.getPriorityList().contains("HIGH"))
-	//				configuration.getPriorityList().add("HIGH");
-	//		}
-	//		return configuration.getPriorityList();
-	//	}
 
 	//Assertion to make sure that the country code is between 1 and 999.
 	private Boolean checkCountryCode(final Configuration configuration) {

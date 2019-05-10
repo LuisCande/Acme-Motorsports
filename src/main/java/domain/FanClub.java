@@ -37,6 +37,7 @@ public class FanClub extends DomainEntity {
 
 
 	//Getters
+
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -115,4 +116,5 @@ public class FanClub extends DomainEntity {
 	public void setRider(final Rider rider) {
 		this.rider = rider;
 	}
+
 }

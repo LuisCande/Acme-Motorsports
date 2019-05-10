@@ -1,22 +1,28 @@
 
 package domain;
 
+import java.util.Date;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Forecast extends DomainEntity {
 
 	//Attributes
-
+	private Date			moment;
 	private Integer			asphaltTemperature;
 	private Integer			ambientTemperature;
 	private Integer			windSpeed;
@@ -31,6 +37,13 @@ public class Forecast extends DomainEntity {
 
 
 	//Getters
+
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getMoment() {
+		return this.moment;
+	}
 
 	@NotNull
 	public Integer getAsphaltTemperature() {
@@ -72,7 +85,7 @@ public class Forecast extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	public GrandPrix getGrandPrix() {
 		return this.grandPrix;
 	}
@@ -105,5 +118,9 @@ public class Forecast extends DomainEntity {
 
 	public void setGrandPrix(final GrandPrix grandPrix) {
 		this.grandPrix = grandPrix;
+	}
+
+	public void setMoment(final Date moment) {
+		this.moment = moment;
 	}
 }

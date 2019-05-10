@@ -1597,6 +1597,7 @@
 	
 	<!-- Forecast beans -->
 	<bean id="forecast1" class="domain.Forecast">
+		<property name="moment" value="02/05/2018 17:00" />
 		<property name="asphaltTemperature" value="40" />
 		<property name="ambientTemperature" value="20" />
 		<property name="windSpeed" value="15" />
@@ -1608,6 +1609,7 @@
 	</bean>	
 	
 	<bean id="forecast2" class="domain.Forecast">
+		<property name="moment" value="15/11/2018 12:00" />
 		<property name="asphaltTemperature" value="50" />
 		<property name="ambientTemperature" value="27" />
 		<property name="windSpeed" value="12" />
@@ -1619,6 +1621,7 @@
 	</bean>	
 	
 	<bean id="forecast3" class="domain.Forecast">
+		<property name="moment" value="22/03/2014 11:00" />
 		<property name="asphaltTemperature" value="31" />
 		<property name="ambientTemperature" value="12" />
 		<property name="windSpeed" value="27" />
