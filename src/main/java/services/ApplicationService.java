@@ -33,9 +33,6 @@ public class ApplicationService {
 	private ActorService			actorService;
 
 	@Autowired
-	private GrandPrixService		grandPrixService;
-
-	@Autowired
 	private Validator				validator;
 
 
