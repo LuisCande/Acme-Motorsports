@@ -60,7 +60,7 @@ public class AnnouncementService {
 		//Assertion that the user modifying this announcement has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getRaceDirector().getId());
 
-		//TODO Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixs list
+		//TODO Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
 
 		final Announcement saved = this.announcementRepository.save(a);
 

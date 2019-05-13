@@ -313,7 +313,21 @@
 			<version>1.7.4</version>
 		</dependency>
 
+		<!-- PDF Conversion -->
+	
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
+		
 	</dependencies>
 
-	<description>This system allows people share their favourite Shouts.</description>
+	<description>This system allows people to create their own championships.</description>
 </project> 

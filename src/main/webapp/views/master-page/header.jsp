@@ -13,9 +13,9 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<%--
+
 		<spring:message code="master.page.cancel.confirm" var="msgConfirm" />
- --%>
+
 <div>
 	<a href="#"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
 </div>
@@ -32,17 +32,17 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<%--
-					<security:authorize access="hasRole('COMPANY')">
-						<li><a href="company/edit.do"><spring:message
+					
+					<security:authorize access="hasRole('RIDER')">
+						<li><a href="rider/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 
-					<security:authorize access="hasRole('HACKER')">
-						<li><a href="hacker/edit.do"><spring:message
+					<security:authorize access="hasRole('RACEDIRECTOR')">
+						<li><a href="raceDirector/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
-					
+					<%--
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="administrator/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
@@ -53,13 +53,13 @@
 					
 					<li><a href="socialProfile/list.do"><spring:message
 								code="master.page.socialProfile" /> </a></li>
-								
+						--%>		
 					<li><a href="actor/deactivate.do" onclick="return confirm('${msgConfirm}')"><spring:message
 								code="master.page.deactivate" /> </a></li>
 								
 					<li><a href="download/myPersonalData.do"><spring:message
 								code="master.page.export" /> </a></li>
-						--%>	
+							
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				
 				</ul>
@@ -130,6 +130,8 @@
 
 					<li><a href="rider/create.do"><spring:message
 								code="master.page.register.rider" /></a></li>
+					<li><a href="raceDirector/create.do"><spring:message
+								code="master.page.register.raceDirector" /></a></li>
 
 				</ul>
 				

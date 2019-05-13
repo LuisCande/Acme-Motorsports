@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -38,8 +37,6 @@ public class Team extends DomainEntity {
 
 
 	//Getters
-	//TODO invent transient
-	@Transient
 	@Column(unique = true)
 	@NotBlank
 	public String getName() {
