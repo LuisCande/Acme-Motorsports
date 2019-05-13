@@ -44,7 +44,7 @@ public class RiderService {
 
 	public Rider create() {
 		final Authority a = new Authority();
-		a.setAuthority(Authority.ADMIN);
+		a.setAuthority(Authority.RIDER);
 		final UserAccount account = new UserAccount();
 		account.setAuthorities(Arrays.asList(a));
 		account.setBanned(false);

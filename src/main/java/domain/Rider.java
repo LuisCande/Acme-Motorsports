@@ -6,7 +6,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -46,8 +45,6 @@ public class Rider extends Actor {
 		return this.age;
 	}
 
-	//TODO INVENT
-	@Transient
 	public Double getScore() {
 		return this.score;
 	}

@@ -38,12 +38,13 @@
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" />
 		<security:intercept-url pattern="/welcome/**" access="permitAll" /> 
 		<security:intercept-url pattern="/rider/**" access="permitAll" />
+		<security:intercept-url pattern="/raceDirector/**" access="permitAll" />
 		
 		<!-- <security:intercept-url pattern="/message/**" access="isAuthenticated()" />
-		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />-->
 		<security:intercept-url pattern="/actor/deactivate.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/download/**" access="isAuthenticated()" />
- 		-->
+ 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login

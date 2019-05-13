@@ -60,7 +60,7 @@ public class ForecastService {
 		//Assertion that the user modifying this education record has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == f.getRaceDirector().getId());
 
-		//TODO Assertion the forecast published for a grand prix is contained in Race Director WordChampionship grand prixs list
+		//TODO Assertion the forecast published for a grand prix is contained in Race Director WordChampionship grand prixes list
 
 		final Forecast saved = this.forecastRepository.save(f);
 

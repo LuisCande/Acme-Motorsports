@@ -44,7 +44,7 @@ public class RepresentativeService {
 
 	public Representative create() {
 		final Authority a = new Authority();
-		a.setAuthority(Authority.ADMIN);
+		a.setAuthority(Authority.REPRESENTATIVE);
 		final UserAccount account = new UserAccount();
 		account.setAuthorities(Arrays.asList(a));
 		account.setBanned(false);
