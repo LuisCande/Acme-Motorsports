@@ -181,8 +181,7 @@ public class BoxService {
 
 		return this.boxRepository.getSystemBoxByName(actorId, folderName);
 	}
-
-	//TODO same que en el repository. 
+	//TODO Sergio tiene que descomentar esto
 	//Find a box in an actor's collection given a certain message in that box.
 	//	public Collection<Box> getBoxesByMessageAndActor(final int actorId, final int messageId) {
 	//		return this.boxRepository.getBoxesByMessageAndActor(actorId, messageId);
