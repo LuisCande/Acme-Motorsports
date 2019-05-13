@@ -13,36 +13,16 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
+<%--
+		<spring:message code="master.page.cancel.confirm" var="msgConfirm" />
+ --%>
 <div>
-	<a href="#"><img src="images/logo.png" alt="Acme-Motorsports Co., Inc." /></a>
+	<a href="#"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
 </div>
 
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
@@ -52,13 +32,110 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
+					<%--
+					<security:authorize access="hasRole('COMPANY')">
+						<li><a href="company/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+
+					<security:authorize access="hasRole('HACKER')">
+						<li><a href="hacker/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+					
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="administrator/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+					
+					<li><a href="message/list.do"><spring:message
+								code="master.page.message.list" /> </a></li>
+					
+					<li><a href="socialProfile/list.do"><spring:message
+								code="master.page.socialProfile" /> </a></li>
+								
+					<li><a href="actor/deactivate.do" onclick="return confirm('${msgConfirm}')"><spring:message
+								code="master.page.deactivate" /> </a></li>
+								
+					<li><a href="download/myPersonalData.do"><spring:message
+								code="master.page.export" /> </a></li>
+						--%>	
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+				
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<%--
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv"> <spring:message
+						code="master.page.administrator" />
+			</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/dashboard.do"><spring:message
+								code="master.page.administrator.dashboard" /></a></li>
+					<li><a href="configuration/administrator/display.do"><spring:message
+								code="master.page.administrator.configuration" /></a></li>
+					<li><a href="administrator/flagSpam.do"><spring:message
+								code="master.page.administrator.flagSpam" /></a></li>
+					<li><a href="administrator/bannableList.do"><spring:message
+								code="master.page.administrator.bannableList" /></a></li>
+				</ul></li>
+				
+				<li><a class="fNiv"><spring:message
+						code="master.page.administrator.createAcc" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/create.do"><spring:message
+								code="master.page.administrator.create" /></a></li>
+				</ul></li>
+		</security:authorize>
+		--%>
+		
+		
+		<%--<security:authorize access="hasRole('COMPANY')">
+			<li><a class="fNiv"> <spring:message
+						code="master.page.company" />
+			</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="position/company/list.do"><spring:message
+								code="master.page.company.position.list" /></a></li>
+					<li><a href="problem/company/list.do"><spring:message
+								code="master.page.company.problem.list" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		<security:authorize access="hasRole('RIDER')">
+			<li><a href="curriculum/hacker/list.do"><spring:message
+					code="master.page.curriculum.list" /></a></li>
+
+			<li><a href="finder/hacker/edit.do"><spring:message
+					code="master.page.finder.edit" /></a></li>
+					
+			<li><a href="application/hacker/list.do"><spring:message
+					code="master.page.application.list" /></a></li>
+		</security:authorize>--%>
+		
+		
+		
+		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+
+					<li><a href="rider/create.do"><spring:message
+								code="master.page.register.rider" /></a></li>
+
+				</ul>
+				
+				</security:authorize>
+		
+		
 	</ul>
 </div>
 

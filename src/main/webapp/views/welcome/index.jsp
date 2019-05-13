@@ -15,7 +15,22 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
+<spring:message code="welcome.formatDate" var="formatDate" />
+
+<jstl:set var="localeCode" value="${pageContext.response.locale}"/>
+
+<img src="${configuration.banner}" width="489" height="297">
+<br/>
+
+<jstl:if test="${localeCode == 'en'}">
+	<jstl:out value="${configuration.welcomeEN}" />
+</jstl:if>
+<jstl:if test="${localeCode == 'es'}">
+	<jstl:out value="${configuration.welcomeES}" />
+</jstl:if>
+
+<p><spring:message code="welcome.greeting.prefix" /><spring:message code="welcome.greeting.suffix" /></p>
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 

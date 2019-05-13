@@ -90,8 +90,8 @@ public class ActorService {
 	public boolean isBannable(final Actor a) {
 		Boolean isSpam = false;
 
-		final Collection<Actor> spammerActors = this.bannableActors();
-		if (spammerActors.contains(a))
+		final Collection<Actor> suspiciousActors = this.bannableActors();
+		if (suspiciousActors.contains(a))
 			isSpam = true;
 
 		return isSpam;
@@ -255,11 +255,11 @@ public class ActorService {
 	//TODO Spammers/suspicious
 	//	public void flagSpammers() {
 	//		final Collection<Actor> actors = this.findAll();
-	//		final Collection<Actor> spammers = this.bannableActors();
+	//		final Collection<Actor> suspiciousActors = this.bannableActors();
 	//
 	//		for (final Actor a : actors) {
 	//			a.setEvaluated(true);
-	//			if (spammers.contains(a)) {
+	//			if (suspiciousActors.contains(a)) {
 	//				a.setSpammer(true);
 	//				this.save(a);
 	//			} else {
@@ -315,9 +315,9 @@ public class ActorService {
 		return this.actorRepository.getActorByUsername(username);
 	}
 
-	//Listing of actors with spammer flag activated
-	public Collection<Actor> spammerActors() {
-		return this.actorRepository.spammerActors();
+	//Listing of actors with suspicious flag activated
+	public Collection<Actor> suspiciousActors() {
+		return this.actorRepository.suspiciousActors();
 	}
 
 	// Listing of actors with at least 10% of the messages flagged as spam.
