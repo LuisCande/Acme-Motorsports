@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ public class Rider extends Actor {
 
 	//Relationships
 	private Team	team;
+	private Finder	finder;
 
 
 	//Getters
@@ -53,6 +55,12 @@ public class Rider extends Actor {
 		return this.team;
 	}
 
+	@Valid
+	@OneToOne(optional = true)
+	public Finder getFinder() {
+		return this.finder;
+	}
+
 	//Setters
 	public void setNumber(final Integer number) {
 		this.number = number;
@@ -68,5 +76,8 @@ public class Rider extends Actor {
 	}
 	public void setTeam(final Team team) {
 		this.team = team;
+	}
+	public void setFinder(final Finder finder) {
+		this.finder = finder;
 	}
 }

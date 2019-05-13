@@ -24,8 +24,8 @@ public class Finder extends DomainEntity {
 	//Attributes
 
 	private String					keyWord;
-	private Date					dateStart;
-	private Date					dateEnd;
+	private Date					minDate;
+	private Date					maxDate;
 	private Date					moment;
 
 	//Relationships
@@ -43,14 +43,14 @@ public class Finder extends DomainEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getDateStart() {
-		return this.dateStart;
+	public Date getMinDate() {
+		return this.minDate;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getDateEnd() {
-		return this.dateEnd;
+	public Date getMaxDate() {
+		return this.maxDate;
 	}
 
 	@Past
@@ -85,12 +85,12 @@ public class Finder extends DomainEntity {
 		this.keyWord = keyWord;
 	}
 
-	public void setDateStart(final Date dateStart) {
-		this.dateStart = dateStart;
+	public void setMinDate(final Date minDate) {
+		this.minDate = minDate;
 	}
 
-	public void setDateEnd(final Date dateEnd) {
-		this.dateEnd = dateEnd;
+	public void setMaxDate(final Date maxDate) {
+		this.maxDate = maxDate;
 	}
 
 	public void setMoment(final Date moment) {

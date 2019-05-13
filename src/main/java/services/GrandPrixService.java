@@ -185,4 +185,17 @@ public class GrandPrixService {
 		return res;
 
 	}
+
+	public Collection<GrandPrix> getPublicGrandPrixes() {
+		return this.grandPrixRepository.getPublicGrandPrixes();
+	}
+
+	public Collection<GrandPrix> grandPrixesByCategory(final int id) {
+		return this.grandPrixRepository.grandPrixesByCategory(id);
+	}
+
+	Collection<GrandPrix> grandPrixesByCircuit(final int id) {
+		return this.grandPrixRepository.grandPrixesByCircuit(id);
+	}
+
 }

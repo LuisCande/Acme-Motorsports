@@ -185,4 +185,8 @@ public class RiderService {
 	public void flush() {
 		this.riderRepository.flush();
 	}
+
+	public Rider getRiderByFinder(final int id) {
+		return this.riderRepository.getRiderByFinder(id);
+	}
 }
