@@ -44,7 +44,7 @@ public class RaceDirectorService {
 
 	public RaceDirector create() {
 		final Authority a = new Authority();
-		a.setAuthority(Authority.ADMIN);
+		a.setAuthority(Authority.RACEDIRECTOR);
 		final UserAccount account = new UserAccount();
 		account.setAuthorities(Arrays.asList(a));
 		account.setBanned(false);

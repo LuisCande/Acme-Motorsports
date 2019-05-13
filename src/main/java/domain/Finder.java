@@ -32,7 +32,7 @@ public class Finder extends DomainEntity {
 
 	private Category				category;
 	private Circuit					circuit;
-	private Collection<GrandPrix>	grandPrixs;
+	private Collection<GrandPrix>	grandPrixes;
 
 
 	//Getters
@@ -75,8 +75,8 @@ public class Finder extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToMany
-	public Collection<GrandPrix> getGrandPrixs() {
-		return this.grandPrixs;
+	public Collection<GrandPrix> getGrandPrixes() {
+		return this.grandPrixes;
 	}
 
 	//Setters
@@ -97,8 +97,8 @@ public class Finder extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public void setGrandPrixs(final Collection<GrandPrix> grandPrixs) {
-		this.grandPrixs = grandPrixs;
+	public void setGrandPrixes(final Collection<GrandPrix> grandPrixes) {
+		this.grandPrixes = grandPrixes;
 	}
 
 	public void setCategory(final Category category) {
