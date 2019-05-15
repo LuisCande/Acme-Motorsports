@@ -18,16 +18,21 @@
 	">
 
 	<util:list id="messages">
+		<!-- General -->
 		<value>/views/master-page/messages</value>
 		<value>/views/misc/messages</value>
 		<value>/views/security/messages</value>
 		<value>/views/welcome/messages</value>
 		<value>/views/legislation/messages</value>
-
+		<!-- Actors -->
 		<value>/views/administrator/messages</value>
 		<value>/views/rider/messages</value>
 		<value>/views/representative/messages</value>
 		<value>/views/raceDirector/messages</value>
+		<value>/views/manager/messages</value>
+		<value>/views/sponsor/messages</value>
+		<!-- Non-actors -->
+		<value>/views/worldChampionship/messages</value>
 	</util:list>
 
 </beans>
