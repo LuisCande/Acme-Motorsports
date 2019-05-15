@@ -48,6 +48,16 @@
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 					
+					<security:authorize access="hasRole('SPONSOR')">
+						<li><a href="sponsor/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+					
+					<security:authorize access="hasRole('MANAGER')">
+						<li><a href="manager/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+					
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="administrator/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
@@ -101,29 +111,27 @@
 		
 		
 		
-		<%--<security:authorize access="hasRole('COMPANY')">
+		<security:authorize access="hasRole('RACEDIRECTOR')">
 			<li><a class="fNiv"> <spring:message
-						code="master.page.company" />
+						code="master.page.raceDirector" />
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="position/company/list.do"><spring:message
-								code="master.page.company.position.list" /></a></li>
-					<li><a href="problem/company/list.do"><spring:message
-								code="master.page.company.problem.list" /></a></li>
+					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
+								code="master.page.raceDirector.worldChampionship.list" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
 		<security:authorize access="hasRole('RIDER')">
-			<li><a href="curriculum/hacker/list.do"><spring:message
-					code="master.page.curriculum.list" /></a></li>
-
+			<li><a href="worldChampionship/list.do"><spring:message
+					code="master.page.worldChampionship.rider.list" /></a></li>
+<%--  
 			<li><a href="finder/hacker/edit.do"><spring:message
 					code="master.page.finder.edit" /></a></li>
 					
 			<li><a href="application/hacker/list.do"><spring:message
-					code="master.page.application.list" /></a></li>
-		</security:authorize>--%>
+					code="master.page.application.list" /></a></li>--%>
+		</security:authorize>
 		
 		
 		
@@ -141,6 +149,10 @@
 								code="master.page.register.raceDirector" /></a></li>
 					<li><a href="representative/create.do"><spring:message
 								code="master.page.register.representative" /></a></li>
+					<li><a href="sponsor/create.do"><spring:message
+								code="master.page.register.sponsor" /></a></li>
+					<li><a href="manager/create.do"><spring:message
+								code="master.page.register.manager" /></a></li>
 
 				</ul>
 				
