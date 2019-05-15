@@ -42,12 +42,17 @@
 						<li><a href="raceDirector/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
-					<%--
+					
+					<security:authorize access="hasRole('REPRESENTATIVE')">
+						<li><a href="representative/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+					
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="administrator/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
-					
+					<%--
 					<li><a href="message/list.do"><spring:message
 								code="master.page.message.list" /> </a></li>
 					
@@ -66,13 +71,15 @@
 			</li>
 		</security:authorize>
 		
-		<%--
+		
 		<security:authorize access="hasRole('ADMIN')">
+			<%--
 			<li><a class="fNiv"> <spring:message
 						code="master.page.administrator" />
 			</a>
 				<ul>
 					<li class="arrow"></li>
+					
 					<li><a href="administrator/dashboard.do"><spring:message
 								code="master.page.administrator.dashboard" /></a></li>
 					<li><a href="configuration/administrator/display.do"><spring:message
@@ -82,7 +89,7 @@
 					<li><a href="administrator/bannableList.do"><spring:message
 								code="master.page.administrator.bannableList" /></a></li>
 				</ul></li>
-				
+				--%>
 				<li><a class="fNiv"><spring:message
 						code="master.page.administrator.createAcc" /></a>
 				<ul>
@@ -91,7 +98,7 @@
 								code="master.page.administrator.create" /></a></li>
 				</ul></li>
 		</security:authorize>
-		--%>
+		
 		
 		
 		<%--<security:authorize access="hasRole('COMPANY')">
@@ -132,6 +139,8 @@
 								code="master.page.register.rider" /></a></li>
 					<li><a href="raceDirector/create.do"><spring:message
 								code="master.page.register.raceDirector" /></a></li>
+					<li><a href="representative/create.do"><spring:message
+								code="master.page.register.representative" /></a></li>
 
 				</ul>
 				

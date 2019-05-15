@@ -26,6 +26,7 @@
 
 		<value>/views/administrator/messages</value>
 		<value>/views/rider/messages</value>
+		<value>/views/representative/messages</value>
 		<value>/views/raceDirector/messages</value>
 	</util:list>
 

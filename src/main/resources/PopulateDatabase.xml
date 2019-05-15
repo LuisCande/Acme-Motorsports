@@ -1571,8 +1571,8 @@
 	<!-- Finder beans -->
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyWord"><null /></property>
-		<property name="dateStart"><null /></property>
-		<property name="dateEnd"><null /></property>
+		<property name="minDate"><null /></property>
+		<property name="maxDate"><null /></property>
 		<property name="category"><null /></property>
 		<property name="circuit"><null /></property>
 		<property name="moment"><null /></property>
@@ -1584,8 +1584,8 @@
 	
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyWord"><null /></property>
-		<property name="dateStart"><null /></property>
-		<property name="dateEnd"><null /></property>
+		<property name="minDate"><null /></property>
+		<property name="maxDate"><null /></property>
 		<property name="category"><null /></property>
 		<property name="circuit"><null /></property>
 		<property name="moment"><null /></property>
