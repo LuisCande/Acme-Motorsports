@@ -198,4 +198,9 @@ public class GrandPrixService {
 		return this.grandPrixRepository.grandPrixesByCircuit(id);
 	}
 
+	//The average, the minimum, the maximum, and the standard deviation of the maximum riders of the grand prixes.
+	public Double[] avgMinMaxStddevMaxRidersPerGrandPrix() {
+		return this.grandPrixRepository.avgMinMaxStddevMaxRidersPerGrandPrix();
+	}
+
 }

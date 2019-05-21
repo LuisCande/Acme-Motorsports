@@ -111,4 +111,9 @@ public class WorldChampionshipService {
 		this.worldChampionshipRepository.flush();
 	}
 
+	//The average, the minimum, the maximum, and the standard deviation of the number of grand prixes per race directors
+	public Double[] avgMinMaxStddevWorldChampionshipPerRaceDirector() {
+		return this.worldChampionshipRepository.avgMinMaxStddevWorldChampionshipPerRaceDirector();
+	}
+
 }

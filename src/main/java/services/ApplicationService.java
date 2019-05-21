@@ -143,6 +143,26 @@ public class ApplicationService {
 
 	//Other methods
 
+	//The average, the minimum, the maximum, and the standard deviation of the number of applications per grand prixes
+	public Double[] avgMinMaxStddevApplicationsPerGrandPrix() {
+		return this.applicationRepository.avgMinMaxStddevApplicationsPerGrandPrix();
+	}
+
+	//The ratio of pending applications
+	public Double ratioPendingApplications() {
+		return this.applicationRepository.ratioPendingApplications();
+	}
+
+	//The ratio of accepted applications
+	public Double ratioAcceptedApplications() {
+		return this.applicationRepository.ratioAcceptedApplications();
+	}
+
+	//The ratio of rejected applications
+	public Double ratioRejectedApplications() {
+		return this.applicationRepository.ratioRejectedApplications();
+	}
+
 	/*
 	 * //The applications given a riderid
 	 * public Collection<Application> applicationsOfARider(final int id) {
