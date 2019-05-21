@@ -100,8 +100,20 @@ public class WorldChampionshipService {
 
 	}
 
+	//Time for motion and queries
+
+	//Retrieves the listing of the world championships of a certain race director
+	public Collection<WorldChampionship> worldChampionshipsFromRaceDirector(final int id) {
+		return this.worldChampionshipRepository.worldChampionshipsFromRaceDirector(id);
+	}
+
 	public void flush() {
 		this.worldChampionshipRepository.flush();
+	}
+
+	//The average, the minimum, the maximum, and the standard deviation of the number of grand prixes per race directors
+	public Double[] avgMinMaxStddevWorldChampionshipPerRaceDirector() {
+		return this.worldChampionshipRepository.avgMinMaxStddevWorldChampionshipPerRaceDirector();
 	}
 
 }

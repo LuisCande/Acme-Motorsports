@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 import repositories.RiderRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.RaceDirector;
 import domain.Rider;
 import forms.FormObjectRider;
 
@@ -188,5 +189,10 @@ public class RiderService {
 
 	public Rider getRiderByFinder(final int id) {
 		return this.riderRepository.getRiderByFinder(id);
+	}
+
+	//The listing of riders who have got accepted at least 10% more applications than the average, ordered by number of applications
+	public Collection<RaceDirector> ridersWich10PerCentMoreApplicationsThanAvg() {
+		return this.riderRepository.ridersWich10PerCentMoreApplicationsThanAvg();
 	}
 }
