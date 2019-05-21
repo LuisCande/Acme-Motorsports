@@ -13,7 +13,7 @@ import domain.Message;
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
 	//Finds the messages of a certain box.
-	@Query("select b.messages from Box b where b.id=?1")
+	@Query("select m from Message m join m.boxes b where b.id=?1")
 	Collection<Message> messagesFromBox(int id);
 
 	//Listing of the messages sent by a certain actor.

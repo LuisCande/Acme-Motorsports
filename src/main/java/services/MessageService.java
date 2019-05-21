@@ -95,70 +95,38 @@ public class MessageService {
 		return saved;
 	}
 
-	//	public void delete(final Message message) {
-	//		Assert.notNull(message);
-	//
-	//		//Assertion that the user deleting this message has the correct privileges.
-	//		final Collection<Box> boxes = this.boxService.getBoxesByMessageAndActor(this.actorService.findByPrincipal().getId(), message.getId());
-	//		//Assert.isTrue(this.actorService.findByPrincipal().getId() == boxes.getId());
-	//
-	//		if (!boxes.contains(this.boxService.getBoxByName(this.actorService.findByPrincipal().getId(), "Trash box"))) {
-	//			final Box b = this.boxService.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Trash box");
-	//			this.move(message, b);
-	//
-	//		} else {
-	//
-	//			//Removing message from TrashBox
-	//			final Box trash = this.boxService.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Trash box");
-	//			final Collection<Message> trashMessages = trash.getMessages();
-	//			trashMessages.remove(message);
-	//			this.boxService.saveFromMessage(trash);
-	//
-	//			if (message.getBoxes().size() == 1)
-	//				this.messageRepository.delete(message);
-	//			else {
-	//				//Saving message without Trash box
-	//				final Collection<Box> newBoxes = message.getBoxes();
-	//				newBoxes.remove(trash);
-	//				message.setBoxes(newBoxes);
-	//				this.save(message);
-	//			}
-	//		}
-	//	}
+	public void delete(final Message message) {
+		Assert.notNull(message);
 
-	//	public void move(final Message message, final Box newOne) {
-	//		Assert.notNull(message);
-	//		Assert.notNull(newOne);
-	//
-	//		final Collection<Box> oldBoxes = this.boxService.getBoxesByMessageAndActor(this.actorService.findByPrincipal().getId(), message.getId());
-	//		final Collection<Box> messageBoxes = message.getBoxes();
-	//
-	//		for (final Box oldBox : oldBoxes) {
-	//
-	//			//Deleting message from old boxes
-	//			final Collection<Message> messagesFromOldBox = oldBox.getMessages();
-	//			messagesFromOldBox.remove(message);
-	//			oldBox.setMessages(messagesFromOldBox);
-	//			this.boxService.saveFromMessage(oldBox);
-	//
-	//			//Deleting old boxes
-	//			messageBoxes.remove(oldBox);
-	//			message.setBoxes(messageBoxes);
-	//			this.save(message);
-	//		}
-	//
-	//		//Inserting new message to new box and saving
-	//		final Collection<Message> messagesFromNewOne = newOne.getMessages();
-	//		messagesFromNewOne.add(message);
-	//		newOne.setMessages(messagesFromNewOne);
-	//		this.boxService.saveFromMessage(newOne);
-	//
-	//		//Inserting new box to new message and saving
-	//		messageBoxes.add(newOne);
-	//		message.setBoxes(messageBoxes);
-	//		this.save(message);
-	//
-	//	}
+		final Box box = this.boxService.getBoxByMessageAndActor(message.getId(), this.actorService.findByPrincipal().getId());
+
+		//Assertion that the user deleting this message has the correct privileges.
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == box.getActor().getId());
+
+		final Box trash = this.boxService.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Trash box");
+		if (!box.equals(trash))
+			this.move(message, trash);
+		else if (message.getBoxes().size() == 1)
+			this.messageRepository.delete(message);
+		else {
+			message.getBoxes().remove(trash);
+			this.messageRepository.save(message);
+		}
+
+	}
+
+	public void move(final Message message, final Box newOne) {
+		Assert.notNull(message);
+		Assert.notNull(newOne);
+
+		final Box oldBox = this.boxService.getBoxByMessageAndActor(message.getId(), this.actorService.findByPrincipal().getId());
+		final Collection<Box> messageBoxes = message.getBoxes();
+
+		messageBoxes.remove(oldBox);
+		messageBoxes.add(newOne);
+		this.messageRepository.save(message);
+
+	}
 
 	//Other business methods ----------------------------
 
@@ -175,27 +143,10 @@ public class MessageService {
 
 		//Finds the system folder where the message must be sent to.
 		final Box b = this.boxService.getSystemBoxByName(a.getId(), boxName);
-		final Box box = this.boxService.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Out box");
 
 		m.setRecipient(a);
 		m.getBoxes().add(b);
-		//Añadido nuevo
-		m.getBoxes().add(box);
-		//Hasta aqui
 		this.save(m);
-
-		//Seguramente esto no sea necesario
-		//Saving Inbox recipient box with the new message
-		//		final Collection<Message> messagesOfRecipientInbox = b.getMessages();
-		//		messagesOfRecipientInbox.add(saved);
-		//		b.setMessages(messagesOfRecipientInbox);
-		//		this.boxService.saveFromMessage(b);
-
-		//Saving Outbox sender box with the new message
-		//		final Collection<Message> messagesOfSenderOutbox = box.getMessages();
-		//		messagesOfSenderOutbox.add(saved);
-		//		box.setMessages(messagesOfSenderOutbox);
-		//		this.boxService.saveFromMessage(box);
 
 		if (this.actorService.isBannable(m.getSender()) == true) {
 			m.getSender().setSuspicious(true);

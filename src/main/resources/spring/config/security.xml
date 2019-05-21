@@ -40,8 +40,9 @@
 		<security:intercept-url pattern="/rider/**" access="permitAll" />
 		<security:intercept-url pattern="/raceDirector/**" access="permitAll" />
 		
-		<!-- <security:intercept-url pattern="/message/**" access="isAuthenticated()" />
-		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />-->
+		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/box/**" access="isAuthenticated()" />
+		<!-- <security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />-->
 		<security:intercept-url pattern="/actor/deactivate.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/download/**" access="isAuthenticated()" />
  		
