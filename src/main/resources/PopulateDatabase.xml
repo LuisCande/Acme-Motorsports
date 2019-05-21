@@ -1500,6 +1500,7 @@
 		<property name="cvv" value="678" />
 	</bean>
 	
+
 	<!-- FanClub beans -->
 	<bean id="fanClub1" class="domain.FanClub">
 		<property name="name" value="Luis Rossi F.C" />
@@ -1713,6 +1714,23 @@
 	</bean>
 	
 	<!-- Message beans (Not added for the moment)-->
+	
+	<bean id="message1" class="domain.Message">
+		<property name="sent" value="10/10/2010 10:00" />
+		<property name="subject" value="Prueba" />
+		<property name="body" value="Me gusta bailar pene dick Nigeria malo no me gusta bad" />
+		<property name="priority" value="HIGH" />
+		<property name="spam" value="true" />
+		<property name="tags" value="hola que tal" />
+		<property name="sender" ref="rider2" />
+		<property name="recipient" ref="rider3" />
+		<property name="boxes">
+			<list>
+				<ref bean="outBox3" />
+				<ref bean="inBox4" />
+			</list>
+		</property>
+	</bean>
 	
 	<!-- Podium beans -->
 	<bean id="podium1" class="domain.Podium">
