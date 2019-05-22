@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class WorldChampion extends Palmares {
@@ -21,7 +19,7 @@ public class WorldChampion extends Palmares {
 
 
 	//Getters
-	@NotBlank
+
 	public String getPhotos() {
 		return this.photos;
 	}

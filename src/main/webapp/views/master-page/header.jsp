@@ -132,6 +132,9 @@
 					
 			<li><a href="application/hacker/list.do"><spring:message
 					code="master.page.application.list" /></a></li>--%>
+					
+			<li><a href="palmares/rider/display.do"><spring:message
+					code="master.page.rider.palmares" /></a></li>
 		</security:authorize>
 		
 		
