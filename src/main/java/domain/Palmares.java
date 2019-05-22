@@ -6,10 +6,10 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -33,7 +33,7 @@ public class Palmares extends DomainEntity {
 	}
 
 	@NotNull
-	@Min(1885)
+	@Range(min = 1885, max = 2019)
 	public Integer getYear() {
 		return this.year;
 	}

@@ -59,6 +59,14 @@
 		<!-- Race Director -->
 		<security:intercept-url pattern="/worldChampionship/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		
+ 		<!-- Rider -->
+ 		<security:intercept-url pattern="/palmares/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/victory/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/fastestLap/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/podium/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/pole/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/worldChampion/rider/**" access="hasRole('RIDER')" />
+ 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login
