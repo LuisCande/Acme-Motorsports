@@ -90,8 +90,7 @@ public class ActorService {
 	public boolean isBannable(final Actor a) {
 		Boolean isSpam = false;
 
-		final Collection<Actor> suspiciousActors = this.bannableActors();
-		if (suspiciousActors.contains(a))
+		if (a.isSuspicious())
 			isSpam = true;
 
 		return isSpam;
@@ -216,13 +215,20 @@ public class ActorService {
 	}
 
 	//Method to check the phone only contains numbers
-	public boolean checkPhone(final String phone) {
+	public boolean checkPhone(final Actor a) {
 		Boolean result = true;
 		String parts[] = null;
 		String parts2[] = null;
 		String parts3[] = null;
 		String numero;
 
+		String phone = a.getPhone();
+
+		if (phone.trim().equals("+34")) {
+			phone = "";
+			a.setPhone(phone);
+			return true;
+		}
 		if (phone.startsWith("+") && phone.contains("(") && phone.contains(")")) {
 			numero = phone.substring(1);
 

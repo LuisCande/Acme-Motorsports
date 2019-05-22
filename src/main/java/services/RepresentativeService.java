@@ -78,7 +78,7 @@ public class RepresentativeService {
 		Assert.isTrue(this.actorService.checkAddress(representative.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(representative.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(representative));
 
 		//Checking if the actor is bannable according to the "bannableActors" query.
 		if (this.actorService.isBannable(representative) == true)
@@ -134,7 +134,7 @@ public class RepresentativeService {
 		Assert.isTrue(this.actorService.checkAddress(result.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(result.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(result));
 
 		return result;
 
@@ -167,7 +167,7 @@ public class RepresentativeService {
 		Assert.isTrue(this.actorService.checkAddress(result.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(result.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(result));
 
 		return result;
 

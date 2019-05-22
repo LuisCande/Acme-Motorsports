@@ -106,7 +106,43 @@ public class GrandPrixService {
 		this.grandPrixRepository.save(g);
 	}
 
-	//Reconstruct
+	//Reconstruct FormObject
+	//	TODO Form object de Grand Prix, estoy fucking lost. Ni zorra de como seguir ahora mismo.
+	//	public FormObjectGrandPrix reconstruct(final FormObjectGrandPrix fogp, final BindingResult binding) {
+	//		Assert.notNull(fogp);
+	//		final GrandPrix resGP;
+	//		final Race resRace;
+	//		final Qualifying resQual;
+	//
+	//		resGP.setDescription(fogp.getDescription());
+	//		resGP.setStartDate(fogp.getStartDate());
+	//		resGP.setMaxRiders(fogp.getMaxRiders());
+	//		resRace.setLaps(fogp.getRaceLaps());
+	//		resRace.setStartMoment(fogp.getRaceStartMoment());
+	//		resRace.setEndMoment(fogp.getRaceEndMoment());
+	//		resQual.setName(fogp.getQualName());
+	//		resQual.setDuration(fogp.getQualDuration());
+	//		resQual.setStartMoment(fogp.getQualStartMoment());
+	//		resQual.setEndMoment(fogp.getQualEndMoment());
+	//
+	//		this.validator.validate(fogp, binding);
+	//
+	//		if (binding.hasErrors())
+	//			throw new ValidationException();
+	//		//		//Assertion that the user modifying this task has the correct privilege.
+	//		//		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
+	//		//
+	//		//		//Assertion the start date must be after today
+	//		//		Assert.isTrue(g.getStartDate().after(new Date(System.currentTimeMillis() - 1)));
+	//		//
+	//		//		//Assertion the start date must be before end date
+	//		//		Assert.isTrue(g.getStartDate().before(g.getEndDate()));
+	//
+	//		return FormObjectGrandPrix;
+	//
+	//	}
+
+	//Reconstruct Pruned
 
 	public GrandPrix reconstruct(final GrandPrix g, final BindingResult binding) {
 		Assert.notNull(g);
@@ -164,15 +200,18 @@ public class GrandPrixService {
 
 	//Generates the second half of the unique tickers.
 	private String generateString() {
+		final Random c = new Random();
+		final Random t = new Random();
 		String randomString = "";
-		final int longitud = 4;
-		final Random r = new Random();
 		int i = 0;
+		final int longitud = 4;
 		while (i < longitud) {
-			final int rnd = r.nextInt(255);
-			final char c = (char) (rnd);
-			if ((c >= 'A' && c <= 'Z' && Character.isLetter(c) && Character.isUpperCase(c))) {
-				randomString += c;
+			final int rnd = t.nextInt(2);
+			if (rnd == 0) {
+				randomString += ((char) ((char) c.nextInt(10) + 48)); //numeros
+				i++;
+			} else if (rnd == 1) {
+				randomString += ((char) ((char) c.nextInt(26) + 65)); //mayus
 				i++;
 			}
 		}
@@ -181,7 +220,7 @@ public class GrandPrixService {
 
 	//Generates both halves of the unique ticker and joins them with a dash.
 	public String generateTicker() {
-		final String res = this.generateString() + "-" + this.generateNumber();
+		final String res = this.generateNumber() + "-" + this.generateString();
 		return res;
 
 	}

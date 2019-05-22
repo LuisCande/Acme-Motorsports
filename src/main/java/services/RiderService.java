@@ -79,7 +79,7 @@ public class RiderService {
 		Assert.isTrue(this.actorService.checkAddress(rider.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(rider.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(rider));
 
 		//Checking if the actor is bannable according to the "bannableActors" query.
 		if (this.actorService.isBannable(rider) == true)
@@ -139,7 +139,7 @@ public class RiderService {
 		Assert.isTrue(this.actorService.checkAddress(result.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(result.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(result));
 
 		return result;
 
@@ -176,7 +176,7 @@ public class RiderService {
 		Assert.isTrue(this.actorService.checkAddress(result.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(result.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(result));
 
 		return result;
 

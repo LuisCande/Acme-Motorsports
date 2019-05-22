@@ -78,7 +78,7 @@ public class RaceDirectorService {
 		Assert.isTrue(this.actorService.checkAddress(raceDirector.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(raceDirector.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(raceDirector));
 
 		//Checking if the actor is bannable according to the "bannableActors" query.
 		if (this.actorService.isBannable(raceDirector) == true)
@@ -134,7 +134,7 @@ public class RaceDirectorService {
 		Assert.isTrue(this.actorService.checkAddress(result.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(result.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(result));
 
 		return result;
 
@@ -167,7 +167,7 @@ public class RaceDirectorService {
 		Assert.isTrue(this.actorService.checkAddress(result.getAddress()));
 
 		//Assertion that the phone is valid according to the checkPhone method.
-		Assert.isTrue(this.actorService.checkPhone(result.getPhone()));
+		Assert.isTrue(this.actorService.checkPhone(result));
 
 		return result;
 
