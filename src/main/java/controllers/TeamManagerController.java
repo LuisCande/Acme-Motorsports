@@ -10,24 +10,23 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ConfigurationService;
-import services.ManagerService;
+import services.TeamManagerService;
 import domain.Configuration;
-import domain.Manager;
+import domain.TeamManager;
 import forms.FormObjectManager;
 
 @Controller
-@RequestMapping("manager")
-public class ManagerController extends AbstractController {
+@RequestMapping("teamManager")
+public class TeamManagerController extends AbstractController {
 
 	//Services
 
 	@Autowired
-	private ManagerService			managerService;
+	private TeamManagerService		managerService;
 
 	@Autowired
 	private ActorService			actorService;
@@ -36,22 +35,22 @@ public class ManagerController extends AbstractController {
 	private ConfigurationService	configurationService;
 
 
-	//Display
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int varId) {
-		final ModelAndView result;
-
-		final Manager manager = this.managerService.findOne(varId);
-
-		if (manager == null)
-			return new ModelAndView("redirect:/welcome/index.do");
-
-		result = new ModelAndView("manager/display");
-		result.addObject("manager", manager);
-		result.addObject("requestURI", "manager/display.do");
-
-		return result;
-	}
+	//	//Display
+	//	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	//	public ModelAndView display(@RequestParam final int varId) {
+	//		final ModelAndView result;
+	//
+	//		final Manager manager = this.managerService.findOne(varId);
+	//
+	//		if (manager == null)
+	//			return new ModelAndView("redirect:/welcome/index.do");
+	//
+	//		result = new ModelAndView("manager/display");
+	//		result.addObject("manager", manager);
+	//		result.addObject("requestURI", "manager/display.do");
+	//
+	//		return result;
+	//	}
 
 	//Creation
 
@@ -73,9 +72,9 @@ public class ManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		final ModelAndView result;
-		Manager manager;
+		TeamManager manager;
 
-		manager = (Manager) this.actorService.findByPrincipal();
+		manager = (TeamManager) this.actorService.findByPrincipal();
 		Assert.notNull(manager);
 		result = this.editModelAndView(manager);
 
@@ -85,7 +84,7 @@ public class ManagerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
 	public ModelAndView save(final FormObjectManager fom, final BindingResult binding) {
 		ModelAndView result;
-		Manager manager;
+		TeamManager manager;
 
 		try {
 			manager = this.managerService.reconstruct(fom, binding);
@@ -106,7 +105,7 @@ public class ManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Manager manager, final BindingResult binding) {
+	public ModelAndView save(TeamManager manager, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
@@ -141,15 +140,15 @@ public class ManagerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final FormObjectManager fom, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("manager/create");
+		result = new ModelAndView("teamManager/create");
 		result.addObject("fom", fom);
 		result.addObject("message", messageCode);
-		result.addObject("requestURI", "manager/create.do");
+		result.addObject("requestURI", "teamManager/create.do");
 
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final Manager manager) {
+	protected ModelAndView editModelAndView(final TeamManager manager) {
 		ModelAndView result;
 
 		result = this.editModelAndView(manager, null);
@@ -157,13 +156,13 @@ public class ManagerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final Manager manager, final String messageCode) {
+	protected ModelAndView editModelAndView(final TeamManager manager, final String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("manager/edit");
-		result.addObject("manager", manager);
+		result = new ModelAndView("teamManager/edit");
+		result.addObject("teamManager", manager);
 		result.addObject("message", messageCode);
-		result.addObject("requestURI", "manager/edit.do");
+		result.addObject("requestURI", "teamManager/edit.do");
 
 		return result;
 	}

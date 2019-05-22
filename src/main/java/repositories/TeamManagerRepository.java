@@ -4,9 +4,9 @@ package repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.Manager;
+import domain.TeamManager;
 
 @Repository
-public interface ManagerRepository extends JpaRepository<Manager, Integer> {
+public interface TeamManagerRepository extends JpaRepository<TeamManager, Integer> {
 
 }

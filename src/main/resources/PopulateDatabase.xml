@@ -75,42 +75,42 @@
 	</bean>
 	
 	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="manager1" />
-		<property name="password" value="c240642ddef994358c96da82c0361a58" />
+		<property name="username" value="teamManager1" />
+		<property name="password" value="c639e353242c4c4b0e904f94df4221bb" />
 		<property name="banned" value="false" />
 		<property name="inactive" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MANAGER" />
+					<property name="authority" value="TEAMMANAGER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="userAccount6" class="security.UserAccount">
-		<property name="username" value="manager2" />
-		<property name="password" value="8df5127cd164b5bc2d2b78410a7eea0c" />
+		<property name="username" value="teamManager2" />
+		<property name="password" value="7d2d432ef0d974262001cfe2bb70b420" />
 		<property name="banned" value="false" />
 		<property name="inactive" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MANAGER" />
+					<property name="authority" value="TEAMMANAGER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="userAccount7" class="security.UserAccount">
-		<property name="username" value="manager3" />
-		<property name="password" value="2d3a5db4a2a9717b43698520a8de57d0" />
+		<property name="username" value="teamManager3" />
+		<property name="password" value="78f1dbaf526e8d78656d84b639c73604" />
 		<property name="banned" value="false" />
 		<property name="inactive" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="MANAGER" />
+					<property name="authority" value="TEAMMANAGER" />
 				</bean>
 			</list>
 		</property>
@@ -255,7 +255,7 @@
 					<property name="authority" value="RIDER" />
 				</bean>
 				<bean class="security.Authority">
-					<property name="authority" value="MANAGER" />
+					<property name="authority" value="TEAMMANAGER" />
 				</bean>
 				<bean class="security.Authority">
 					<property name="authority" value="RACEDIRECTOR" />
@@ -334,8 +334,8 @@
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
 	
-	<!-- Manager beans -->
-	<bean id="manager1" class="domain.Manager">
+	<!-- Team teamManager beans -->
+	<bean id="teamManager1" class="domain.TeamManager">
 		<property name="name" value="Antonio" />
 		<property name="surnames" value="Carrasco Márquez" />
 		<property name="photo"
@@ -347,7 +347,7 @@
 		<property name="userAccount" ref="userAccount5" />
 	</bean>
 	
-	<bean id="manager2" class="domain.Manager">
+	<bean id="teamManager2" class="domain.TeamManager">
 		<property name="name" value="Francisco" />
 		<property name="surnames" value="Orellana del Río" />
 		<property name="photo"
@@ -359,7 +359,7 @@
 		<property name="userAccount" ref="userAccount6" />
 	</bean>
 	
-	<bean id="manager3" class="domain.Manager">
+	<bean id="teamManager3" class="domain.TeamManager">
 		<property name="name" value="Luis" />
 		<property name="surnames" value="Gil Paladín" />
 		<property name="photo"
@@ -634,11 +634,11 @@
 		</property>
 	</bean>
 	
-	<!-- manager1 boxes -->
+	<!-- teamManager1 boxes -->
 	<bean id="inBox5" class="domain.Box">
 		<property name="name" value="In box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager1" />
+		<property name="actor" ref="teamManager1" />
 		<property name="parent">
 			<null />
 		</property>
@@ -647,7 +647,7 @@
 	<bean id="outBox5" class="domain.Box">
 		<property name="name" value="Out box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager1" />
+		<property name="actor" ref="teamManager1" />
 		<property name="parent">
 			<null />
 		</property>
@@ -656,7 +656,7 @@
 	<bean id="trashBox5" class="domain.Box">
 		<property name="name" value="Trash box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager1" />
+		<property name="actor" ref="teamManager1" />
 		<property name="parent">
 			<null />
 		</property>
@@ -665,17 +665,17 @@
 	<bean id="spamBox5" class="domain.Box">
 		<property name="name" value="Spam box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager1" />
+		<property name="actor" ref="teamManager1" />
 		<property name="parent">
 			<null />
 		</property>
 	</bean>
 	
-	<!-- manager2 boxes -->
+	<!-- teamManager2 boxes -->
 	<bean id="inBox6" class="domain.Box">
 		<property name="name" value="In box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager2" />
+		<property name="actor" ref="teamManager2" />
 		<property name="parent">
 			<null />
 		</property>
@@ -684,7 +684,7 @@
 	<bean id="outBox6" class="domain.Box">
 		<property name="name" value="Out box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager2" />
+		<property name="actor" ref="teamManager2" />
 		<property name="parent">
 			<null />
 		</property>
@@ -693,7 +693,7 @@
 	<bean id="trashBox6" class="domain.Box">
 		<property name="name" value="Trash box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager2" />
+		<property name="actor" ref="teamManager2" />
 		<property name="parent">
 			<null />
 		</property>
@@ -702,17 +702,17 @@
 	<bean id="spamBox6" class="domain.Box">
 		<property name="name" value="Spam box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager2" />
+		<property name="actor" ref="teamManager2" />
 		<property name="parent">
 			<null />
 		</property>
 	</bean>
 	
-	<!-- manager3 boxes -->
+	<!-- teamManager3 boxes -->
 	<bean id="inBox7" class="domain.Box">
 		<property name="name" value="In box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager3" />
+		<property name="actor" ref="teamManager3" />
 		<property name="parent">
 			<null />
 		</property>
@@ -721,7 +721,7 @@
 	<bean id="outBox7" class="domain.Box">
 		<property name="name" value="Out box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager3" />
+		<property name="actor" ref="teamManager3" />
 		<property name="parent">
 			<null />
 		</property>
@@ -730,7 +730,7 @@
 	<bean id="trashBox7" class="domain.Box">
 		<property name="name" value="Trash box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager3" />
+		<property name="actor" ref="teamManager3" />
 		<property name="parent">
 			<null />
 		</property>
@@ -739,7 +739,7 @@
 	<bean id="spamBox7" class="domain.Box">
 		<property name="name" value="Spam box" />
 		<property name="system" value="true" />
-		<property name="actor" ref="manager3" />
+		<property name="actor" ref="teamManager3" />
 		<property name="parent">
 			<null />
 		</property>
@@ -1115,7 +1115,7 @@
 		<property name="comment" value="This is an answer!" />
 		<property name="agree" value="false"/>
 		<property name="reason" value="I don't like this kind of announcements"/>
-		<property name="manager" ref="manager1"/>
+		<property name="teamManager" ref="teamManager1"/>
 		<property name="announcement" ref="announcement1"/>
 	</bean>
 	
@@ -1124,7 +1124,7 @@
 		<property name="comment" value="This is a good answer!" />
 		<property name="agree" value="true"/>
 		<property name="reason" value="I love this!"/>
-		<property name="manager" ref="manager1"/>
+		<property name="teamManager" ref="teamManager1"/>
 		<property name="announcement" ref="announcement1"/>
 	</bean>
 	
@@ -1133,7 +1133,7 @@
 		<property name="comment" value="This is a shit!" />
 		<property name="agree" value="false"/>
 		<property name="reason" value="I don't like you!"/>
-		<property name="manager" ref="manager2"/>
+		<property name="teamManager" ref="teamManager2"/>
 		<property name="announcement" ref="announcement2"/>
 	</bean>
 	
@@ -1870,14 +1870,14 @@
 		<property name="nick" value="kristoAlphaSniper" />
 		<property name="socialNetwork" value="Twitter" />
 		<property name="profileLink" value="https://www.twitter.com" />
-		<property name="actor" ref="manager1" />
+		<property name="actor" ref="teamManager2" />
 	</bean>
 	
 	<bean id="socialProfile6" class="domain.SocialProfile">
 		<property name="nick" value="TammyGenteConLasManoArriba" />
 		<property name="socialNetwork" value="Twiter" />
 		<property name="profileLink" value="https://www.twitter.com" />
-		<property name="actor" ref="manager2" />
+		<property name="actor" ref="teamManager2" />
 	</bean>
 	
 	<!-- Sponsorship beans -->
@@ -1914,7 +1914,7 @@
 		<property name="logo" value="http://www.youtube.com" />
 		<property name="factory" value="Yamaha" />
 		<property name="yearBudget" value="150000" />
-		<property name="manager" ref="manager1" />
+		<property name="teamManager" ref="teamManager1" />
 	</bean>
 	
 	<bean id="team2" class="domain.Team">
@@ -1925,7 +1925,7 @@
 		<property name="logo" value="http://www.youtube.com" />
 		<property name="factory" value="Repsol" />
 		<property name="yearBudget" value="220000" />
-		<property name="manager" ref="manager2" />
+		<property name="teamManager" ref="teamManager2" />
 	</bean>
 	
 	<bean id="team3" class="domain.Team">
@@ -1936,7 +1936,7 @@
 		<property name="logo" value="http://www.youtube.com" />
 		<property name="factory" value="Ducati" />
 		<property name="yearBudget" value="3150000" />
-		<property name="manager" ref="manager3" />
+		<property name="teamManager" ref="teamManager3" />
 	</bean>
 	
 	<!-- Victory beans -->

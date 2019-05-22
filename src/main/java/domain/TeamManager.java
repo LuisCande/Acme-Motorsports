@@ -7,6 +7,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Manager extends Actor {
+public class TeamManager extends Actor {
 
 }

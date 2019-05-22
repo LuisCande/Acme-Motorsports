@@ -5,14 +5,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Manager;
+import domain.TeamManager;
 
 @Component
 @Transactional
-public class ManagerToStringConverter implements Converter<Manager, String> {
+public class TeamManagerToStringConverter implements Converter<TeamManager, String> {
 
 	@Override
-	public String convert(final Manager a) {
+	public String convert(final TeamManager a) {
 		String result;
 
 		if (a == null)
