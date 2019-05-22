@@ -92,7 +92,7 @@
 <a href="${createMessageUrl}"><jstl:out value="${createMessage}" /></a>
 
 <security:authorize access="hasRole('ADMIN')">
-	<spring:url var="broadcastUrl" value="message/administrator/create.do" />
+	<spring:url var="broadcastUrl" value="message/administrator/edit.do" />
 	<a href="${broadcastUrl}"><jstl:out value="${broadcast}" /></a>
 </security:authorize>
 

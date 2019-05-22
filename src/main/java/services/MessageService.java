@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
-import security.Authority;
 import domain.Actor;
 import domain.Box;
 import domain.Configuration;
@@ -187,28 +186,10 @@ public class MessageService {
 
 		final String boxName = "In box";
 		final Box b = this.boxService.getSystemBoxByName(a.getId(), boxName);
-		final Box box = this.boxService.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Out box");
-
+		//final Box box = this.boxService.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Out box");
 		m.setRecipient(a);
 		m.getBoxes().add(b);
-		//Añadido nuevo
-		m.getBoxes().add(box);
-		//Hasta aqui
 		this.save(m);
-
-		//Seguramente esto no sea necesario
-		//Saving Notification box recipient box with the new message
-		//		final Collection<Message> messagesOfRecipientInbox = b.getMessages();
-		//		messagesOfRecipientInbox.add(saved);
-		//		b.setMessages(messagesOfRecipientInbox);
-		//		this.boxService.saveFromMessage(b);
-
-		//Saving Outbox sender box with the new message
-		//		final Collection<Message> messagesOfSenderOutbox = box.getMessages();
-		//		messagesOfSenderOutbox.add(saved);
-		//		box.setMessages(messagesOfSenderOutbox);
-		//		this.boxService.saveFromMessage(box);
-
 	}
 
 	//TODO Sends a message to the member associated to an request.
@@ -292,8 +273,6 @@ public class MessageService {
 	//Reconstruct
 	public Message reconstructBroadcast(final Message m, final BindingResult binding) {
 		Message result;
-		final Authority authAdmin = new Authority();
-		authAdmin.setAuthority(Authority.ADMIN);
 
 		if (m.getId() == 0)
 			result = this.create();

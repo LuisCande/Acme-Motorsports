@@ -122,21 +122,6 @@ public class BoxController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Box box, final BindingResult binding) {
-		ModelAndView result;
-
-		if (box.getActor().getId() != this.actorService.findByPrincipal().getId())
-			return new ModelAndView("redirect:/welcome/index.do");
-		try {
-			this.boxService.delete(box);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(box, "box.commit.error");
-		}
-		return result;
-	}
-
 	//Delete
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
