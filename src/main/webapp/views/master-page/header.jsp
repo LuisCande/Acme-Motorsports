@@ -66,10 +66,10 @@
 					
 					<li><a href="box/list.do"><spring:message
 								code="master.page.box.list" /> </a></li>
-					<%--			
+								
 					<li><a href="socialProfile/list.do"><spring:message
 								code="master.page.socialProfile" /> </a></li>
-					--%>
+					
 					<li><a href="actor/deactivate.do" onclick="return confirm('${msgConfirm}')"><spring:message
 								code="master.page.deactivate" /> </a></li>
 								

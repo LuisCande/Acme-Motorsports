@@ -43,7 +43,7 @@
 			<jstl:if test="${requestURI == 'message/administrator/create.do'}">
 			</jstl:if>
 
-			<jstl:if test="${requestURI != 'message/administrator/create.do'}">
+			<jstl:if test="${requestURI != 'message/administrator/edit.do'}">
 
 
 				<acme:select code="message.recipient" path="recipient"
@@ -92,11 +92,11 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('ADMIN')">
-			<jstl:if test="${requestURI == 'message/administrator/create.do'}">
+			<jstl:if test="${requestURI == 'message/administrator/edit.do'}">
 				<input type="submit" name="broadcast" value="${save}">
 			</jstl:if>
 
-			<jstl:if test="${requestURI != 'message/administrator/create.do'}">
+			<jstl:if test="${requestURI != 'message/administrator/edit.do'}">
 				<acme:submit name="save" code="message.save" />
 			</jstl:if>
 		</security:authorize>
