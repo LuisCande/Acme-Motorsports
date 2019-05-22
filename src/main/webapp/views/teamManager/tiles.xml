@@ -16,14 +16,14 @@
       
 <tiles-definitions>
 
-	<definition name="manager/create" extends="master.page">	
-		<put-attribute name="title" value="Create a manager" />
-		<put-attribute name="body" value="/views/manager/create.jsp" />
+	<definition name="teamManager/create" extends="master.page">	
+		<put-attribute name="title" value="Create a team manager" />
+		<put-attribute name="body" value="/views/teamManager/create.jsp" />
 	</definition>
 	
-	<definition name="manager/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit manager's data" />
-		<put-attribute name="body" value="/views/manager/edit.jsp" />
+	<definition name="teamManager/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit team manager's data" />
+		<put-attribute name="body" value="/views/teamManager/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

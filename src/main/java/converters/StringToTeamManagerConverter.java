@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.ManagerRepository;
-import domain.Manager;
+import repositories.TeamManagerRepository;
+import domain.TeamManager;
 
 @Component
 @Transactional
-public class StringToManagerConverter implements Converter<String, Manager> {
+public class StringToTeamManagerConverter implements Converter<String, TeamManager> {
 
 	@Autowired
-	ManagerRepository	managerRepository;
+	TeamManagerRepository	managerRepository;
 
 
 	@Override
-	public Manager convert(final String s) {
-		Manager result;
+	public TeamManager convert(final String s) {
+		TeamManager result;
 		int id;
 
 		try {

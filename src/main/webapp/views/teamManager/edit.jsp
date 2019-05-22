@@ -39,10 +39,10 @@
 <spring:message code="manager.phone.warning" var="phoneWarning" />
 <spring:message code="manager.phone.note" var="phoneNote" />
 
-<security:authorize access="hasRole('MANAGER')">
+<security:authorize access="hasRole('TEAMMANAGER')">
 
 	<form:form id="form" action="${requestURI}"
-		modelAttribute="manager">
+		modelAttribute="teamManager">
 
 		<%-- Forms --%>
 

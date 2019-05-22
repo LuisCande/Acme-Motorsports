@@ -16,7 +16,7 @@ import org.springframework.validation.Validator;
 import repositories.AnswerRepository;
 import domain.Announcement;
 import domain.Answer;
-import domain.Manager;
+import domain.TeamManager;
 
 @Service
 @Transactional
@@ -45,7 +45,7 @@ public class AnswerService {
 		final Answer a = new Answer();
 		final Announcement an = this.announcementService.findOne(varId);
 		a.setAnnouncement(an);
-		a.setManager((Manager) this.actorService.findByPrincipal());
+		a.setTeamManager((TeamManager) this.actorService.findByPrincipal());
 		a.setMoment(new Date(System.currentTimeMillis() - 1));
 
 		return a;
@@ -64,7 +64,7 @@ public class AnswerService {
 		Assert.notNull(a);
 
 		//Assertion that the user modifying this answer has the correct privilege.
-		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getManager().getId());
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getTeamManager().getId());
 
 		final Answer saved = this.answerRepository.save(a);
 
@@ -75,7 +75,7 @@ public class AnswerService {
 		Assert.notNull(a);
 
 		//Assertion that the user deleting this answer has the correct privilege.
-		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getManager().getId());
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getTeamManager().getId());
 
 		this.answerRepository.delete(a);
 	}
@@ -104,7 +104,7 @@ public class AnswerService {
 			throw new ValidationException();
 
 		//Assertion that the user modifying this answer has the correct privilege.
-		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getManager().getId());
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getTeamManager().getId());
 
 		return result;
 
