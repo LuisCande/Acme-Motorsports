@@ -17,7 +17,7 @@
 		<spring:message code="master.page.cancel.confirm" var="msgConfirm" />
 
 <div>
-	<a href="#"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
+	<a href="#"><img src="images/logo.png" height="240" width="600" alt="Acme Motorsports Co., Inc." /></a>
 </div>
 
 <div>
@@ -120,8 +120,12 @@
 					<li class="arrow"></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.worldChampionship.list" /></a></li>
+					<li><a href="forecast/raceDirector/list.do"><spring:message
+								code="master.page.raceDirector.forecast.list" /></a></li>
 				</ul>
+				
 			</li>
+			
 		</security:authorize>
 		<security:authorize access="hasRole('RIDER')">
 			<li><a href="worldChampionship/list.do"><spring:message

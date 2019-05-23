@@ -65,12 +65,8 @@
 
 		<acme:textbox code="message.subject" path="subject" />
 		<br />
-
-
 		<acme:textarea code="message.body" path="body" />
 		<br />
-
-
 		<acme:textarea code="message.tags" path="tags" />
 		<br />
 
