@@ -67,8 +67,8 @@
 		<bean class="converters.GrandPrixToStringConverter" />
 		<bean class="converters.StringToGrandPrixConverter" />
 		
-		<bean class="converters.ManagerToStringConverter" />
-		<bean class="converters.StringToManagerConverter" />
+		<bean class="converters.TeamManagerToStringConverter" />
+		<bean class="converters.StringToTeamManagerConverter" />
 		
 		<bean class="converters.MeetingToStringConverter" />
 		<bean class="converters.StringToMeetingConverter" />

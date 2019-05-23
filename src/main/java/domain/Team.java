@@ -24,16 +24,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Team extends DomainEntity {
 
 	//Attributes
-	private String	name;
-	private Date	moment;
-	private Integer	contractYears;
-	private String	colours;
-	private String	logo;
-	private String	factory;
-	private Integer	yearBudget;
+	private String		name;
+	private Date		moment;
+	private Integer		contractYears;
+	private String		colours;
+	private String		logo;
+	private String		factory;
+	private Integer		yearBudget;
 
 	//Relationships
-	private Manager	manager;
+	private TeamManager	manager;
 
 
 	//Getters
@@ -81,7 +81,7 @@ public class Team extends DomainEntity {
 	@Valid
 	@NotNull
 	@OneToOne(optional = false)
-	public Manager getManager() {
+	public TeamManager getTeamManager() {
 		return this.manager;
 	}
 
@@ -113,7 +113,7 @@ public class Team extends DomainEntity {
 		this.yearBudget = yearBudget;
 	}
 
-	public void setManager(final Manager manager) {
+	public void setTeamManager(final TeamManager manager) {
 		this.manager = manager;
 	}
 

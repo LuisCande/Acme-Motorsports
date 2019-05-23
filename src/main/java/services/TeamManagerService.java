@@ -14,20 +14,20 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.ManagerRepository;
+import repositories.TeamManagerRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Manager;
+import domain.TeamManager;
 import forms.FormObjectManager;
 
 @Service
 @Transactional
-public class ManagerService {
+public class TeamManagerService {
 
 	//Managed repository ---------------------------------
 
 	@Autowired
-	private ManagerRepository	managerRepository;
+	private TeamManagerRepository	managerRepository;
 
 	//Supporting services --------------------------------
 
@@ -43,34 +43,34 @@ public class ManagerService {
 
 	//Simple CRUD Methods --------------------------------
 
-	public Manager create() {
+	public TeamManager create() {
 		final Authority a = new Authority();
-		a.setAuthority(Authority.MANAGER);
+		a.setAuthority(Authority.TEAMMANAGER);
 		final UserAccount account = new UserAccount();
 		account.setAuthorities(Arrays.asList(a));
 		account.setBanned(false);
 		account.setInactive(false);
 
-		final Manager manager = new Manager();
+		final TeamManager manager = new TeamManager();
 		manager.setSuspicious(false);
 		manager.setUserAccount(account);
 
 		return manager;
 	}
 
-	public Collection<Manager> findAll() {
+	public Collection<TeamManager> findAll() {
 		return this.managerRepository.findAll();
 	}
 
-	public Manager findOne(final int id) {
+	public TeamManager findOne(final int id) {
 		Assert.notNull(id);
 
 		return this.managerRepository.findOne(id);
 	}
 
-	public Manager save(final Manager manager) {
+	public TeamManager save(final TeamManager manager) {
 		Assert.notNull(manager);
-		Manager saved2;
+		TeamManager saved2;
 
 		//Assertion that the email is valid according to the checkUserEmail method.
 		Assert.isTrue(this.actorService.checkUserEmail(manager.getEmail()));
@@ -89,7 +89,7 @@ public class ManagerService {
 			Assert.isTrue(this.actorService.findByPrincipal().getId() == manager.getId());
 			saved2 = this.managerRepository.save(manager);
 		} else {
-			final Manager saved = this.managerRepository.save(manager);
+			final TeamManager saved = this.managerRepository.save(manager);
 			this.actorService.hashPassword(saved);
 			//TODO revisar que las boxes se crean bien
 			this.boxService.generateDefaultFolders(saved);
@@ -99,7 +99,7 @@ public class ManagerService {
 		return saved2;
 	}
 
-	public void delete(final Manager manager) {
+	public void delete(final TeamManager manager) {
 		Assert.notNull(manager);
 
 		//Assertion that the user deleting this manager has the correct privilege.
@@ -108,8 +108,8 @@ public class ManagerService {
 		this.managerRepository.delete(manager);
 	}
 
-	public Manager reconstruct(final FormObjectManager fom, final BindingResult binding) {
-		final Manager result = this.create();
+	public TeamManager reconstruct(final FormObjectManager fom, final BindingResult binding) {
+		final TeamManager result = this.create();
 
 		Assert.isTrue(fom.getAcceptedTerms());
 		Assert.isTrue(fom.getPassword().equals(fom.getSecondPassword()));
@@ -141,8 +141,8 @@ public class ManagerService {
 
 	}
 
-	public Manager reconstructPruned(final Manager manager, final BindingResult binding) {
-		Manager result;
+	public TeamManager reconstructPruned(final TeamManager manager, final BindingResult binding) {
+		TeamManager result;
 
 		result = this.managerRepository.findOne(manager.getId());
 

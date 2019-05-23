@@ -28,11 +28,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import domain.Actor;
 import domain.Administrator;
-import domain.Manager;
 import domain.RaceDirector;
 import domain.Representative;
 import domain.Rider;
 import domain.Sponsor;
+import domain.TeamManager;
 
 @Controller
 @RequestMapping("/download")
@@ -74,9 +74,9 @@ public class DownloadController {
 		final Authority authSponsor = new Authority();
 		authSponsor.setAuthority(Authority.SPONSOR);
 
-		final Manager manager = new Manager();
+		final TeamManager manager = new TeamManager();
 		final Authority authManager = new Authority();
-		authManager.setAuthority(Authority.MANAGER);
+		authManager.setAuthority(Authority.TEAMMANAGER);
 
 		final Administrator admin = new Administrator();
 		final Authority authAdmin = new Authority();
@@ -136,7 +136,7 @@ public class DownloadController {
 				final String json = mapper.writeValueAsString(sponsor);
 				paragraph.add(json);
 			} else if (principal.getUserAccount().getAuthorities().contains(authManager)) {
-				final Manager managerPrincipal = (Manager) this.actorService.findByPrincipal();
+				final TeamManager managerPrincipal = (TeamManager) this.actorService.findByPrincipal();
 				manager.setName(managerPrincipal.getName());
 				manager.setSurnames(managerPrincipal.getSurnames());
 				manager.setPhoto(managerPrincipal.getPhoto());

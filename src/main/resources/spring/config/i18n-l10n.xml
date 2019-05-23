@@ -24,15 +24,25 @@
 		<value>/views/security/messages</value>
 		<value>/views/welcome/messages</value>
 		<value>/views/legislation/messages</value>
+
 		<!-- Actors -->
 		<value>/views/administrator/messages</value>
 		<value>/views/rider/messages</value>
 		<value>/views/representative/messages</value>
 		<value>/views/raceDirector/messages</value>
-		<value>/views/manager/messages</value>
+		<value>/views/teamManager/messages</value>
 		<value>/views/sponsor/messages</value>
+		<value>/views/palmares/messages</value>
+		<value>/views/victory/messages</value>
+		<value>/views/fastestLap/messages</value>
+		<value>/views/podium/messages</value>
+		<value>/views/pole/messages</value>
+		<value>/views/worldChampion/messages</value>
 		<!-- Non-actors -->
 		<value>/views/worldChampionship/messages</value>
+		<value>/views/socialProfile/messages</value>
+    	<value>/views/message/messages</value>
+		<value>/views/box/messages</value>
 	</util:list>
 
 </beans>

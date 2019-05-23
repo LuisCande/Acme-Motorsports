@@ -53,8 +53,8 @@
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 					
-					<security:authorize access="hasRole('MANAGER')">
-						<li><a href="manager/edit.do"><spring:message
+					<security:authorize access="hasRole('TEAMMANAGER')">
+						<li><a href="teamManager/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 					
@@ -62,13 +62,14 @@
 						<li><a href="administrator/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
-					<%--
-					<li><a href="message/list.do"><spring:message
-								code="master.page.message.list" /> </a></li>
+
 					
+					<li><a href="box/list.do"><spring:message
+								code="master.page.box.list" /> </a></li>
+								
 					<li><a href="socialProfile/list.do"><spring:message
 								code="master.page.socialProfile" /> </a></li>
-						--%>		
+					
 					<li><a href="actor/deactivate.do" onclick="return confirm('${msgConfirm}')"><spring:message
 								code="master.page.deactivate" /> </a></li>
 								
@@ -133,6 +134,9 @@
 					
 			<li><a href="application/hacker/list.do"><spring:message
 					code="master.page.application.list" /></a></li>--%>
+					
+			<li><a href="palmares/rider/display.do"><spring:message
+					code="master.page.rider.palmares" /></a></li>
 		</security:authorize>
 		
 		
@@ -153,7 +157,7 @@
 								code="master.page.register.representative" /></a></li>
 					<li><a href="sponsor/create.do"><spring:message
 								code="master.page.register.sponsor" /></a></li>
-					<li><a href="manager/create.do"><spring:message
+					<li><a href="teamManager/create.do"><spring:message
 								code="master.page.register.manager" /></a></li>
 
 				</ul>

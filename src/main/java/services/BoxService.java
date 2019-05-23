@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 import repositories.BoxRepository;
 import domain.Actor;
 import domain.Box;
+import domain.Message;
 
 @Service
 @Transactional
@@ -30,6 +31,9 @@ public class BoxService {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private MessageService	messageService;
 
 	@Autowired
 	private Validator		validator;
@@ -94,16 +98,17 @@ public class BoxService {
 		//Assertion that the user deleting this folder has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == b.getActor().getId());
 
-		//final Actor actor = b.getActor();
-		final Collection<Box> childrenBoxes = this.getChildrenBoxesForABox(b.getId());
+		//Assertion it does not have children boxes.
+		Assert.isTrue(this.getChildrenBoxesForABox(b.getId()).isEmpty());
 
-		//Moving all children boxes messages to user´s trash box 
-		if (!childrenBoxes.isEmpty()) {
-			for (final Box box : childrenBoxes)
-				this.boxRepository.delete(box);
-			this.boxRepository.delete(b);
-		} else
-			this.boxRepository.delete(b);
+		final Box trash = this.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Trash box");
+
+		final Collection<Message> messages = this.messageService.getMessagesFromBox(b.getId());
+		if (!messages.isEmpty())
+			for (final Message m : messages)
+				this.messageService.move(m, trash);
+
+		this.boxRepository.delete(b);
 	}
 	//Other methods
 
@@ -182,11 +187,16 @@ public class BoxService {
 		return this.boxRepository.getSystemBoxByName(actorId, folderName);
 	}
 
-	//TODO same que en el repository. 
+	//Retrieves the listing of  boxes of a certain actor
+
+	public Collection<Box> getBoxesForAnActor(final int id) {
+		return this.boxRepository.getBoxesForAnActor(id);
+	}
+
 	//Find a box in an actor's collection given a certain message in that box.
-	//	public Collection<Box> getBoxesByMessageAndActor(final int actorId, final int messageId) {
-	//		return this.boxRepository.getBoxesByMessageAndActor(actorId, messageId);
-	//	}
+	public Box getBoxByMessageAndActor(final int messageId, final int actorId) {
+		return this.boxRepository.getBoxByMessageAndActor(messageId, actorId);
+	}
 
 	public void flush() {
 		this.boxRepository.flush();

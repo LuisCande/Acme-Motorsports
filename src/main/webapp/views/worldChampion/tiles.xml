@@ -16,14 +16,14 @@
       
 <tiles-definitions>
 
-	<definition name="manager/create" extends="master.page">	
-		<put-attribute name="title" value="Crear un manager" />
-		<put-attribute name="body" value="/views/manager/create.jsp" />
+	<definition name="worldChampion/display" extends="master.page">	
+		<put-attribute name="title" value="Display world championship" />
+		<put-attribute name="body" value="/views/worldChampion/display.jsp" />
 	</definition>
-	
-	<definition name="manager/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar datos de manager" />
-		<put-attribute name="body" value="/views/manager/edit.jsp" />
+
+	<definition name="worldChampion/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit world championship" />
+		<put-attribute name="body" value="/views/worldChampion/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>
