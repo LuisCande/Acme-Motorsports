@@ -123,7 +123,7 @@ public class AnnouncementService {
 		//Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
 		Assert.isTrue(gps.contains(result.getGrandPrix()));
 
-		if (result.getId() == 0 && result.getFinalMode() == true)
+		if (result.getFinalMode() == true)
 			this.messageService.announcementNotification(result);
 
 		return result;
