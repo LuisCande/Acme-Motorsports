@@ -128,10 +128,10 @@
 		<security:authorize access="hasRole('RIDER')">
 			<li><a href="worldChampionship/list.do"><spring:message
 					code="master.page.worldChampionship.rider.list" /></a></li>
-<%--  
-			<li><a href="finder/hacker/edit.do"><spring:message
+
+			<li><a href="finder/rider/edit.do"><spring:message
 					code="master.page.finder.edit" /></a></li>
-					
+					<%--  
 			<li><a href="application/hacker/list.do"><spring:message
 					code="master.page.application.list" /></a></li>--%>
 					

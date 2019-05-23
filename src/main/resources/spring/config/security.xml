@@ -63,8 +63,10 @@
  		<security:intercept-url pattern="/palmares/rider/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/victory/rider/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/fastestLap/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/finder/rider/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/podium/rider/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/pole/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/worldChampion/display/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/worldChampion/rider/**" access="hasRole('RIDER')" />
  		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
