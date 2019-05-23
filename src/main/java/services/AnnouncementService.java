@@ -138,4 +138,9 @@ public class AnnouncementService {
 		this.announcementRepository.flush();
 	}
 
+	//The minimum, the maximum, the average, and the standard deviation of the number of total announcements per grand prix
+	public Double[] minMaxAvgStddevAnnouncementsPerGrandPrix() {
+		return this.announcementRepository.minMaxAvgStddevAnnouncementsPerGrandPrix();
+	}
+
 }
