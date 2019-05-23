@@ -1116,7 +1116,7 @@
 		<property name="agree" value="false"/>
 		<property name="reason" value="I don't like this kind of announcements"/>
 		<property name="teamManager" ref="teamManager1"/>
-		<property name="announcement" ref="announcement1"/>
+		<property name="announcement" ref="announcement2"/>
 	</bean>
 	
 	<bean id="answer2" class="domain.Answer">
@@ -1125,7 +1125,7 @@
 		<property name="agree" value="true"/>
 		<property name="reason" value="I love this!"/>
 		<property name="teamManager" ref="teamManager1"/>
-		<property name="announcement" ref="announcement1"/>
+		<property name="announcement" ref="announcement2"/>
 	</bean>
 	
 	<bean id="answer3" class="domain.Answer">

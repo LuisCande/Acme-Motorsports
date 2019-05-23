@@ -36,6 +36,7 @@
 		<value>/views/podium/tiles.xml</value>
 		<value>/views/pole/tiles.xml</value>
 		<value>/views/worldChampion/tiles.xml</value>
+		<value>/views/announcement/tiles.xml</value>
 		<value>/views/forecast/tiles.xml</value>
 		<value>/views/teamManager/tiles.xml</value>
 		<!-- Non-actors -->
