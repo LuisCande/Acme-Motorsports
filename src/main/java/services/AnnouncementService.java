@@ -15,6 +15,7 @@ import org.springframework.validation.Validator;
 
 import repositories.AnnouncementRepository;
 import domain.Announcement;
+import domain.GrandPrix;
 import domain.RaceDirector;
 
 @Service
@@ -30,6 +31,12 @@ public class AnnouncementService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private GrandPrixService		grandPrixService;
+
+	@Autowired
+	private MessageService			messageService;
 
 	@Autowired
 	private Validator				validator;
@@ -56,11 +63,13 @@ public class AnnouncementService {
 
 	public Announcement save(final Announcement a) {
 		Assert.notNull(a);
+		final Collection<GrandPrix> gps = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		//Assertion that the user modifying this announcement has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getRaceDirector().getId());
 
-		//TODO Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
+		//Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
+		Assert.isTrue(gps.contains(a.getGrandPrix()));
 
 		final Announcement saved = this.announcementRepository.save(a);
 
@@ -68,16 +77,17 @@ public class AnnouncementService {
 
 		return saved;
 	}
-
 	public void delete(final Announcement a) {
 		Assert.notNull(a);
+
+		//Assertion that the announcement is not on final mode.
+		Assert.isTrue(a.getFinalMode() == false);
 
 		//Assertion that the user deleting this announcement has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getRaceDirector().getId());
 
 		this.announcementRepository.delete(a);
 	}
-
 	//Other methods--------------------------
 
 	//Reconstruct
@@ -85,18 +95,20 @@ public class AnnouncementService {
 	public Announcement reconstruct(final Announcement a, final BindingResult binding) {
 		Assert.notNull(a);
 		Announcement result;
+		final Collection<GrandPrix> gps = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		if (a.getId() == 0)
 			result = this.create();
-		else
+		else {
 			result = this.announcementRepository.findOne(a.getId());
-
-		//Assertion that the user modifying this announcement has the correct privilege.
-		Assert.isTrue(result.getFinalMode() == false);
+			//Assertion that the announcement is not on final mode.
+			Assert.isTrue(result.getFinalMode() == false);
+		}
 
 		result.setTitle(a.getTitle());
 		result.setDescription(a.getDescription());
 		result.setAttachments(a.getAttachments());
+		result.setGrandPrix(a.getGrandPrix());
 		result.setFinalMode(a.getFinalMode());
 		result.setMoment(new Date(System.currentTimeMillis() - 1));
 
@@ -108,8 +120,24 @@ public class AnnouncementService {
 		//Assertion that the user modifying this announcement has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRaceDirector().getId());
 
+		//Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
+		Assert.isTrue(gps.contains(result.getGrandPrix()));
+
+		if (result.getFinalMode() == true)
+			this.messageService.announcementNotification(result);
+
 		return result;
 
+	}
+
+	//Returns the announcements of a certain race director
+	public Collection<Announcement> getAnnouncementsOfARaceDirector(final int actorId) {
+		return this.announcementRepository.getAnnouncementsOfARaceDirector(actorId);
+	}
+
+	//Returns the announcements of a certain race director
+	public Collection<Announcement> getAnnouncementsOfAGrandPrix(final int grandPrixId) {
+		return this.announcementRepository.getAnnouncementsOfAGrandPrix(grandPrixId);
 	}
 
 	public void flush() {

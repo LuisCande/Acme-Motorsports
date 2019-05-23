@@ -110,6 +110,11 @@ public class AnswerService {
 
 	}
 
+	//Returns the answers of a certain announcement
+	public Collection<Answer> getAnswersOfAnAnnouncement(final int announcementId) {
+		return this.answerRepository.getAnswersOfAnAnnouncement(announcementId);
+	}
+
 	public void flush() {
 		this.answerRepository.flush();
 	}

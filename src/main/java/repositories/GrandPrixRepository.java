@@ -12,17 +12,28 @@ import domain.GrandPrix;
 @Repository
 public interface GrandPrixRepository extends JpaRepository<GrandPrix, Integer> {
 
+	//Returns the final and not cancelled grand prixes
 	@Query("select gp from GrandPrix gp where gp.finalMode='1' and gp.cancelled='0'")
 	Collection<GrandPrix> getPublicGrandPrixes();
 
+	//Returns the grand prixes of a category
 	@Query("select gp from GrandPrix gp where gp.finalMode='1' and gp.cancelled='0' and gp.category.id=?1")
 	Collection<GrandPrix> grandPrixesByCategory(int id);
 
+	//Returns the grand prixes of a circuit
 	@Query("select gp from GrandPrix gp where gp.finalMode='1' and gp.cancelled='0' and gp.circuit.id=?1")
 	Collection<GrandPrix> grandPrixesByCircuit(int id);
 
 	//The average, the minimum, the maximum, and the standard deviation of the maximum riders of the grand prixes.
 	@Query("select avg(g.maxRiders), min(g.maxRiders), max(g.maxRiders), stddev(g.maxRiders) from GrandPrix g")
 	Double[] avgMinMaxStddevMaxRidersPerGrandPrix();
+
+	//Returns the grand prixes without forecasts of a race director
+	@Query("select gp from GrandPrix gp join gp.worldChampionship w join w.raceDirector r where r.id = ?1 and gp not in (select f.grandPrix from Forecast f)")
+	Collection<GrandPrix> getGrandPrixesWithoutForecastOfARaceDirector(int actorId);
+
+	//Returns the grand prixes of a race director
+	@Query("select gp from GrandPrix gp join gp.worldChampionship w join w.raceDirector r where r.id = ?1")
+	Collection<GrandPrix> getGrandPrixesOfARaceDirector(int actorId);
 
 }
