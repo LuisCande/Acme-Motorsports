@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -176,5 +177,17 @@ public class RepresentativeService {
 	//Other methods
 	public void flush() {
 		this.representativeRepository.flush();
+	}
+
+	//The top representative in terms of fan clubs
+	public Collection<String> topRepresentativeInTermsOfFanClubs() {
+		Collection<String> results = new ArrayList<>();
+		final Collection<String> representatives = this.representativeRepository.topRepresentativeInTermsOfFanClubs();
+		final int maxResults = 1;
+		if (representatives.size() > maxResults)
+			results = new ArrayList<String>(((ArrayList<String>) representatives).subList(0, maxResults));
+		else
+			results = representatives;
+		return results;
 	}
 }

@@ -84,7 +84,7 @@
 		
 		
 		<security:authorize access="hasRole('ADMIN')">
-			<%--
+			
 			<li><a class="fNiv"> <spring:message
 						code="master.page.administrator" />
 			</a>
@@ -93,14 +93,16 @@
 					
 					<li><a href="administrator/dashboard.do"><spring:message
 								code="master.page.administrator.dashboard" /></a></li>
+								<%--
 					<li><a href="configuration/administrator/display.do"><spring:message
 								code="master.page.administrator.configuration" /></a></li>
 					<li><a href="administrator/flagSpam.do"><spring:message
 								code="master.page.administrator.flagSpam" /></a></li>
 					<li><a href="administrator/bannableList.do"><spring:message
 								code="master.page.administrator.bannableList" /></a></li>
+								--%>
 				</ul></li>
-				--%>
+				
 				<li><a class="fNiv"><spring:message
 						code="master.page.administrator.createAcc" /></a>
 				<ul>
