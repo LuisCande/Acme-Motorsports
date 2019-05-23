@@ -122,6 +122,8 @@
 								code="master.page.raceDirector.worldChampionship.list" /></a></li>
 					<li><a href="forecast/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.forecast.list" /></a></li>
+					<li><a href="announcement/raceDirector/list.do"><spring:message
+								code="master.page.raceDirector.announcement.list" /></a></li>
 				</ul>
 				
 			</li>
