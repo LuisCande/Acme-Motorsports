@@ -37,6 +37,7 @@
 		<value>/views/fastestLap/messages</value>
 		<value>/views/podium/messages</value>
 		<value>/views/pole/messages</value>
+		<value>/views/forecast/messages</value>
 		<value>/views/worldChampion/messages</value>
 		<!-- Non-actors -->
 		<value>/views/worldChampionship/messages</value>

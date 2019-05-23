@@ -1609,7 +1609,7 @@
 		<property name="grandPrix" ref="grandPrix1" />
 	</bean>	
 	
-	<bean id="forecast2" class="domain.Forecast">
+	<!-- <bean id="forecast2" class="domain.Forecast">
 		<property name="moment" value="15/11/2018 12:00" />
 		<property name="asphaltTemperature" value="50" />
 		<property name="ambientTemperature" value="27" />
@@ -1619,7 +1619,7 @@
 		<property name="cloudPercentage" value="12"/>
 		<property name="raceDirector" ref="raceDirector1" />
 		<property name="grandPrix" ref="grandPrix2" />
-	</bean>	
+	</bean>	 -->
 	
 	<bean id="forecast3" class="domain.Forecast">
 		<property name="moment" value="22/03/2014 11:00" />
