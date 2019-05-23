@@ -36,6 +36,9 @@ public class AnnouncementService {
 	private GrandPrixService		grandPrixService;
 
 	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -96,11 +99,11 @@ public class AnnouncementService {
 
 		if (a.getId() == 0)
 			result = this.create();
-		else
+		else {
 			result = this.announcementRepository.findOne(a.getId());
-
-		//Assertion that the announcement is not on final mode.
-		Assert.isTrue(result.getFinalMode() == false);
+			//Assertion that the announcement is not on final mode.
+			Assert.isTrue(result.getFinalMode() == false);
+		}
 
 		result.setTitle(a.getTitle());
 		result.setDescription(a.getDescription());
@@ -119,6 +122,9 @@ public class AnnouncementService {
 
 		//Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
 		Assert.isTrue(gps.contains(result.getGrandPrix()));
+
+		if (result.getId() == 0 && result.getFinalMode() == true)
+			this.messageService.announcementNotification(result);
 
 		return result;
 
