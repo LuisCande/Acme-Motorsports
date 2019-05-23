@@ -10,6 +10,7 @@
 
 package controllers.administrator;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.validation.ConstraintDefinitionException;
@@ -26,7 +27,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AdministratorService;
+import services.AnnouncementService;
+import services.ApplicationService;
+import services.CircuitService;
 import services.ConfigurationService;
+import services.GrandPrixService;
+import services.ManagerService;
+import services.RaceDirectorService;
+import services.RepresentativeService;
+import services.RiderService;
+import services.SectorService;
+import services.WorldChampionshipService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -40,13 +51,43 @@ public class AdministratorController extends AbstractController {
 	//Services
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService		administratorService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
+	private ConfigurationService		configurationService;
+
+	@Autowired
+	private WorldChampionshipService	worldChampionshipService;
+
+	@Autowired
+	private ApplicationService			applicationService;
+
+	@Autowired
+	private GrandPrixService			grandPrixService;
+
+	@Autowired
+	private RaceDirectorService			raceDirectorService;
+
+	@Autowired
+	private RiderService				riderService;
+
+	@Autowired
+	private AnnouncementService			announcementService;
+
+	@Autowired
+	private SectorService				sectorService;
+
+	@Autowired
+	private CircuitService				circuitService;
+
+	@Autowired
+	private ManagerService				managerService;
+
+	@Autowired
+	private RepresentativeService		representativeService;
 
 
 	//Creation
@@ -125,28 +166,33 @@ public class AdministratorController extends AbstractController {
 	}
 
 	//TODO Dashboard
-	//	//Dashboard
-	//
-	//	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	//	public ModelAndView dashboard() {
-	//		ModelAndView result;
-	//
-	//		result = new ModelAndView("administrator/dashboard");
-	//
-	//		result.addObject("avgMinMaxStddevPositionsPerCompany", Arrays.toString(this.positionService.avgMinMaxStddevPositionsPerCompany()));
-	//		result.addObject("avgMinMaxStddevApplicationsPerRookie", Arrays.toString(this.applicationService.avgMinMaxStddevApplicationsPerRookie()));
-	//		result.addObject("companiesWithMoreOfferedPossitions", this.companyService.companiesWithMoreOfferedPossitions());
-	//		result.addObject("rookiesWithMoreApplications", this.rookieService.rookiesWithMoreApplications());
-	//		result.addObject("avgMinMaxStddevOfferedSalaries", Arrays.toString(this.positionService.avgMinMaxStddevOfferedSalaries()));
-	//		result.addObject("bestAndWorstPositions", this.positionService.bestAndWorstPositions());
-	//		result.addObject("minMaxAvgStddevCurriculaPerRookie", Arrays.toString(this.curriculumService.minMaxAvgStddevCurriculaPerRookie()));
-	//		result.addObject("minMaxAvgStddevResultsFinders", Arrays.toString(this.finderService.minMaxAvgStddevResultsFinders()));
-	//		result.addObject("ratioEmptyVersusNonEmptyFinders", this.finderService.ratioEmptyVersusNonEmptyFinders());
-	//
-	//		result.addObject("requestURI", "administrator/dashboard.do");
-	//
-	//		return result;
-	//	}
+	//Dashboard
+
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView dashboard() {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/dashboard");
+
+		result.addObject("avgMinMaxStddevWorldChampionshipPerRaceDirector", Arrays.toString(this.worldChampionshipService.avgMinMaxStddevWorldChampionshipPerRaceDirector()));
+		result.addObject("avgMinMaxStddevApplicationsPerGrandPrix", Arrays.toString(this.applicationService.avgMinMaxStddevApplicationsPerGrandPrix()));
+		result.addObject("avgMinMaxStddevMaxRidersPerGrandPrix", Arrays.toString(this.grandPrixService.avgMinMaxStddevMaxRidersPerGrandPrix()));
+		result.addObject("ratioPendingApplications", this.applicationService.ratioPendingApplications());
+		result.addObject("ratioAcceptedApplications", this.applicationService.ratioAcceptedApplications());
+		result.addObject("ratioRejectedApplications", this.applicationService.ratioRejectedApplications());
+		result.addObject("raceDirectorsWich10PerCentMoreWorldChampionshipThanAvg", this.raceDirectorService.raceDirectorsWich10PerCentMoreWorldChampionshipThanAvg());
+		result.addObject("ridersWich10PerCentMoreApplicationsThanAvg", this.riderService.ridersWich10PerCentMoreApplicationsThanAvg());
+		result.addObject("minMaxAvgStddevAnnouncementsPerGrandPrix", Arrays.toString(this.announcementService.minMaxAvgStddevAnnouncementsPerGrandPrix()));
+		result.addObject("minMaxAvgStddevSectorsPerCircuit", Arrays.toString(this.sectorService.minMaxAvgStddevSectorsPerCircuit()));
+		result.addObject("ratioCircuitsWithSectors", this.circuitService.ratioCircuitsWithSectors());
+		result.addObject("topManagerInTermsOfAnswers", this.managerService.topManagerInTermsOfAnswers());
+		result.addObject("topThreeCircuitsInTermsOfSectors", this.circuitService.topThreeCircuitsInTermsOfSectors());
+		result.addObject("topRepresentativeInTermsOfFanClubs", this.representativeService.topRepresentativeInTermsOfFanClubs());
+
+		result.addObject("requestURI", "administrator/dashboard.do");
+
+		return result;
+	}
 
 	//TODO Flag spammers
 	//	//Flag spam
