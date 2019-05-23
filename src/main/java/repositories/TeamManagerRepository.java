@@ -13,6 +13,6 @@ import domain.TeamManager;
 public interface TeamManagerRepository extends JpaRepository<TeamManager, Integer> {
 
 	//The top manager in terms of answers
-	@Query("select u.username from Answer a join a.manager m join m.userAccount u group by m order by count(m) desc")
+	@Query("select u.username from Answer a join a.teamManager m join m.userAccount u group by m order by count(m) desc")
 	Collection<String> topManagerInTermsOfAnswers();
 }

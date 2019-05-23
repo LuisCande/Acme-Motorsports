@@ -32,11 +32,11 @@ import services.ApplicationService;
 import services.CircuitService;
 import services.ConfigurationService;
 import services.GrandPrixService;
-import services.ManagerService;
 import services.RaceDirectorService;
 import services.RepresentativeService;
 import services.RiderService;
 import services.SectorService;
+import services.TeamManagerService;
 import services.WorldChampionshipService;
 import controllers.AbstractController;
 import domain.Actor;
@@ -84,7 +84,7 @@ public class AdministratorController extends AbstractController {
 	private CircuitService				circuitService;
 
 	@Autowired
-	private ManagerService				managerService;
+	private TeamManagerService			managerService;
 
 	@Autowired
 	private RepresentativeService		representativeService;
