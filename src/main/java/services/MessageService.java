@@ -17,9 +17,12 @@ import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
 import domain.Actor;
+import domain.Announcement;
 import domain.Box;
 import domain.Configuration;
 import domain.Message;
+import domain.Priority;
+import domain.Rider;
 
 @Service
 @Transactional
@@ -37,6 +40,9 @@ public class MessageService {
 
 	@Autowired
 	private BoxService				boxService;
+
+	@Autowired
+	private RiderService			riderService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -192,23 +198,21 @@ public class MessageService {
 		this.save(m);
 	}
 
-	//TODO Sends a message to the member associated to an request.
+	public void announcementNotification(final Announcement a) {
+		Assert.notNull(a);
+		final Collection<Rider> riders = this.riderService.getRidersWhoHasAppliedToAGrandPrix(a.getGrandPrix().getId());
 
-	//	public void requestStatusNotification(final Request r) {
-	//		Assert.notNull(r);
-	//
-	//		final Member m = r.getMember();
-	//
-	//		final Message msg = this.create();
-	//		msg.setSubject("Request status changed / El estado de la solicitud ha cambiado");
-	//		msg.setBody("Your request status has been changed / El estado de tu solicitud ha sido cambiado.");
-	//		msg.setPriority("HIGH");
-	//		msg.setTags("Request status / Estado de la solicitud");
-	//		msg.setSent(new Date(System.currentTimeMillis() - 1));
-	//
-	//		this.send(msg, m);
-	//
-	//	}
+		final Message msg = this.create();
+		msg.setSubject("Announcement published / Anuncio publicado");
+		msg.setBody("A new announcement of the grand prix has been published  / Se ha publicado un nuevo anuncio sobre el gran premio.");
+		msg.setPriority(Priority.HIGH);
+		msg.setTags("ANNOUNCEMENT, PUBLISHED, NEW / ANUNCIO, PUBLICADO, NUEVO");
+		msg.setSent(new Date(System.currentTimeMillis() - 1));
+
+		if (!riders.isEmpty())
+			for (final Rider r : riders)
+				this.send(msg, r);
+	}
 
 	// TODO Sends a message to the member associated to an request.
 	//	public void newEnrolmentNotification(final Enrolment e) {

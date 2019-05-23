@@ -19,4 +19,8 @@ public interface RiderRepository extends JpaRepository<Rider, Integer> {
 	@Query("select u.username from Rider r join r.userAccount u where (select count(a) from Application a where a.status='1' and a.rider.id=r.id)>(select avg((select count(a1) from Application a1 where a1.status='1' and a1.rider.id=r1.id)*1.) from Rider r1)*1.1 order by (select count(a) from Application a where a.status='1' and a.rider.id=r.id)*1. desc")
 	Collection<String> ridersWich10PerCentMoreApplicationsThanAvg();
 
+	//Returns all riders who has applied to a given grand prix
+	@Query("select r from Application a join a.rider r where a.grandPrix.id=?1")
+	Collection<Rider> getRidersWhoHasAppliedToAGrandPrix(int grandPrixId);
+
 }
