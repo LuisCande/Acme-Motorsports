@@ -11,21 +11,39 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import domain.Category;
+import domain.Circuit;
+import domain.WorldChampionship;
+
 public class FormObjectGrandPrix {
 
-	private String	description;
-	private Date	startDate;
-	private Integer	maxRiders;
-	private Integer	raceLaps;
-	private Date	raceStartMoment;
-	private Date	raceEndMoment;
-	private String	qualName;
-	private Integer	qualDuration;
-	private Date	qualStartMoment;
-	private Date	qualEndMoment;
+	private Integer				grandPrixId;
+	private WorldChampionship	worldChampionship;
+	private String				description;
+	private Date				startDate;
+	private Date				endDate;
+	private Category			category;
+	private Circuit				circuit;
+	private Integer				maxRiders;
+	private Integer				raceLaps;
+	private Date				raceStartMoment;
+	private Date				raceEndMoment;
+	private String				qualName;
+	private Integer				qualDuration;
+	private Date				qualStartMoment;
+	private Date				qualEndMoment;
 
 
 	//Getters
+
+	public Integer getGrandPrixId() {
+		return this.grandPrixId;
+	}
+
+	@NotNull
+	public WorldChampionship getWorldChampionship() {
+		return this.worldChampionship;
+	}
 
 	@NotBlank
 	public String getDescription() {
@@ -37,6 +55,23 @@ public class FormObjectGrandPrix {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartDate() {
 		return this.startDate;
+	}
+
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	@NotNull
+	public Category getCategory() {
+		return this.category;
+	}
+
+	@NotNull
+	public Circuit getCircuit() {
+		return this.circuit;
 	}
 
 	@Min(0)
@@ -100,6 +135,10 @@ public class FormObjectGrandPrix {
 		this.startDate = startDate;
 	}
 
+	public void setEndDate(final Date endDate) {
+		this.endDate = endDate;
+	}
+
 	public void setMaxRiders(final Integer maxRiders) {
 		this.maxRiders = maxRiders;
 	}
@@ -123,5 +162,21 @@ public class FormObjectGrandPrix {
 	}
 	public void setQualEndMoment(final Date qualEndMoment) {
 		this.qualEndMoment = qualEndMoment;
+	}
+
+	public void setGrandPrixId(final Integer grandPrixId) {
+		this.grandPrixId = grandPrixId;
+	}
+
+	public void setCategory(final Category category) {
+		this.category = category;
+	}
+
+	public void setCircuit(final Circuit circuit) {
+		this.circuit = circuit;
+	}
+
+	public void setWorldChampionship(final WorldChampionship worldChampionship) {
+		this.worldChampionship = worldChampionship;
 	}
 }
