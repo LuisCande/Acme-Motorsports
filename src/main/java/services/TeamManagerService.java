@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -176,5 +177,19 @@ public class TeamManagerService {
 	//Other methods
 	public void flush() {
 		this.managerRepository.flush();
+	}
+
+	//The top manager in terms of answers
+	public Collection<String> topManagerInTermsOfAnswers() {
+		Collection<String> results = new ArrayList<>();
+
+		final Collection<String> managers = this.managerRepository.topManagerInTermsOfAnswers();
+		final int maxResults = 1;
+		if (managers.size() > maxResults)
+			results = new ArrayList<String>(((ArrayList<String>) managers).subList(0, maxResults));
+		else
+			results = managers;
+
+		return results;
 	}
 }

@@ -103,7 +103,7 @@ public class MessageController extends AbstractController {
 		try {
 			message = this.messageService.reconstruct(message, binding);
 		} catch (final ValidationException oops) {
-			return this.createCreateModelAndView(message, "message.form.error");
+			return this.createCreateModelAndView(message, "message.validation.error");
 		} catch (final Throwable oops) {
 			return this.createCreateModelAndView(message, "message.commit.error");
 		}

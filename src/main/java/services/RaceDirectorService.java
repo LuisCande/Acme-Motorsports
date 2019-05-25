@@ -179,7 +179,7 @@ public class RaceDirectorService {
 	}
 
 	//The listing of race directors who have published at least 10% more grand prixes than the average, ordered by number of applications
-	public Collection<RaceDirector> raceDirectorsWich10PerCentMoreWorldChampionshipThanAvg() {
+	public Collection<String> raceDirectorsWich10PerCentMoreWorldChampionshipThanAvg() {
 		return this.raceDirectorRepository.raceDirectorsWich10PerCentMoreWorldChampionshipThanAvg();
 	}
 }

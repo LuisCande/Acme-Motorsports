@@ -30,11 +30,21 @@
 		<value>/views/representative/tiles.xml</value>
 		<value>/views/raceDirector/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/palmares/tiles.xml</value>
+		<value>/views/victory/tiles.xml</value>
+		<value>/views/fastestLap/tiles.xml</value>
+		<value>/views/podium/tiles.xml</value>
+		<value>/views/pole/tiles.xml</value>
+		<value>/views/worldChampion/tiles.xml</value>
+		<value>/views/announcement/tiles.xml</value>
+		<value>/views/forecast/tiles.xml</value>
 		<value>/views/teamManager/tiles.xml</value>
 		<!-- Non-actors -->
 		<value>/views/worldChampionship/tiles.xml</value>
+		<value>/views/socialProfile/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
 		<value>/views/box/tiles.xml</value>
+		<value>/views/finder/tiles.xml</value>
 	</util:list>
 
 </beans>

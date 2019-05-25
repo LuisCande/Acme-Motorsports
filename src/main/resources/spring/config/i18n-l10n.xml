@@ -32,10 +32,20 @@
 		<value>/views/raceDirector/messages</value>
 		<value>/views/teamManager/messages</value>
 		<value>/views/sponsor/messages</value>
+		<value>/views/palmares/messages</value>
+		<value>/views/victory/messages</value>
+		<value>/views/fastestLap/messages</value>
+		<value>/views/podium/messages</value>
+		<value>/views/pole/messages</value>
+		<value>/views/forecast/messages</value>
+		<value>/views/announcement/messages</value>
+		<value>/views/worldChampion/messages</value>
 		<!-- Non-actors -->
 		<value>/views/worldChampionship/messages</value>
+		<value>/views/socialProfile/messages</value>
     	<value>/views/message/messages</value>
 		<value>/views/box/messages</value>
+		<value>/views/finder/messages</value>
 	</util:list>
 
 </beans>

@@ -48,11 +48,6 @@
 
 		<acme:submit name="save" code="box.save" />
 
-		<jstl:if test="${box.id!=0}">
-			<input type="submit" name="delete" value="${delete}"
-				onclick="return confirm('${confirm}')" />&nbsp;
-	</jstl:if>
-
 		<acme:cancel url="box/list.do" code="box.cancel" />
 	</form:form>
 

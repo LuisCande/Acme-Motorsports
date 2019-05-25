@@ -224,15 +224,16 @@ public class GrandPrixService {
 		return res;
 
 	}
-
+	//Returns the final and not cancelled grand prixes
 	public Collection<GrandPrix> getPublicGrandPrixes() {
 		return this.grandPrixRepository.getPublicGrandPrixes();
 	}
-
+	//Returns the grand prixes of a category
 	public Collection<GrandPrix> grandPrixesByCategory(final int id) {
 		return this.grandPrixRepository.grandPrixesByCategory(id);
 	}
 
+	//Returns the grand prixes of a circuit
 	Collection<GrandPrix> grandPrixesByCircuit(final int id) {
 		return this.grandPrixRepository.grandPrixesByCircuit(id);
 	}
@@ -241,5 +242,13 @@ public class GrandPrixService {
 	public Double[] avgMinMaxStddevMaxRidersPerGrandPrix() {
 		return this.grandPrixRepository.avgMinMaxStddevMaxRidersPerGrandPrix();
 	}
+	//Returns the grand prixes without forecasts of a race director
+	public Collection<GrandPrix> getGrandPrixesWithoutForecastOfARaceDirector(final int actorId) {
+		return this.grandPrixRepository.getGrandPrixesWithoutForecastOfARaceDirector(actorId);
+	}
 
+	//Returns the grand prixes of a race director
+	public Collection<GrandPrix> getGrandPrixesOfARaceDirector(final int actorId) {
+		return this.grandPrixRepository.getGrandPrixesOfARaceDirector(actorId);
+	}
 }

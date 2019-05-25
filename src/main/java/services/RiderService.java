@@ -16,7 +16,6 @@ import org.springframework.validation.Validator;
 import repositories.RiderRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.RaceDirector;
 import domain.Rider;
 import forms.FormObjectRider;
 
@@ -191,8 +190,13 @@ public class RiderService {
 		return this.riderRepository.getRiderByFinder(id);
 	}
 
+	//Returns all riders who has applied to a given grand prix
+	public Collection<Rider> getRidersWhoHasAppliedToAGrandPrix(final int grandPrixId) {
+		return this.riderRepository.getRidersWhoHasAppliedToAGrandPrix(grandPrixId);
+	}
+
 	//The listing of riders who have got accepted at least 10% more applications than the average, ordered by number of applications
-	public Collection<RaceDirector> ridersWich10PerCentMoreApplicationsThanAvg() {
+	public Collection<String> ridersWich10PerCentMoreApplicationsThanAvg() {
 		return this.riderRepository.ridersWich10PerCentMoreApplicationsThanAvg();
 	}
 }

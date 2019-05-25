@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.ValidationException;
@@ -90,6 +91,23 @@ public class CircuitService {
 
 	public void flush() {
 		this.circuitRepository.flush();
+	}
+
+	//The ratio of circuits with at least a sector
+	public Double ratioCircuitsWithSectors() {
+		return this.circuitRepository.ratioCircuitsWithSectors();
+	}
+
+	//The top-three circuits in terms of sectors
+	public Collection<String> topThreeCircuitsInTermsOfSectors() {
+		Collection<String> results = new ArrayList<>();
+		final Collection<String> circuits = this.circuitRepository.topThreeCircuitsInTermsOfSectors();
+		final int maxResults = 3;
+		if (circuits.size() > maxResults)
+			results = new ArrayList<String>(((ArrayList<String>) circuits).subList(0, maxResults));
+		else
+			results = circuits;
+		return results;
 	}
 
 }

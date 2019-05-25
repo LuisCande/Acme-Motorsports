@@ -98,28 +98,17 @@ public class BoxService {
 		//Assertion that the user deleting this folder has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == b.getActor().getId());
 
-		//final Actor actor = b.getActor();
-		final Collection<Box> childrenBoxes = this.getChildrenBoxesForABox(b.getId());
+		//Assertion it does not have children boxes.
+		Assert.isTrue(this.getChildrenBoxesForABox(b.getId()).isEmpty());
 
 		final Box trash = this.getSystemBoxByName(this.actorService.findByPrincipal().getId(), "Trash box");
 
-		//Moving all children boxes messages to user´s trash box 
-		if (!childrenBoxes.isEmpty()) {
-			for (final Box box : childrenBoxes) {
-				final Collection<Message> messages = this.messageService.getMessagesFromBox(box.getId());
-				if (!messages.isEmpty())
-					for (final Message m : messages)
-						this.messageService.move(m, trash);
-				this.boxRepository.delete(box);
-			}
-			this.boxRepository.delete(b);
-		} else {
-			final Collection<Message> messages = this.messageService.getMessagesFromBox(b.getId());
-			if (!messages.isEmpty())
-				for (final Message m : messages)
-					this.messageService.move(m, trash);
-			this.boxRepository.delete(b);
-		}
+		final Collection<Message> messages = this.messageService.getMessagesFromBox(b.getId());
+		if (!messages.isEmpty())
+			for (final Message m : messages)
+				this.messageService.move(m, trash);
+
+		this.boxRepository.delete(b);
 	}
 	//Other methods
 

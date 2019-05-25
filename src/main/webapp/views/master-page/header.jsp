@@ -17,7 +17,7 @@
 		<spring:message code="master.page.cancel.confirm" var="msgConfirm" />
 
 <div>
-	<a href="#"><img src="images/logo.png" alt="Sample Co., Inc." /></a>
+	<a href="#"><img src="images/logo.png" height="240" width="600" alt="Acme Motorsports Co., Inc." /></a>
 </div>
 
 <div>
@@ -66,10 +66,10 @@
 					
 					<li><a href="box/list.do"><spring:message
 								code="master.page.box.list" /> </a></li>
-					<%--			
+								
 					<li><a href="socialProfile/list.do"><spring:message
 								code="master.page.socialProfile" /> </a></li>
-					--%>
+					
 					<li><a href="actor/deactivate.do" onclick="return confirm('${msgConfirm}')"><spring:message
 								code="master.page.deactivate" /> </a></li>
 								
@@ -84,7 +84,7 @@
 		
 		
 		<security:authorize access="hasRole('ADMIN')">
-			<%--
+			
 			<li><a class="fNiv"> <spring:message
 						code="master.page.administrator" />
 			</a>
@@ -93,14 +93,16 @@
 					
 					<li><a href="administrator/dashboard.do"><spring:message
 								code="master.page.administrator.dashboard" /></a></li>
+								<%--
 					<li><a href="configuration/administrator/display.do"><spring:message
 								code="master.page.administrator.configuration" /></a></li>
 					<li><a href="administrator/flagSpam.do"><spring:message
 								code="master.page.administrator.flagSpam" /></a></li>
 					<li><a href="administrator/bannableList.do"><spring:message
 								code="master.page.administrator.bannableList" /></a></li>
+								--%>
 				</ul></li>
-				--%>
+				
 				<li><a class="fNiv"><spring:message
 						code="master.page.administrator.createAcc" /></a>
 				<ul>
@@ -120,18 +122,27 @@
 					<li class="arrow"></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.worldChampionship.list" /></a></li>
+					<li><a href="forecast/raceDirector/list.do"><spring:message
+								code="master.page.raceDirector.forecast.list" /></a></li>
+					<li><a href="announcement/raceDirector/list.do"><spring:message
+								code="master.page.raceDirector.announcement.list" /></a></li>
 				</ul>
+				
 			</li>
+			
 		</security:authorize>
 		<security:authorize access="hasRole('RIDER')">
 			<li><a href="worldChampionship/list.do"><spring:message
 					code="master.page.worldChampionship.rider.list" /></a></li>
-<%--  
-			<li><a href="finder/hacker/edit.do"><spring:message
+
+			<li><a href="finder/rider/edit.do"><spring:message
 					code="master.page.finder.edit" /></a></li>
-					
+					<%--  
 			<li><a href="application/hacker/list.do"><spring:message
 					code="master.page.application.list" /></a></li>--%>
+					
+			<li><a href="palmares/rider/display.do"><spring:message
+					code="master.page.rider.palmares" /></a></li>
 		</security:authorize>
 		
 		
