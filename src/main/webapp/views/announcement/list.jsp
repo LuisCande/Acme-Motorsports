@@ -31,6 +31,7 @@
 <spring:message code="announcement.formatDate" var="formatDate" />
 <spring:message code="announcement.edit" var="edit" />
 <spring:message code="announcement.delete" var="delete" />
+<spring:message code="announcement.confirm" var="msgConfirm" />
 <spring:message code="announcement.create" var="create" />
 <spring:message code="announcement.display" var="display" />
 
@@ -79,7 +80,7 @@
 					<spring:param name="varId" value="${row.id}" />
 				</spring:url>
 			<jstl:if test="${row.finalMode eq false}">
-				<a href="${deleteUrl}"><jstl:out value="${delete}" /></a>
+				<a href="${deleteUrl}" onclick="return confirm('${msgConfirm}')"><jstl:out value="${delete}" /></a>
 				</jstl:if>
 		</display:column>
 
