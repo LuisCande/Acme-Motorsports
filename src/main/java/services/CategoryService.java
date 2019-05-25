@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 
 import repositories.CategoryRepository;
 import domain.Category;
+import exceptions.GenericException;
 
 @Service
 @Transactional
@@ -24,8 +25,10 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository	categoryRepository;
 
+	//Supported services
+
 	@Autowired
-	private ActorService		actorService;
+	private GrandPrixService	grandPrixService;
 
 	@Autowired
 	private Validator			validator;
@@ -55,11 +58,8 @@ public class CategoryService {
 		//Since the only category without parent must be the root "CATEGORY", all others must have c parent ID.
 		Assert.notNull(c.getParent());
 
-		//TODO Implementar esta regla de negocio con query: Business rule: two categories with the same parent cannot have the same name.
-
 		final Category saved = this.categoryRepository.save(c);
 
-		this.actorService.checkSpam(saved.getName());
 		return saved;
 	}
 
@@ -67,9 +67,14 @@ public class CategoryService {
 		Assert.notNull(c);
 
 		//The root category should not be deleted.
-		Assert.isTrue(!(c.getParent() == null));
+		Assert.isTrue(c.getParent() != null);
 
-		//TODO Implementar query que devuelva aquellas category que tengan como padre a c y eliminarlas antes que c
+		//Assertion to make sure that the category isn't assigned to any grand prix.
+		Assert.isTrue(this.grandPrixService.grandPrixesByCategory(c.getId()).isEmpty());
+
+		if (!this.childrenOf(c.getId()).isEmpty())
+			for (final Category cat : this.childrenOf(c.getId()))
+				this.delete(cat);
 
 		this.categoryRepository.delete(c);
 
@@ -78,6 +83,9 @@ public class CategoryService {
 	public Category reconstruct(final Category c, final BindingResult binding) {
 		Assert.notNull(c);
 		Category result;
+
+		//Assertion to make sure that the category 
+		Assert.isTrue(this.checkCategoryName(c));
 
 		if (c.getId() == 0)
 			result = this.create();
@@ -93,9 +101,8 @@ public class CategoryService {
 			throw new ValidationException();
 
 		//Since the only category without parent must be the root "CATEGORY", all others must have c parent ID.
-		Assert.notNull(result.getParent());
-
-		//TODO Implementar esta regla de negocio con query: Business rule: two categories with the same parent cannot have the same name.
+		if (c.getParent() == null)
+			throw new GenericException();
 
 		return result;
 
@@ -103,6 +110,27 @@ public class CategoryService {
 
 	public void flush() {
 		this.categoryRepository.flush();
+	}
+
+	//Check name
+	private Boolean checkCategoryName(final Category c) {
+		Boolean res = true;
+
+		final Collection<Category> categories = this.findAll();
+
+		for (final Category cat : categories)
+			if (c.getParent() == cat.getParent() && c.getName().equals(cat.getName())) {
+				res = false;
+				break;
+			}
+		return res;
+	}
+
+	//Motion and queries
+
+	//Retrieves the listing of categories for a certain parent category
+	public Collection<Category> childrenOf(final int id) {
+		return this.categoryRepository.childrenOf(id);
 	}
 
 }

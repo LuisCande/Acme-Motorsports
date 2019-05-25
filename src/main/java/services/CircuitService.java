@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.CircuitRepository;
+import security.Authority;
 import domain.Circuit;
 
 @Service
@@ -26,6 +27,12 @@ public class CircuitService {
 	private CircuitRepository	circuitRepository;
 
 	//Supporting service
+
+	@Autowired
+	private ActorService		actorService;
+
+	@Autowired
+	private GrandPrixService	grandPrixService;
 
 	@Autowired
 	private Validator			validator;
@@ -50,6 +57,12 @@ public class CircuitService {
 	public Circuit save(final Circuit c) {
 		Assert.notNull(c);
 
+		final Authority a = new Authority();
+		a.setAuthority(Authority.RACEDIRECTOR);
+
+		//Assertion that the user modifying this task has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
+
 		final Circuit saved = this.circuitRepository.save(c);
 
 		return saved;
@@ -57,6 +70,16 @@ public class CircuitService {
 
 	public void delete(final Circuit c) {
 		Assert.notNull(c);
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.RACEDIRECTOR);
+
+		//Assertion that the user modifying this task has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
+
+		//Assertion to make sure the circuit is not assigned to any grand prixes
+		Assert.isTrue(this.grandPrixService.grandPrixesByCircuit(c.getId()).isEmpty());
+
 		this.circuitRepository.delete(c);
 	}
 
@@ -84,6 +107,12 @@ public class CircuitService {
 
 		if (binding.hasErrors())
 			throw new ValidationException();
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.RACEDIRECTOR);
+
+		//Assertion that the user modifying this task has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
 
 		return result;
 
