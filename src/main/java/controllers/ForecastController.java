@@ -12,7 +12,7 @@ import services.ForecastService;
 import domain.Forecast;
 
 @Controller
-@RequestMapping("forecast/")
+@RequestMapping("forecast")
 public class ForecastController extends AbstractController {
 
 	//Services
