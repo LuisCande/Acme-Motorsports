@@ -40,7 +40,7 @@
 
 		<form:hidden path="id" />
 		
-		<acme:textarea code="announcement.title" path="title" />
+		<acme:textbox code="announcement.title" path="title" />
 		<acme:textarea code="announcement.description" path="description" />
 		<acme:textarea code="announcement.attachments" path="attachments" />
 		<acme:select code="announcement.grandPrix" path="grandPrix"

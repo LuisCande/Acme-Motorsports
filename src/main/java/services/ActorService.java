@@ -16,7 +16,6 @@ import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
 import domain.Actor;
-import domain.Configuration;
 
 @Service
 @Transactional
@@ -30,11 +29,8 @@ public class ActorService {
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
 
+
 	//Supporting services --------------------------------
-
-	@Autowired
-	private ConfigurationService	configurationService;
-
 
 	//
 	//	@Autowired
@@ -289,26 +285,6 @@ public class ActorService {
 			a.getUserAccount().setBanned(false);
 		if (ban == false)
 			a.getUserAccount().setBanned(true);
-	}
-
-	//Spam method
-	//TODO Hay que implementarlo en los servicios
-	public boolean checkSpam(final String s) {
-		final Configuration c = this.configurationService.findAll().iterator().next();
-		boolean isSpam = false;
-		if (s == null || StringUtils.isWhitespace(s))
-			return isSpam;
-		else {
-			for (final String e : c.getSpamWords())
-				if (s.contains(e)) {
-					isSpam = true;
-					final Actor a = this.findByPrincipal();
-					a.setSuspicious(true);
-					this.actorRepository.save(a);
-
-				}
-			return isSpam;
-		}
 	}
 
 	//Ancillary methods

@@ -80,9 +80,10 @@
 				
 				</ul>
 			</li>
+			
 		</security:authorize>
 		
-		
+		<!-- Admin -->
 		<security:authorize access="hasRole('ADMIN')">
 			
 			<li><a class="fNiv"> <spring:message
@@ -104,6 +105,17 @@
 				</ul></li>
 				
 				<li><a class="fNiv"><spring:message
+						code="master.page.list" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="circuit/list.do"><spring:message
+								code="master.page.list.circuit" /></a></li>
+					<li><a href="category/administrator/list.do"><spring:message
+								code="master.page.list.category" /></a></li>
+				</ul>
+				</li>
+				
+				<li><a class="fNiv"><spring:message
 						code="master.page.administrator.createAcc" /></a>
 				<ul>
 					<li class="arrow"></li>
@@ -113,27 +125,43 @@
 		</security:authorize>
 		
 		
-		
+		<!-- Race Director -->
 		<security:authorize access="hasRole('RACEDIRECTOR')">
-			<li><a class="fNiv"> <spring:message
-						code="master.page.raceDirector" />
-			</a>
+				
+				<li><a class="fNiv"><spring:message
+						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="circuit/list.do"><spring:message
+								code="master.page.list.circuit" /></a></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.worldChampionship.list" /></a></li>
 					<li><a href="forecast/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.forecast.list" /></a></li>
 					<li><a href="announcement/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.announcement.list" /></a></li>
+								
 				</ul>
 				
 			</li>
-			
 		</security:authorize>
+		
+		<!-- Rider -->
 		<security:authorize access="hasRole('RIDER')">
-			<li><a href="worldChampionship/list.do"><spring:message
-					code="master.page.worldChampionship.rider.list" /></a></li>
+		
+		<!-- Lista para logeados -->
+			<li><a class="fNiv"><spring:message
+						code="master.page.list" /></a>
+				<ul>
+					<li class="arrow"></li>
+				<li><a href="circuit/list.do"><spring:message
+								code="master.page.list.circuit" /></a></li>
+				<li><a href="worldChampionship/list.do"><spring:message
+								code="master.page.worldChampionship.rider.list" /></a></li>
+				
+				</ul>
+			</li>
+		
 
 			<li><a href="finder/rider/edit.do"><spring:message
 					code="master.page.finder.edit" /></a></li>
@@ -146,7 +174,7 @@
 		</security:authorize>
 		
 		
-		
+		<!-- Anonymous -->
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			
@@ -167,8 +195,19 @@
 								code="master.page.register.manager" /></a></li>
 
 				</ul>
+			</li>
 				
-				</security:authorize>
+			<!-- Lista de anonimos -->
+			<li><a class="fNiv"><spring:message
+					code="master.page.list" /></a>
+				<ul>
+					<li class="arrow"></li>
+						<li><a href="circuit/list.do"><spring:message
+									code="master.page.list.circuit" /></a></li>
+			
+				</ul>
+			</li>
+		</security:authorize>
 		
 		
 	</ul>

@@ -38,13 +38,16 @@
 		<security:intercept-url pattern="/security/login.do" access="permitAll" />
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" />
 		<security:intercept-url pattern="/welcome/**" access="permitAll" /> 
+		
+		
 		<security:intercept-url pattern="/rider/**" access="permitAll" />
 		<security:intercept-url pattern="/raceDirector/**" access="permitAll" />
-
 		<security:intercept-url pattern="/representative/**" access="permitAll" />
 		<security:intercept-url pattern="/teamManager/**" access="permitAll" />
 		<security:intercept-url pattern="/sponsor/**" access="permitAll" />
+		
 		<security:intercept-url pattern="/worldChampionship/**" access="permitAll" />
+		<security:intercept-url pattern="/circuit/**" access="permitAll" />
  		
  		<!-- Authenticated -->
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
@@ -55,11 +58,13 @@
 		
 		<!-- Administrator -->
 		<security:intercept-url pattern="/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/category/administrator/**" access="hasRole('ADMIN')" />
 		
 		<!-- Race Director -->
 		<security:intercept-url pattern="/worldChampionship/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		<security:intercept-url pattern="/forecast/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		<security:intercept-url pattern="/announcement/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
+ 		<security:intercept-url pattern="/circuit/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		
  		<!-- Rider -->
  		<security:intercept-url pattern="/palmares/**" access="hasRole('RIDER')" />

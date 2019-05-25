@@ -92,7 +92,7 @@ public class BoxController extends AbstractController {
 
 		box = this.boxService.findOne(varId);
 		//Assertion the user has the correct privilege
-		if (box.getActor().getId() != this.actorService.findByPrincipal().getId())
+		if (box.isSystem() || box.getActor().getId() != this.actorService.findByPrincipal().getId())
 			return new ModelAndView("redirect:/welcome/index.do");
 
 		Assert.notNull(box);
@@ -136,7 +136,7 @@ public class BoxController extends AbstractController {
 		box = this.boxService.findOne(varId);
 
 		//Assertion the user has the correct privilege
-		if (box.getActor().getId() != this.actorService.findByPrincipal().getId())
+		if (box.isSystem() || box.getActor().getId() != this.actorService.findByPrincipal().getId())
 			return new ModelAndView("redirect:/welcome/index.do");
 
 		try {
@@ -169,6 +169,8 @@ public class BoxController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Box box, final String messageCode) {
 		ModelAndView result;
 		final Collection<Box> boxes = this.boxService.getBoxesForAnActor(this.actorService.findByPrincipal().getId());
+		if (boxes.contains(box))
+			boxes.remove(box);
 
 		result = new ModelAndView("box/edit");
 		result.addObject("box", box);

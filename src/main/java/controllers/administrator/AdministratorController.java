@@ -195,17 +195,17 @@ public class AdministratorController extends AbstractController {
 	}
 
 	//TODO Flag spammers
-	//	//Flag spam
-	//	@RequestMapping(value = "/flagSpam", method = RequestMethod.GET)
-	//	public ModelAndView flagSpam() {
-	//		final ModelAndView result;
+	// //Flag spam
+	// @RequestMapping(value = "/flagSpam", method = RequestMethod.GET)
+	// public ModelAndView flagSpam() {
+	// final ModelAndView result;
 	//
-	//		this.actorService.flagSpammers();
+	// this.actorService.flagSpammers();
 	//
-	//		result = new ModelAndView("redirect:/administrator/bannableList.do");
+	// result = new ModelAndView("redirect:/administrator/bannableList.do");
 	//
-	//		return result;
-	//	}
+	// return result;
+	// }
 
 	//Display actor
 	@RequestMapping(value = "/actorDisplay", method = RequestMethod.GET)
@@ -220,18 +220,18 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	//TODO Compute score 
-	//	//Compute score
-	//	@RequestMapping(value = "/computeScore", method = RequestMethod.GET)
-	//	public ModelAndView computeScore() {
-	//		final ModelAndView result;
+	//TODO Compute score
+	// //Compute score
+	// @RequestMapping(value = "/computeScore", method = RequestMethod.GET)
+	// public ModelAndView computeScore() {
+	// final ModelAndView result;
 	//
-	//		this.companyService.computeScoreForAll();
+	// this.companyService.computeScoreForAll();
 	//
-	//		result = new ModelAndView("redirect:/welcome/index.do");
+	// result = new ModelAndView("redirect:/welcome/index.do");
 	//
-	//		return result;
-	//	}
+	// return result;
+	// }
 
 	//Listing suspicious actors
 	@RequestMapping(value = "/bannableList", method = RequestMethod.GET)

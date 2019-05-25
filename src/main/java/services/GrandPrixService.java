@@ -44,9 +44,6 @@ public class GrandPrixService {
 	private QualifyingService	qualifyingService;
 
 	@Autowired
-	private GrandPrixService	grandPrixService;
-
-	@Autowired
 	private Validator			validator;
 
 
@@ -187,7 +184,7 @@ public class GrandPrixService {
 			this.raceService.save(r);
 
 		} else {
-			final GrandPrix gpx = this.grandPrixService.findOne(fogp.getGrandPrixId());
+			final GrandPrix gpx = this.findOne(fogp.getGrandPrixId());
 			final Race race = this.raceService.getRaceOfAGrandPrix(fogp.getGrandPrixId());
 			final Qualifying quali = this.qualifyingService.getQualifyingOfAGrandPrix(fogp.getGrandPrixId());
 

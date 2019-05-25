@@ -14,7 +14,7 @@ import services.AnnouncementService;
 import domain.Announcement;
 
 @Controller
-@RequestMapping("announcement/")
+@RequestMapping("announcement")
 public class AnnouncementController extends AbstractController {
 
 	//Services

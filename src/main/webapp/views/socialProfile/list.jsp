@@ -30,7 +30,7 @@
 <spring:message code="socialProfile.save" var="save" />
 <spring:message code="socialProfile.delete" var="delete" />
 <spring:message code="socialProfile.create" var="create" />
-<spring:message code="socialProfile.confirm.delete" var="confirm" />
+<spring:message code="socialProfile.confirm" var="msgConfirm" />
 <spring:message code="socialProfile.cancel" var="cancel" />
 <spring:message code="socialProfile.display" var="display" />
 
@@ -64,7 +64,7 @@
 	</spring:url>
 
 	<display:column title="${delete}">
-		<a href="${deleteUrl}"><jstl:out value="${delete}" /></a>
+		<a href="${deleteUrl}" onclick="return confirm('${msgConfirm}')"><jstl:out value="${delete}" /></a>
 	</display:column>
 	
 	<spring:url var="displayUrl"
