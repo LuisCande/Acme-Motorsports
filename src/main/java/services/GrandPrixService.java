@@ -17,8 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.GrandPrixRepository;
+import domain.Category;
 import domain.GrandPrix;
-import domain.WorldChampionship;
+import domain.Qualifying;
+import domain.Race;
+import forms.FormObjectGrandPrix;
 
 @Service
 @Transactional
@@ -27,28 +30,29 @@ public class GrandPrixService {
 	//Managed repository
 
 	@Autowired
-	private GrandPrixRepository			grandPrixRepository;
+	private GrandPrixRepository	grandPrixRepository;
 
 	//Supporting services
 
 	@Autowired
-	private WorldChampionshipService	worldChampionshipService;
+	private ActorService		actorService;
 
 	@Autowired
-	private ActorService				actorService;
+	private RaceService			raceService;
 
 	@Autowired
-	private Validator					validator;
+	private QualifyingService	qualifyingService;
+
+	@Autowired
+	private Validator			validator;
 
 
 	//Simple CRUD methods
 
-	public GrandPrix create(final int varId) {
+	public GrandPrix create() {
 		final GrandPrix g = new GrandPrix();
-		final WorldChampionship w = this.worldChampionshipService.findOne(varId);
 
 		g.setTicker(this.generateTicker());
-		g.setWorldChampionship(w);
 		g.setPublishDate(new Date(System.currentTimeMillis() - 1));
 
 		return g;
@@ -106,45 +110,153 @@ public class GrandPrixService {
 		this.grandPrixRepository.save(g);
 	}
 
-	//Reconstruct
+	//Reconstruct FormObject
 
-	public GrandPrix reconstruct(final GrandPrix g, final BindingResult binding) {
-		Assert.notNull(g);
-		GrandPrix result;
+	public FormObjectGrandPrix reconstruct(final FormObjectGrandPrix fogp, final BindingResult binding) {
+		Assert.notNull(fogp);
+		GrandPrix gp;
 
-		if (g.getId() == 0)
-			result = this.create(g.getWorldChampionship().getId());
-		else
-			result = this.grandPrixRepository.findOne(g.getId());
-
-		//Assertion that the user modifying this grand prix has the correct privilege.
-		Assert.isTrue(result.getFinalMode() == false);
-
-		result.setDescription(g.getDescription());
-		result.setStartDate(g.getStartDate());
-		result.setEndDate(g.getEndDate());
-		result.setMaxRiders(g.getMaxRiders());
-		result.setFinalMode(g.getFinalMode());
-		result.setCategory(g.getCategory());
-		result.setCircuit(g.getCircuit());
-
-		this.validator.validate(result, binding);
+		this.validator.validate(fogp, binding);
 
 		if (binding.hasErrors())
 			throw new ValidationException();
 
-		//Assertion that the user modifying this task has the correct privilege.
-		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
+		//Assertion that the user modifying this grand prix has the correct privilege.
+		if (fogp.getGrandPrixId() != 0 || fogp.getGrandPrixId() != null) {
+			gp = this.findOne(fogp.getGrandPrixId());
+			Assert.isTrue(this.actorService.findByPrincipal().getId() == gp.getWorldChampionship().getRaceDirector().getId());
+		}
 
-		//Assertion the start date must be after today
-		Assert.isTrue(g.getStartDate().after(new Date(System.currentTimeMillis() - 1)));
+		//Assertion that a grand prix categorry must belong to the same category as the world championship grand prixes if any
+		//TODO Aqui estaría bien poner un mensaje personalizado @Weo diciendo que la categoria debe ser la misma que la de los otros gps
+		if (fogp.getWorldChampionship() != null) {
+			final Collection<GrandPrix> prixes = this.grandPrixesByWorldChampionship(fogp.getWorldChampionship().getId());
+			if (!prixes.isEmpty()) {
+				final Category cat = prixes.iterator().next().getCategory();
+				if (fogp.getCategory() != null)
+					Assert.isTrue(cat.equals(fogp.getCategory()));
+			}
+		}
 
-		//Assertion the start date must be before end date
-		Assert.isTrue(g.getStartDate().before(g.getEndDate()));
+		//Assertion the grand prix start date must be after today and the grand prix end date must be after the start date
+		Assert.isTrue(fogp.getStartDate().after(new Date(System.currentTimeMillis() - 1)) && fogp.getStartDate().before(fogp.getEndDate()));
 
-		return result;
+		//Assertion the qualifying start date must be after race end date and before the grand prix end moment
+		Assert.isTrue(fogp.getQualStartMoment().after(fogp.getRaceEndMoment()) && fogp.getQualStartMoment().before(fogp.getQualEndMoment()) && fogp.getQualEndMoment().before(fogp.getEndDate()));
+
+		//Assertion the race start date must be after race end date and before the race end moment
+		Assert.isTrue(fogp.getRaceStartMoment().after(fogp.getStartDate()) && fogp.getRaceStartMoment().before(fogp.getRaceEndMoment()) && fogp.getRaceEndMoment().before(fogp.getQualStartMoment()));
+
+		return fogp;
 
 	}
+	public void reconstructPruned(final FormObjectGrandPrix fogp, final BindingResult binding) {
+		Assert.notNull(fogp);
+
+		if (fogp.getGrandPrixId() == 0 || fogp.getGrandPrixId() == null) {
+
+			//Creating grand prix
+			final GrandPrix gp = this.create();
+			gp.setWorldChampionship(fogp.getWorldChampionship());
+			gp.setDescription(fogp.getDescription());
+			gp.setStartDate(fogp.getStartDate());
+			gp.setEndDate(fogp.getEndDate());
+			gp.setFinalMode(false);
+			gp.setCancelled(false);
+			gp.setMaxRiders(fogp.getMaxRiders());
+			gp.setCategory(fogp.getCategory());
+			gp.setCircuit(fogp.getCircuit());
+			final GrandPrix saved = this.save(gp);
+
+			//Creating qualifying
+			final Qualifying q = this.qualifyingService.create(saved.getId());
+			q.setName(fogp.getQualName());
+			q.setDuration(fogp.getQualDuration());
+			q.setStartMoment(fogp.getQualStartMoment());
+			q.setEndMoment(fogp.getRaceEndMoment());
+			this.qualifyingService.save(q);
+
+			//Creating race
+			final Race r = this.raceService.create(saved.getId());
+			r.setLaps(fogp.getRaceLaps());
+			r.setStartMoment(fogp.getRaceStartMoment());
+			r.setEndMoment(fogp.getRaceEndMoment());
+			this.raceService.save(r);
+
+		} else {
+			final GrandPrix gpx = this.findOne(fogp.getGrandPrixId());
+			final Race race = this.raceService.getRaceOfAGrandPrix(fogp.getGrandPrixId());
+			final Qualifying quali = this.qualifyingService.getQualifyingOfAGrandPrix(fogp.getGrandPrixId());
+
+			//Editing grand prix
+			gpx.setWorldChampionship(fogp.getWorldChampionship());
+			gpx.setDescription(fogp.getDescription());
+			gpx.setStartDate(fogp.getStartDate());
+			gpx.setEndDate(fogp.getEndDate());
+			gpx.setFinalMode(false);
+			gpx.setCancelled(false);
+			gpx.setMaxRiders(fogp.getMaxRiders());
+			gpx.setCategory(fogp.getCategory());
+			gpx.setCircuit(fogp.getCircuit());
+			this.save(gpx);
+
+			//Editing qualifying
+			quali.setName(fogp.getQualName());
+			quali.setDuration(fogp.getQualDuration());
+			quali.setStartMoment(fogp.getQualStartMoment());
+			quali.setEndMoment(fogp.getRaceEndMoment());
+			this.qualifyingService.save(quali);
+
+			//Editing race
+			race.setLaps(fogp.getRaceLaps());
+			race.setStartMoment(fogp.getRaceStartMoment());
+			race.setEndMoment(fogp.getRaceEndMoment());
+			this.raceService.save(race);
+		}
+
+	}
+	//Reconstruct Pruned
+
+	//	public GrandPrix reconstruct(final GrandPrix g, final BindingResult binding) {
+	//		Assert.notNull(g);
+	//		GrandPrix result;
+	//
+	//		if (g.getId() == 0)
+	//			result = this.create(g.getWorldChampionship().getId());
+	//		else
+	//			result = this.grandPrixRepository.findOne(g.getId());
+	//
+	//		//Assertion that the user modifying this grand prix has the correct privilege.
+	//		Assert.isTrue(result.getFinalMode() == false);
+	//
+	//		result.setDescription(g.getDescription());
+	//		result.setStartDate(g.getStartDate());
+	//		result.setEndDate(g.getEndDate());
+	//		result.setFinalMode(false);
+	//		result.setCancelled(false);
+	//		result.setMaxRiders(g.getMaxRiders());
+	//		result.setFinalMode(g.getFinalMode());
+	//		result.setCategory(g.getCategory());
+	//		result.setCircuit(g.getCircuit());
+	//
+	//		this.validator.validate(result, binding);
+	//
+	//		if (binding.hasErrors())
+	//			throw new ValidationException();
+	//
+	//		//Assertion that the user modifying this task has the correct privilege.
+	//		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
+	//
+	//		//Assertion the start date must be after today
+	//		Assert.isTrue(g.getStartDate().after(new Date(System.currentTimeMillis() - 1)));
+	//
+	//		//Assertion the start date must be before end date
+	//		Assert.isTrue(g.getStartDate().before(g.getEndDate()));
+	//
+	//		return result;
+	//
+	//	}
+
 	//Other methods
 
 	//Generates the first half of the unique tickers.
@@ -164,15 +276,18 @@ public class GrandPrixService {
 
 	//Generates the second half of the unique tickers.
 	private String generateString() {
+		final Random c = new Random();
+		final Random t = new Random();
 		String randomString = "";
-		final int longitud = 4;
-		final Random r = new Random();
 		int i = 0;
+		final int longitud = 4;
 		while (i < longitud) {
-			final int rnd = r.nextInt(255);
-			final char c = (char) (rnd);
-			if ((c >= 'A' && c <= 'Z' && Character.isLetter(c) && Character.isUpperCase(c))) {
-				randomString += c;
+			final int rnd = t.nextInt(2);
+			if (rnd == 0) {
+				randomString += ((char) ((char) c.nextInt(10) + 48)); //numeros
+				i++;
+			} else if (rnd == 1) {
+				randomString += ((char) ((char) c.nextInt(26) + 65)); //mayus
 				i++;
 			}
 		}
@@ -181,11 +296,17 @@ public class GrandPrixService {
 
 	//Generates both halves of the unique ticker and joins them with a dash.
 	public String generateTicker() {
-		final String res = this.generateString() + "-" + this.generateNumber();
+		final String res = this.generateNumber() + "-" + this.generateString();
 		return res;
 
 	}
-	//Returns the final and not cancelled grand prixes
+
+	//Returns the grand prixes of a world championship
+
+	public Collection<GrandPrix> grandPrixesByWorldChampionship(final int id) {
+		return this.grandPrixRepository.grandPrixesByWorldChampionship(id);
+	}
+
 	public Collection<GrandPrix> getPublicGrandPrixes() {
 		return this.grandPrixRepository.getPublicGrandPrixes();
 	}
