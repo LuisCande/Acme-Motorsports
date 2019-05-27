@@ -5,7 +5,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -24,7 +23,6 @@ public class Sector extends DomainEntity {
 
 	//Relationships
 
-	private FanClub	fanClub;
 	private Circuit	circuit;
 
 
@@ -48,13 +46,6 @@ public class Sector extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToOne(optional = false)
-	public FanClub getFanClub() {
-		return this.fanClub;
-	}
-
-	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public Circuit getCircuit() {
 		return this.circuit;
@@ -71,10 +62,6 @@ public class Sector extends DomainEntity {
 
 	public void setColumns(final Integer columns) {
 		this.columns = columns;
-	}
-
-	public void setFanClub(final FanClub fanClub) {
-		this.fanClub = fanClub;
 	}
 
 	public void setCircuit(final Circuit circuit) {

@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -34,6 +35,7 @@ public class FanClub extends DomainEntity {
 
 	private Representative	representative;
 	private Rider			rider;
+	private Sector			sector;
 
 
 	//Getters
@@ -84,6 +86,12 @@ public class FanClub extends DomainEntity {
 		return this.rider;
 	}
 
+	@Valid
+	@OneToOne(optional = true)
+	public Sector getSector() {
+		return this.sector;
+	}
+
 	//Setters
 	public void setName(final String name) {
 		this.name = name;
@@ -115,6 +123,10 @@ public class FanClub extends DomainEntity {
 
 	public void setRider(final Rider rider) {
 		this.rider = rider;
+	}
+
+	public void setSector(final Sector sector) {
+		this.sector = sector;
 	}
 
 }

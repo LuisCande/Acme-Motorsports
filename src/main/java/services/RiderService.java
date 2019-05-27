@@ -211,4 +211,9 @@ public class RiderService {
 	public Collection<String> ridersWich10PerCentMoreApplicationsThanAvg() {
 		return this.riderRepository.ridersWich10PerCentMoreApplicationsThanAvg();
 	}
+
+	//Returns the riders without fan club
+	public Collection<Rider> getRiderWithoutFanClub() {
+		return this.riderRepository.getRiderWithoutFanClub();
+	}
 }
