@@ -42,6 +42,7 @@
 		<value>/views/palmares/messages</value>
 		<value>/views/victory/messages</value>
 		<value>/views/fanClub/messages</value>
+		<value>/views/grandPrix/messages</value>
 		<value>/views/fastestLap/messages</value>
 		<value>/views/podium/messages</value>
 		<value>/views/pole/messages</value>

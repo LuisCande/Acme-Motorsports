@@ -16,9 +16,11 @@ import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -35,10 +37,13 @@ import domain.GrandPrix;
 import domain.Qualifying;
 import domain.Race;
 import domain.WorldChampionship;
+import exceptions.CategoryException;
+import exceptions.DateException;
+import exceptions.RequiredException;
 import forms.FormObjectGrandPrix;
 
 @Controller
-@RequestMapping("/grandPrix/raceDirector/")
+@RequestMapping("grandPrix/raceDirector")
 public class GrandPrixRaceDirectorController extends AbstractController {
 
 	//Services
@@ -71,11 +76,11 @@ public class GrandPrixRaceDirectorController extends AbstractController {
 	public ModelAndView create() {
 
 		final ModelAndView result;
-		FormObjectGrandPrix fog;
+		FormObjectGrandPrix fogp;
 
-		fog = new FormObjectGrandPrix();
-
-		result = this.createEditModelAndView(fog);
+		fogp = new FormObjectGrandPrix();
+		fogp.setGrandPrixId(0);
+		result = this.createEditModelAndView(fogp);
 
 		return result;
 	}
@@ -89,117 +94,158 @@ public class GrandPrixRaceDirectorController extends AbstractController {
 		if (gp == null || gp.getWorldChampionship().getRaceDirector().getId() != this.actorService.findByPrincipal().getId())
 			return new ModelAndView("redirect:/welcome/index.do");
 
+		if (gp.getFinalMode() == true) {
+			final Collection<GrandPrix> grandPrixes = this.grandPrixService.grandPrixesByWorldChampionship(gp.getWorldChampionship().getId());
+			result = new ModelAndView("grandPrix/list");
+			result.addObject("message", "grandPrix.commit.error");
+			result.addObject("grandPrixes", grandPrixes);
+			result.addObject("requestURI", "grandPrix/list.do?varId=" + gp.getWorldChampionship().getId());
+			return result;
+		}
+
 		final Race race = this.raceService.getRaceOfAGrandPrix(varId);
 		final Qualifying quali = this.qualifyingService.getQualifyingOfAGrandPrix(varId);
 
-		final FormObjectGrandPrix fog = new FormObjectGrandPrix();
-		fog.setGrandPrixId(gp.getId());
-		fog.setWorldChampionship(gp.getWorldChampionship());
-		fog.setDescription(gp.getDescription());
-		fog.setEndDate(gp.getEndDate());
-		fog.setCategory(gp.getCategory());
-		fog.setCircuit(gp.getCircuit());
-		fog.setStartDate(gp.getStartDate());
-		fog.setMaxRiders(gp.getMaxRiders());
-		fog.setQualDuration(quali.getDuration());
-		fog.setQualEndMoment(quali.getEndMoment());
-		fog.setQualStartMoment(quali.getStartMoment());
-		fog.setQualName(quali.getName());
-		fog.setRaceEndMoment(race.getEndMoment());
-		fog.setRaceLaps(race.getLaps());
-		fog.setRaceStartMoment(race.getEndMoment());
+		final FormObjectGrandPrix fogp = new FormObjectGrandPrix();
+		fogp.setGrandPrixId(gp.getId());
+		fogp.setWorldChampionship(gp.getWorldChampionship());
+		fogp.setDescription(gp.getDescription());
+		fogp.setEndDate(gp.getEndDate());
+		fogp.setCategory(gp.getCategory());
+		fogp.setCircuit(gp.getCircuit());
+		fogp.setStartDate(gp.getStartDate());
+		fogp.setMaxRiders(gp.getMaxRiders());
+		fogp.setQualDuration(quali.getDuration());
+		fogp.setQualEndMoment(quali.getEndMoment());
+		fogp.setQualStartMoment(quali.getStartMoment());
+		fogp.setQualName(quali.getName());
+		fogp.setRaceEndMoment(race.getEndMoment());
+		fogp.setRaceLaps(race.getLaps());
+		fogp.setRaceStartMoment(race.getEndMoment());
 
-		result = this.createEditModelAndView(fog);
+		result = this.createEditModelAndView(fogp);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(FormObjectGrandPrix fog, final BindingResult binding) {
+	public ModelAndView save(FormObjectGrandPrix fogp, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
-			fog = this.grandPrixService.reconstruct(fog, binding);
+			fogp = this.grandPrixService.reconstruct(fogp, binding);
+		} catch (final RequiredException oops) {
+			return this.createEditModelAndView(fogp, "grandPrix.required.error");
+		} catch (final CategoryException oops) {
+			return this.createEditModelAndView(fogp, "grandPrix.category.error");
+		} catch (final DateException oops) {
+			return this.createEditModelAndView(fogp, "grandPrix.date.error");
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(fog);
+			return this.createEditModelAndView(fogp, "grandPrix.form.error");
 		} catch (final Throwable oops) {
-			return this.createEditModelAndView(fog, "grandPrix.commit.error");
+			return this.createEditModelAndView(fogp, "grandPrix.commit.error");
 		}
 		try {
-			this.grandPrixService.reconstructPruned(fog, binding);
+			this.grandPrixService.reconstructPruned(fogp, binding);
 			result = new ModelAndView("redirect:/worldChampionship/raceDirector/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(fog, "grandPrix.commit.error");
+			result = this.createEditModelAndView(fogp, "grandPrix.commit.error");
 		}
 		return result;
 	}
-	//	//Create POST
-	//	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
-	//	public ModelAndView save(final FormObjectAdministrator foa, final BindingResult binding) {
-	//		ModelAndView result;
-	//		Administrator administrator;
-	//
-	//		try {
-	//			administrator = this.administratorService.reconstruct(foa, binding);
-	//		} catch (final ConstraintDefinitionException oops) {
-	//			return this.createEditModelAndView(foa, "administrator.expirationDate.error");
-	//		} catch (final ValidationException oops) {
-	//			return this.createEditModelAndView(foa, "administrator.validation.error");
-	//		} catch (final Throwable oops) {
-	//			return result = this.createEditModelAndView(foa, "administrator.reconstruct.error");
-	//		}
-	//		try {
-	//			this.administratorService.save(administrator);
-	//			result = new ModelAndView("redirect:/welcome/index.do");
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(foa, "administrator.commit.error");
-	//		}
-	//		return result;
-	//	}
+	//Delete
 
-	//Ancillary methods
-
-	//	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fog) {
-	//		ModelAndView result;
-	//
-	//		result = this.createEditModelAndView(fog, null);
-	//
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fog, final String messageCode) {
-	//		ModelAndView result;
-	//
-	//		result = new ModelAndView("grandPrix/edit");
-	//		result.addObject("fog", fog);
-	//		result.addObject("message", messageCode);
-	//		result.addObject("requestURI", "grandPrix/create.do");
-	//
-	//		return result;
-	//
-	//	}
-
-	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fog) {
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int varId) {
 		ModelAndView result;
+		Collection<GrandPrix> grandPrixes;
+		GrandPrix grandPrix;
+		result = new ModelAndView("grandPrix/list");
 
-		result = this.createEditModelAndView(fog, null);
+		grandPrix = this.grandPrixService.findOne(varId);
+
+		if (grandPrix.getWorldChampionship().getRaceDirector().getId() != this.actorService.findByPrincipal().getId())
+			return new ModelAndView("redirect:/welcome/index.do");
+
+		try {
+			this.grandPrixService.delete(grandPrix);
+		} catch (final Throwable oops) {
+			result.addObject("message", "grandPrix.delete.error");
+
+		}
+		grandPrixes = this.grandPrixService.grandPrixesByWorldChampionship(grandPrix.getWorldChampionship().getId());
+
+		result = new ModelAndView("grandPrix/list");
+		result.addObject("grandPrixes", grandPrixes);
+		result.addObject("requestURI", "grandPrix/list.do");
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fog, final String messageCode) {
+	//Cancel 
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int varId) {
+		GrandPrix gp;
+		gp = this.grandPrixService.findOne(varId);
+		Assert.notNull(gp);
+
+		if (gp.getWorldChampionship().getRaceDirector().getId() != this.actorService.findByPrincipal().getId())
+			return new ModelAndView("redirect:/welcome/index.do");
+
+		final Collection<GrandPrix> grandPrixes = this.grandPrixService.grandPrixesByWorldChampionship(gp.getWorldChampionship().getId());
+
+		this.grandPrixService.cancel(gp);
+
+		final ModelAndView result = new ModelAndView("grandPrix/list");
+		result.addObject("grandPrixes", grandPrixes);
+		result.addObject("requestURI", "grandPrix/list.do?varId=" + gp.getWorldChampionship().getId());
+
+		return result;
+	}
+
+	//FinalMode 
+
+	@RequestMapping(value = "/finalMode", method = RequestMethod.GET)
+	public ModelAndView finalMode(@RequestParam final int varId) {
+		GrandPrix gp;
+		gp = this.grandPrixService.findOne(varId);
+		Assert.notNull(gp);
+
+		if (gp.getWorldChampionship().getRaceDirector().getId() != this.actorService.findByPrincipal().getId() || gp.getFinalMode() == true)
+			return new ModelAndView("redirect:/welcome/index.do");
+
+		final Collection<GrandPrix> grandPrixes = this.grandPrixService.grandPrixesByWorldChampionship(gp.getWorldChampionship().getId());
+		this.grandPrixService.finalMode(gp);
+
+		final ModelAndView result = new ModelAndView("grandPrix/list");
+
+		result.addObject("grandPrixes", grandPrixes);
+		result.addObject("requestURI", "grandPrix/list.do?varId=" + gp.getWorldChampionship().getId());
+
+		return result;
+	}
+	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fogp) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(fogp, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fogp, final String messageCode) {
 		final ModelAndView result;
 		final Collection<Circuit> circuits = this.circuitService.findAll();
 		final Collection<Category> categories = this.categoryService.findAll();
 		final Collection<WorldChampionship> worldChampionships = this.worldChampionshipService.worldChampionshipsFromRaceDirector(this.actorService.findByPrincipal().getId());
 
 		result = new ModelAndView("grandPrix/edit");
-		result.addObject("fog", fog);
+		result.addObject("fogp", fogp);
 		result.addObject("circuits", circuits);
 		result.addObject("worldChampionships", worldChampionships);
 		result.addObject("categories", categories);
 		result.addObject("message", messageCode);
-		result.addObject("requestURI", "grandPrix/edit.do");
+		result.addObject("requestURI", "grandPrix/raceDirector/edit.do");
 
 		return result;
 	}

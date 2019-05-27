@@ -134,7 +134,7 @@ public class AnnouncementRaceDirectorController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Announcement announcement, final String messageCode) {
 		ModelAndView result;
-		final Collection<GrandPrix> grandPrixes = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
+		final Collection<GrandPrix> grandPrixes = this.grandPrixService.getFinalAndNotCancelledGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		result = new ModelAndView("announcement/edit");
 		result.addObject("grandPrixes", grandPrixes);

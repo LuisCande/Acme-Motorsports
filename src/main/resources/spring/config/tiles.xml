@@ -42,6 +42,7 @@
 		<value>/views/victory/tiles.xml</value>
 		<value>/views/fastestLap/tiles.xml</value>
 		<value>/views/fanClub/tiles.xml</value>
+		<value>/views/grandPrix/tiles.xml</value>
 		<value>/views/podium/tiles.xml</value>
 		<value>/views/pole/tiles.xml</value>
 		<value>/views/forecast/tiles.xml</value>

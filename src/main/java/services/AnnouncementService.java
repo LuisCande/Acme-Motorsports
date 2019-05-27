@@ -63,7 +63,7 @@ public class AnnouncementService {
 
 	public Announcement save(final Announcement a) {
 		Assert.notNull(a);
-		final Collection<GrandPrix> gps = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
+		final Collection<GrandPrix> gps = this.grandPrixService.getFinalAndNotCancelledGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		//Assertion that the user modifying this announcement has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getRaceDirector().getId());
@@ -95,7 +95,7 @@ public class AnnouncementService {
 	public Announcement reconstruct(final Announcement a, final BindingResult binding) {
 		Assert.notNull(a);
 		Announcement result;
-		final Collection<GrandPrix> gps = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
+		final Collection<GrandPrix> gps = this.grandPrixService.getFinalAndNotCancelledGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		if (a.getId() == 0)
 			result = this.create();

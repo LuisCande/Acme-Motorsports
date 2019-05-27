@@ -114,7 +114,7 @@ public class ForecastRaceDirectorController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Forecast forecast, final String messageCode) {
 		ModelAndView result;
-		final Collection<GrandPrix> grandPrixes = this.grandPrixService.getGrandPrixesWithoutForecastOfARaceDirector(this.actorService.findByPrincipal().getId());
+		final Collection<GrandPrix> grandPrixes = this.grandPrixService.getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		result = new ModelAndView("forecast/edit");
 		result.addObject("grandPrixes", grandPrixes);

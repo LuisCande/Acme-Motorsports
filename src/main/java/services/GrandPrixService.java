@@ -2,6 +2,7 @@
 package services;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +22,9 @@ import domain.Category;
 import domain.GrandPrix;
 import domain.Qualifying;
 import domain.Race;
+import exceptions.CategoryException;
+import exceptions.DateException;
+import exceptions.RequiredException;
 import forms.FormObjectGrandPrix;
 
 @Service
@@ -30,21 +34,27 @@ public class GrandPrixService {
 	//Managed repository
 
 	@Autowired
-	private GrandPrixRepository	grandPrixRepository;
+	private GrandPrixRepository			grandPrixRepository;
 
 	//Supporting services
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private RaceService			raceService;
+	private RaceService					raceService;
 
 	@Autowired
-	private QualifyingService	qualifyingService;
+	private QualifyingService			qualifyingService;
 
 	@Autowired
-	private Validator			validator;
+	private MessageService				messageService;
+
+	@Autowired
+	private WorldChampionshipService	worldChampionshipService;
+
+	@Autowired
+	private Validator					validator;
 
 
 	//Simple CRUD methods
@@ -94,6 +104,11 @@ public class GrandPrixService {
 		//Assertion to make sure that the entity is not final
 		Assert.isTrue(g.getFinalMode() == false);
 
+		final Race race = this.raceService.getRaceOfAGrandPrix(g.getId());
+		final Qualifying qualifiying = this.qualifyingService.getQualifyingOfAGrandPrix(g.getId());
+
+		this.raceService.delete(race);
+		this.qualifyingService.delete(qualifiying);
 		this.grandPrixRepository.delete(g);
 	}
 
@@ -104,48 +119,74 @@ public class GrandPrixService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
 
 		g.setCancelled(true);
-
-		//TODO Meter el mensaje de notificacion 
-
 		this.grandPrixRepository.save(g);
+
+		this.messageService.cancelledGrandPrixNotification(g);
+
 	}
 
+	public void finalMode(final GrandPrix g) {
+		Assert.notNull(g);
+
+		//Assertion that the user deleting this task has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
+
+		g.setFinalMode(true);
+		this.grandPrixRepository.save(g);
+
+	}
 	//Reconstruct FormObject
 
-	public FormObjectGrandPrix reconstruct(final FormObjectGrandPrix fogp, final BindingResult binding) {
+	public FormObjectGrandPrix reconstruct(final FormObjectGrandPrix fogp, final BindingResult binding) throws ParseException {
 		Assert.notNull(fogp);
 		GrandPrix gp;
+
+		//Assertion a world championship, a circuit and a category has been provided
+		if (fogp.getCategory() == null || fogp.getCircuit() == null || fogp.getWorldChampionship() == null)
+			throw new RequiredException();
 
 		this.validator.validate(fogp, binding);
 
 		if (binding.hasErrors())
 			throw new ValidationException();
 
+		//Setting qualifying end moment with the duration provided
+		final long millisQuali = fogp.getQualStartMoment().getTime() + (fogp.getQualDuration() * 60000);
+		fogp.setQualEndMoment(new Date(millisQuali));
+
+		//Setting race start moment 1 day after qualifying end moment
+		final long millisQualiRace = fogp.getQualEndMoment().getTime() + 86400000;
+		fogp.setRaceStartMoment(new Date(millisQualiRace));
+
 		//Assertion that the user modifying this grand prix has the correct privilege.
-		if (fogp.getGrandPrixId() != 0 || fogp.getGrandPrixId() != null) {
+		if (fogp.getGrandPrixId() != 0) {
 			gp = this.findOne(fogp.getGrandPrixId());
 			Assert.isTrue(this.actorService.findByPrincipal().getId() == gp.getWorldChampionship().getRaceDirector().getId());
 		}
 
 		//Assertion that a grand prix categorry must belong to the same category as the world championship grand prixes if any
-		//TODO Aqui estaría bien poner un mensaje personalizado @Weo diciendo que la categoria debe ser la misma que la de los otros gps
-		if (fogp.getWorldChampionship() != null) {
-			final Collection<GrandPrix> prixes = this.grandPrixesByWorldChampionship(fogp.getWorldChampionship().getId());
-			if (!prixes.isEmpty()) {
-				final Category cat = prixes.iterator().next().getCategory();
-				if (fogp.getCategory() != null)
-					Assert.isTrue(cat.equals(fogp.getCategory()));
-			}
+		final Collection<GrandPrix> prixes = this.grandPrixesByWorldChampionship(fogp.getWorldChampionship().getId());
+		if (!prixes.isEmpty()) {
+			final Category cat = prixes.iterator().next().getCategory();
+			if (fogp.getCategory() != null)
+				if (!cat.equals(fogp.getCategory()))
+					throw new CategoryException();
 		}
 
+		//Assertion the world championship must be one of their world championships
+		Assert.isTrue(this.worldChampionshipService.worldChampionshipsFromRaceDirector(this.actorService.findByPrincipal().getId()).contains(fogp.getWorldChampionship()));
+
 		//Assertion the grand prix start date must be after today and the grand prix end date must be after the start date
-		Assert.isTrue(fogp.getStartDate().after(new Date(System.currentTimeMillis() - 1)) && fogp.getStartDate().before(fogp.getEndDate()));
+		if (fogp.getStartDate().before(new Date(System.currentTimeMillis() - 1)) || fogp.getStartDate().after(fogp.getEndDate()))
+			throw new DateException();
 
 		//Assertion the qualifying start date must be after race end date and before the grand prix end moment
-		Assert.isTrue(fogp.getQualStartMoment().after(fogp.getRaceEndMoment()) && fogp.getQualStartMoment().before(fogp.getQualEndMoment()) && fogp.getQualEndMoment().before(fogp.getEndDate()));
+		if (fogp.getQualStartMoment().before(fogp.getStartDate()) || fogp.getQualStartMoment().after(fogp.getQualEndMoment()) || fogp.getQualEndMoment().after(fogp.getEndDate()))
+			throw new DateException();
 
 		//Assertion the race start date must be after race end date and before the race end moment
-		Assert.isTrue(fogp.getRaceStartMoment().after(fogp.getStartDate()) && fogp.getRaceStartMoment().before(fogp.getRaceEndMoment()) && fogp.getRaceEndMoment().before(fogp.getQualStartMoment()));
+		if (fogp.getRaceStartMoment().before(fogp.getQualEndMoment()) || fogp.getRaceStartMoment().after(fogp.getRaceEndMoment()) || fogp.getRaceEndMoment().after(fogp.getEndDate()))
+			throw new DateException();
 
 		return fogp;
 
@@ -204,7 +245,7 @@ public class GrandPrixService {
 			quali.setName(fogp.getQualName());
 			quali.setDuration(fogp.getQualDuration());
 			quali.setStartMoment(fogp.getQualStartMoment());
-			quali.setEndMoment(fogp.getRaceEndMoment());
+			quali.setEndMoment(fogp.getQualEndMoment());
 			this.qualifyingService.save(quali);
 
 			//Editing race
@@ -325,8 +366,13 @@ public class GrandPrixService {
 		return this.grandPrixRepository.avgMinMaxStddevMaxRidersPerGrandPrix();
 	}
 	//Returns the grand prixes without forecasts of a race director
-	public Collection<GrandPrix> getGrandPrixesWithoutForecastOfARaceDirector(final int actorId) {
-		return this.grandPrixRepository.getGrandPrixesWithoutForecastOfARaceDirector(actorId);
+	public Collection<GrandPrix> getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(final int actorId) {
+		return this.grandPrixRepository.getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(actorId);
+	}
+
+	//Returns the final and not cancelled grand prixes of a race director
+	public Collection<GrandPrix> getFinalAndNotCancelledGrandPrixesOfARaceDirector(final int actorId) {
+		return this.grandPrixRepository.getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(actorId);
 	}
 
 	//Returns the grand prixes of a race director
