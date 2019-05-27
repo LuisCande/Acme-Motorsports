@@ -57,6 +57,14 @@
 			<a href="${displayUrl}"><jstl:out value="${display}" /></a>
 		</display:column>
 		
+		<display:column title="${grandPrixMsg}">
+				<spring:url var="grandPrixesUrl" value="grandPrix/list.do">
+					<spring:param name="varId" value="${row.id}" />
+				</spring:url>
+
+				<a href="${grandPrixesUrl}"><jstl:out value="${grandPrixMsg}" /></a>
+		</display:column>
+		
 </display:table>
 	<security:authorize access="hasRole('RACEDIRECTOR')">
 		<spring:url var="createUrl" value="worldChampionship/raceDirector/create.do"/>

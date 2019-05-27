@@ -1106,7 +1106,7 @@
 		<property name="attachments" value="http://www.twitter.com"/>
 		<property name="finalMode" value="false"/>
 		<property name="raceDirector" ref="raceDirector2"/>
-		<property name="grandPrix" ref="grandPrix2"/>
+		<property name="grandPrix" ref="grandPrix1"/>
 	</bean>
 	
 	<!-- Answer beans -->
@@ -1619,7 +1619,7 @@
 		<property name="cloudPercentage" value="12"/>
 		<property name="raceDirector" ref="raceDirector1" />
 		<property name="grandPrix" ref="grandPrix2" />
-	</bean>	 -->
+	</bean>	 
 	
 	<bean id="forecast3" class="domain.Forecast">
 		<property name="moment" value="22/03/2014 11:00" />
@@ -1631,7 +1631,7 @@
 		<property name="cloudPercentage" value="87"/>
 		<property name="raceDirector" ref="raceDirector2" />
 		<property name="grandPrix" ref="grandPrix3" />
-	</bean>	
+	</bean>	-->
 		
 	<!-- GrandPrix beans -->
 	<bean id="grandPrix1" class="domain.GrandPrix">
@@ -1781,7 +1781,7 @@
 	
 	<!-- Qualifying beans -->
 	<bean id="qualifying1" class="domain.Qualifying">
-		<property name="name" value="Qualifying 1 for Jerez" />
+		<property name="name" value="FP3" />
 		<property name="duration" value="70" />
 		<property name="startMoment" value="22/03/2014 11:15" />
 		<property name="endMoment" value="22/03/2014 12:25" />
@@ -1789,19 +1789,19 @@
 	</bean>
 	
 	<bean id="qualifying2" class="domain.Qualifying">
-		<property name="name" value="Qualifying 2 for Jerez" />
+		<property name="name" value="Q2" />
 		<property name="duration" value="70" />
-		<property name="startMoment" value="22/03/2014 13:00" />
-		<property name="endMoment" value="22/03/2014 14:10" />
-		<property name="grandPrix" ref="grandPrix1"/>
+		<property name="startMoment" value="25/03/2014 13:00" />
+		<property name="endMoment" value="25/03/2014 14:10" />
+		<property name="grandPrix" ref="grandPrix2"/>
 	</bean>
 	
 	<bean id="qualifying3" class="domain.Qualifying">
-		<property name="name" value="Qualifying 3 for Jerez" />
+		<property name="name" value="Q1" />
 		<property name="duration" value="100" />
 		<property name="startMoment" value="23/03/2014 11:15" />
 		<property name="endMoment" value="23/03/2014 12:55" />
-		<property name="grandPrix" ref="grandPrix1"/>
+		<property name="grandPrix" ref="grandPrix3"/>
 	</bean>
 	
 	<!-- Race beans -->
@@ -1817,6 +1817,13 @@
 		<property name="startMoment" value="30/03/2014 14:30" />
 		<property name="endMoment" value="30/03/2014 16:00" />
 		<property name="grandPrix" ref="grandPrix2"/>
+	</bean>
+	
+	<bean id="race3" class="domain.Race">
+		<property name="laps" value="16" />
+		<property name="startMoment" value="24/03/2014 14:30" />
+		<property name="endMoment" value="24/03/2014 15:00" />
+		<property name="grandPrix" ref="grandPrix3"/>
 	</bean>
 	
 	<!-- Sector beans -->

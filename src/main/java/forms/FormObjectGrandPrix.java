@@ -81,12 +81,11 @@ public class FormObjectGrandPrix {
 	}
 
 	@NotNull
-	@Min(15)
+	@Min(0)
 	public Integer getRaceLaps() {
 		return this.raceLaps;
 	}
 
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getRaceStartMoment() {
@@ -117,8 +116,6 @@ public class FormObjectGrandPrix {
 	public Date getQualStartMoment() {
 		return this.qualStartMoment;
 	}
-
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getQualEndMoment() {

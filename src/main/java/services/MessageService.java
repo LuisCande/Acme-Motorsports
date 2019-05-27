@@ -20,6 +20,7 @@ import domain.Actor;
 import domain.Announcement;
 import domain.Box;
 import domain.Configuration;
+import domain.GrandPrix;
 import domain.Message;
 import domain.Priority;
 import domain.Rider;
@@ -214,19 +215,21 @@ public class MessageService {
 				this.send(msg, r);
 	}
 
-	// TODO Sends a message to the member associated to an request.
-	//	public void newEnrolmentNotification(final Enrolment e) {
-	//		Assert.notNull(e);
-	//
-	//		final Message msg = this.create();
-	//		msg.setSubject("An enrolment has been registered / Se ha registrado una inscripcion");
-	//		msg.setBody("An enrolment has been registered / Se ha registrado una inscripcion.");
-	//		msg.setPriority("HIGH");
-	//		msg.setTags("Enrolment created / Inscripcion registrada");
-	//		msg.setSent(new Date(System.currentTimeMillis() - 1));
-	//
-	//		this.send(msg, e.getMember());
-	//	}
+	public void cancelledGrandPrixNotification(final GrandPrix g) {
+		Assert.notNull(g);
+		final Collection<Rider> riders = this.riderService.getRidersWhoHasAppliedToAGrandPrix(g.getId());
+
+		final Message msg = this.create();
+		msg.setSubject("Grand prix cancelled / Gran premio cancelado");
+		msg.setBody("The grand prix you applied to has been cancelled. / El gran premio que has solicitado se ha cancelado.");
+		msg.setPriority(Priority.HIGH);
+		msg.setTags("GRANDPRIX, CANCELLED, NEWS / GRANPREMIO, CANCELADO, NOTICIA");
+		msg.setSent(new Date(System.currentTimeMillis() - 1));
+
+		if (!riders.isEmpty())
+			for (final Rider r : riders)
+				this.send(msg, r);
+	}
 
 	// TODO Sends a message to the brotherhoods members when a parade is published.
 	//	public void paradePublished(final Parade p) {
