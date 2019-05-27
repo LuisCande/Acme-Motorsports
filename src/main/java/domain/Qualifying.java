@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -61,7 +61,7 @@ public class Qualifying extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	public GrandPrix getGrandPrix() {
 		return this.grandPrix;
 	}

@@ -32,7 +32,7 @@ public class Race extends DomainEntity {
 
 	//Getters
 	@NotNull
-	@Min(15)
+	@Min(0)
 	public Integer getLaps() {
 		return this.laps;
 	}

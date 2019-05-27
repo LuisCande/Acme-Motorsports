@@ -60,7 +60,7 @@ public class ForecastService {
 
 	public Forecast save(final Forecast f) {
 		Assert.notNull(f);
-		final Collection<GrandPrix> gps = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
+		final Collection<GrandPrix> gps = this.grandPrixService.getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		//Assertion that the user modifying this education record has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == f.getRaceDirector().getId());
@@ -80,7 +80,7 @@ public class ForecastService {
 	public Forecast reconstruct(final Forecast f, final BindingResult binding) {
 		Assert.notNull(f);
 		Forecast result;
-		final Collection<GrandPrix> gps = this.grandPrixService.getGrandPrixesOfARaceDirector(this.actorService.findByPrincipal().getId());
+		final Collection<GrandPrix> gps = this.grandPrixService.getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(this.actorService.findByPrincipal().getId());
 
 		if (f.getId() == 0) {
 			result = this.create();
