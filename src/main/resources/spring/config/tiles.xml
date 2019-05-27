@@ -25,6 +25,7 @@
 		<value>/views/welcome/tiles.xml</value>
 		<value>/views/legislation/tiles.xml</value>
 		<!-- Actors -->
+		<value>/views/actor/tiles.xml</value>
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/rider/tiles.xml</value>
 		<value>/views/representative/tiles.xml</value>

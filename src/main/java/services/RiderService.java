@@ -52,6 +52,7 @@ public class RiderService {
 
 		final Rider rider = new Rider();
 		rider.setSuspicious(false);
+		rider.setScore(0.0);
 		rider.setUserAccount(account);
 
 		return rider;
@@ -96,6 +97,17 @@ public class RiderService {
 		}
 
 		return saved2;
+	}
+
+	//Save from admin (used for the score)
+	public void saveFromAdmin(final Rider rider) {
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+
+		//Assertion to make sure that the user has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
+
+		this.riderRepository.save(rider);
 	}
 
 	public void delete(final Rider rider) {

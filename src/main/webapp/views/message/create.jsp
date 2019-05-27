@@ -49,8 +49,6 @@
 				<acme:select code="message.recipient" path="recipient"
 					items="${recipients}" itemLabel="userAccount.username"
 					id="recipients" />
-				<br />
-				<br />
 			</jstl:if>
 		</security:authorize>
 
@@ -59,16 +57,12 @@
 			<acme:select code="message.recipient" path="recipient"
 				items="${recipients}" itemLabel="userAccount.username"
 				id="recipients" />
-			<br />
 		</security:authorize>
 
 
 		<acme:textbox code="message.subject" path="subject" />
-		<br />
 		<acme:textarea code="message.body" path="body" />
-		<br />
 		<acme:textarea code="message.tags" path="tags" />
-		<br />
 
 		<form:label path="priority">
 			<jstl:out value="${priority}" />:

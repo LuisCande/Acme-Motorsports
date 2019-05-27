@@ -254,22 +254,20 @@ public class ActorService {
 		return result;
 	}
 
-	//TODO Spammers/suspicious
-	//	public void flagSpammers() {
-	//		final Collection<Actor> actors = this.findAll();
-	//		final Collection<Actor> suspiciousActors = this.bannableActors();
-	//
-	//		for (final Actor a : actors) {
-	//			a.setEvaluated(true);
-	//			if (suspiciousActors.contains(a)) {
-	//				a.setSpammer(true);
-	//				this.save(a);
-	//			} else {
-	//				a.setSpammer(false);
-	//				this.save(a);
-	//			}
-	//		}
-	//	}
+	//Flag spammers 
+	public void updateSpammers() {
+		final Collection<Actor> actors = this.findAll();
+		final Collection<Actor> bannableActors = this.bannableActors();
+
+		for (final Actor a : actors)
+			if (bannableActors.contains(a)) {
+				a.setSuspicious(true);
+				this.save(a);
+			} else {
+				a.setSuspicious(false);
+				this.save(a);
+			}
+	}
 
 	//Method to ban or unban an actor
 	public void BanOrUnban(final int actorId) {
@@ -311,5 +309,4 @@ public class ActorService {
 	public Collection<Actor> actorWithSentMessages() {
 		return this.actorRepository.actorWithSentMessages();
 	}
-
 }

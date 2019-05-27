@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import services.AdministratorService;
 import services.AnnouncementService;
@@ -32,6 +33,7 @@ import services.ApplicationService;
 import services.CircuitService;
 import services.ConfigurationService;
 import services.GrandPrixService;
+import services.MeetingService;
 import services.RaceDirectorService;
 import services.RepresentativeService;
 import services.RiderService;
@@ -42,6 +44,8 @@ import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Configuration;
+import domain.Representative;
+import domain.Rider;
 import forms.FormObjectAdministrator;
 
 @Controller
@@ -52,6 +56,9 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	private ActorService				actorService;
+
+	@Autowired
+	private MeetingService				meetingService;
 
 	@Autowired
 	private AdministratorService		administratorService;
@@ -194,18 +201,17 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	//TODO Flag spammers
-	// //Flag spam
-	// @RequestMapping(value = "/flagSpam", method = RequestMethod.GET)
-	// public ModelAndView flagSpam() {
-	// final ModelAndView result;
-	//
-	// this.actorService.flagSpammers();
-	//
-	// result = new ModelAndView("redirect:/administrator/bannableList.do");
-	//
-	// return result;
-	// }
+	//Flag spam
+	@RequestMapping(value = "/flagSpam", method = RequestMethod.GET)
+	public ModelAndView flagSpam() {
+		final ModelAndView result;
+
+		this.actorService.updateSpammers();
+
+		result = new ModelAndView("redirect:/administrator/bannableList.do");
+
+		return result;
+	}
 
 	//Display actor
 	@RequestMapping(value = "/actorDisplay", method = RequestMethod.GET)
@@ -213,25 +219,41 @@ public class AdministratorController extends AbstractController {
 		final ModelAndView result;
 
 		final Actor actor = this.actorService.findOne(varId);
-
+		Double score = 0.;
 		result = new ModelAndView("actor/display");
+
+		final Authority rider = new Authority();
+		rider.setAuthority(Authority.RIDER);
+
+		final Authority representative = new Authority();
+		representative.setAuthority(Authority.REPRESENTATIVE);
+
+		if (actor.getUserAccount().getAuthorities().contains(rider)) {
+			final Rider ridActor = (Rider) actor;
+			score = ridActor.getScore();
+			result.addObject("score", score);
+		} else if (actor.getUserAccount().getAuthorities().contains(representative)) {
+			final Representative repActor = (Representative) actor;
+			score = repActor.getScore();
+			result.addObject("score", score);
+		}
 		result.addObject("actor", actor);
 
 		return result;
 	}
 
-	//TODO Compute score
-	// //Compute score
-	// @RequestMapping(value = "/computeScore", method = RequestMethod.GET)
-	// public ModelAndView computeScore() {
-	// final ModelAndView result;
-	//
-	// this.companyService.computeScoreForAll();
-	//
-	// result = new ModelAndView("redirect:/welcome/index.do");
-	//
-	// return result;
-	// }
+	//Compute score
+	@RequestMapping(value = "/computeScore", method = RequestMethod.GET)
+	public ModelAndView computeScore() {
+		final ModelAndView result;
+
+		this.meetingService.computeScoreForAll();
+
+		result = new ModelAndView("redirect:/welcome/index.do");
+		result.addObject("message", "welcome.computeScore");
+
+		return result;
+	}
 
 	//Listing suspicious actors
 	@RequestMapping(value = "/bannableList", method = RequestMethod.GET)
