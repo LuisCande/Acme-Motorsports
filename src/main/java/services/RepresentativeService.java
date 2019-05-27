@@ -53,6 +53,7 @@ public class RepresentativeService {
 
 		final Representative representative = new Representative();
 		representative.setSuspicious(false);
+		representative.setScore(0.0);
 		representative.setUserAccount(account);
 
 		return representative;
@@ -97,6 +98,17 @@ public class RepresentativeService {
 		}
 
 		return saved2;
+	}
+
+	//Save from admin (used for the score)
+	public void saveFromAdmin(final Representative rep) {
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+
+		//Assertion to make sure that the user has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
+
+		this.representativeRepository.save(rep);
 	}
 
 	public void delete(final Representative representative) {
