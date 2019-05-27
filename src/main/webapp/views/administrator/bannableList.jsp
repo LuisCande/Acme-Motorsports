@@ -23,7 +23,6 @@
 
 <spring:message code="administrator.name" var="name" />
 <spring:message code="administrator.surnames" var="surnames" />
-<spring:message code="administrator.vatNumber" var="vatNumber" />
 <spring:message code="administrator.reminderMsg" var="msgReminder" />
 <spring:message code="administrator.return" var="msgReturn" />
 <spring:message code="administrator.actor.display" var="msgDisplay" />
@@ -50,8 +49,6 @@
 	
 	<display:column property="surnames" title="${surnames}" sortable="true" />
 	
-	<display:column property="vatNumber" title="${vatNumber}" sortable="true" />
-
 	<%-- Links towards display, apply, edit and cancel views --%>
 	
 	<spring:url var="banUrl"

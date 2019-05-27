@@ -1420,7 +1420,7 @@
 				<value>viagra</value>
 				<value>cialis</value>
 				<value>one million</value>
-				<value>you’ve been selected</value>
+				<value>you've been selected</value>
 				<value>Nigeria</value>
 				<value>sexo</value>
 				<value>un millón</value>
@@ -1440,9 +1440,9 @@
 				<value>terrific</value>
 				<value>beautiful</value>
 				<value>bueno</value>
-				<value>fantástico</value>
+				<value>fantastico</value>
 				<value>excelente</value>
-				<value>increíble</value>
+				<value>increible</value>
 				<value>genial</value>
 				<value>estupendo</value>
 				<value>hermoso</value>
@@ -1679,7 +1679,7 @@
 	<!-- Meeting beans -->
 	<bean id="meeting1" class="domain.Meeting">
 		<property name="moment" value="24/03/2014 17:30" />
-		<property name="comments" value="Come and meet your favorite rider." />
+		<property name="comments" value="Bueno genial malo fantastico" />
 		<property name="place" value="Yamaha boxes"/>
 		<property name="signatures" value="25" />
 		<property name="photos" value="20"/>
@@ -1691,7 +1691,7 @@
 		
 	<bean id="meeting2" class="domain.Meeting">
 		<property name="moment" value="30/03/2014 17:30" />
-		<property name="comments" value="Come and meet your favorite rider." />
+		<property name="comments" value="Mal malo bad" />
 		<property name="place" value="Yamaha boxes"/>
 		<property name="signatures" value="25" />
 		<property name="photos" value="20"/>
@@ -1703,7 +1703,7 @@
 	
 	<bean id="meeting3" class="domain.Meeting">
 		<property name="moment" value="06/04/2014 17:30" />
-		<property name="comments" value="I'll be on our boxes for 1 hour!" />
+		<property name="comments" value="Good fantatic bueno bien excelente" />
 		<property name="place" value="Yamaha boxes"/>
 		<property name="signatures" value="40" />
 		<property name="photos" value="25"/>

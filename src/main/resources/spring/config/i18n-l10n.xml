@@ -26,6 +26,7 @@
 		<value>/views/legislation/messages</value>
 
 		<!-- Actors -->
+		<value>/views/actor/messages</value>
 		<value>/views/administrator/messages</value>
 		<value>/views/rider/messages</value>
 		<value>/views/representative/messages</value>

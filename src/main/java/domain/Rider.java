@@ -45,6 +45,7 @@ public class Rider extends Actor {
 		return this.age;
 	}
 
+	@NotNull
 	public Double getScore() {
 		return this.score;
 	}
