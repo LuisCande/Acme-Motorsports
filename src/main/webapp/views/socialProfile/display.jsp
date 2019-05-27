@@ -23,9 +23,7 @@
 <spring:message code="socialProfile.socialNetwork" var="msgSocialNetwork"/>
 <spring:message code="socialProfile.profileLink" var="msgProfileLink"/>
 <spring:message code="socialProfile.edit" var="edit"/>
-<spring:message code="socialProfile.delete" var="delete"/>
-<spring:message code="socialProfile.confirm.delete" var="confirm" />
-
+<spring:message code="socialProfile.return" var="returnMsg" />
 
 
 <%-- Display the following information about the Social Profile: --%>
@@ -41,9 +39,5 @@
 	<jstl:out value="${msgProfileLink}" />:
 	<a href="${socialProfile.profileLink}"><jstl:out value="${socialProfile.profileLink}" /></a>
 	<br />
-	
-
-	
-	
-
-	
+	<br>
+	<a href="welcome/index.do"><jstl:out value="${returnMsg}" /></a>
