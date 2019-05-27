@@ -25,7 +25,6 @@
 <spring:message code="rider.phone" var="phone" />
 <spring:message code="rider.completeName" var="completeName" />
 <spring:message code="rider.socialProfiles" var="socialProfiles" />
-<spring:message code="rider.positions" var="positions" />
 <spring:message code="rider.display" var="display" />
 <spring:message code="rider.return" var="msgReturn" />
 

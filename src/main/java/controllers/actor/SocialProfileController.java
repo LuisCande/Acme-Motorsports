@@ -41,7 +41,7 @@ public class SocialProfileController extends AbstractController {
 
 		socialProfile = this.socialProfileService.findOne(varId);
 
-		if (socialProfile.getActor().getId() != this.actorService.findByPrincipal().getId())
+		if (socialProfile == null)
 			return new ModelAndView("redirect:/welcome/index.do");
 
 		result = new ModelAndView("socialProfile/display");
@@ -61,8 +61,26 @@ public class SocialProfileController extends AbstractController {
 		socialProfiles = this.socialProfileService.socialProfilesFromActor(this.actorService.findByPrincipal().getId());
 
 		result = new ModelAndView("socialProfile/list");
+		result.addObject("principalId", this.actorService.findByPrincipal().getId());
 		result.addObject("socialProfiles", socialProfiles);
 		result.addObject("requestURI", "socialProfile/list.do");
+
+		return result;
+	}
+
+	//Listing by rider
+
+	@RequestMapping(value = "/listByRider", method = RequestMethod.GET)
+	public ModelAndView listByRider(@RequestParam final int varId) {
+		final ModelAndView result;
+		Collection<SocialProfile> socialProfiles;
+
+		socialProfiles = this.socialProfileService.socialProfilesFromActor(varId);
+
+		result = new ModelAndView("socialProfile/list");
+		result.addObject("principalId", this.actorService.findByPrincipal().getId());
+		result.addObject("socialProfiles", socialProfiles);
+		result.addObject("requestURI", "socialProfile/listByRider.do");
 
 		return result;
 	}

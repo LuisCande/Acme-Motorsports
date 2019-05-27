@@ -116,8 +116,10 @@
 						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="circuit/list.do"><spring:message
-								code="master.page.list.circuit" /></a></li>
+					<li><a href="rider/list.do"><spring:message
+								code="master.page.list.riders" /></a></li>
+					<li><a href="worldChampionship/list.do"><spring:message
+								code="master.page.raceDirector.worldChampionship.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="master.page.list.category" /></a></li>
 				</ul>
@@ -140,8 +142,8 @@
 						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="circuit/list.do"><spring:message
-								code="master.page.list.circuit" /></a></li>
+					<li><a href="rider/list.do"><spring:message
+								code="master.page.list.riders" /></a></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.worldChampionship.list" /></a></li>
 					<li><a href="forecast/raceDirector/list.do"><spring:message
@@ -162,12 +164,45 @@
 						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
-				<li><a href="circuit/list.do"><spring:message
-								code="master.page.list.circuit" /></a></li>
 				<li><a href="rider/list.do"><spring:message
 								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
-								code="master.page.worldChampionship.rider.list" /></a></li>
+								code="master.page.worldChampionship.list" /></a></li>
+				
+				</ul>
+			</li>
+			
+		</security:authorize>
+		
+		<!-- Team manager -->
+		<security:authorize access="hasRole('TEAMMANAGER')">
+		
+			<li><a class="fNiv"><spring:message
+						code="master.page.list" /></a>
+				<ul>
+					<li class="arrow"></li>
+				<li><a href="rider/list.do"><spring:message
+								code="master.page.list.riders" /></a></li>
+				<li><a href="worldChampionship/list.do"><spring:message
+								code="master.page.worldChampionship.list" /></a></li>
+				
+				</ul>
+			</li>
+			
+		</security:authorize>
+		
+		<!-- Representative -->
+		<security:authorize access="hasRole('SPONSOR')">
+		
+		<!-- Lista para logeados -->
+			<li><a class="fNiv"><spring:message
+						code="master.page.list" /></a>
+				<ul>
+					<li class="arrow"></li>
+				<li><a href="rider/list.do"><spring:message
+								code="master.page.list.riders" /></a></li>
+				<li><a href="worldChampionship/list.do"><spring:message
+								code="master.page.worldChampionship.list" /></a></li>
 				
 				</ul>
 			</li>
@@ -181,10 +216,10 @@
 						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
-				<li><a href="circuit/list.do"><spring:message
-								code="master.page.list.circuit" /></a></li>
+				<li><a href="rider/list.do"><spring:message
+								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
-								code="master.page.worldChampionship.rider.list" /></a></li>
+								code="master.page.worldChampionship.list" /></a></li>
 				
 				</ul>
 			</li>
@@ -229,8 +264,8 @@
 					code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
-						<li><a href="circuit/list.do"><spring:message
-									code="master.page.list.circuit" /></a></li>
+					<li><a href="worldChampionship/list.do"><spring:message
+								code="master.page.raceDirector.worldChampionship.list" /></a></li>
 			
 				</ul>
 			</li>

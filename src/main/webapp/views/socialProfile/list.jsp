@@ -48,7 +48,7 @@
 	<display:column property="profileLink" title="${profileLink}" sortable="true" />
 
 	<%-- Links towards display, apply, edit and cancel views --%>
-	
+	<jstl:if test="${principalId == row.actor.id}">
 	<spring:url var="editUrl"
 		value="socialProfile/edit.do">
 		<spring:param name="varId" value="${row.id}" />
@@ -66,7 +66,7 @@
 	<display:column title="${delete}">
 		<a href="${deleteUrl}" onclick="return confirm('${msgConfirm}')"><jstl:out value="${delete}" /></a>
 	</display:column>
-	
+	</jstl:if>
 	<spring:url var="displayUrl"
 		value="socialProfile/display.do">
 		<spring:param name="varId" value="${row.id}" />
