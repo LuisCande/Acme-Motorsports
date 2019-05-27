@@ -24,7 +24,7 @@ public interface RiderRepository extends JpaRepository<Rider, Integer> {
 	Collection<Rider> getRidersWhoHasAppliedToAGrandPrix(int grandPrixId);
 
 	//Returns the riders without fan club
-	@Query("select r from Rider r not in (select f.rider from FanClub f)")
+	@Query("select r from Rider r where r not in (select f.rider from FanClub f)")
 	Collection<Rider> getRiderWithoutFanClub();
 
 }

@@ -40,6 +40,22 @@ public class FanClubRepresentativeController extends AbstractController {
 	private RiderService	riderService;
 
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display() {
+		final ModelAndView result;
+
+		final FanClub fanClub = this.fanClubService.findOne(5291);
+
+		if (fanClub == null)
+			return new ModelAndView("redirect:/welcome/index.do");
+
+		result = new ModelAndView("fanClub/display");
+		result.addObject("fanClub", fanClub);
+		result.addObject("requestURI", "fanClub/representative/display.do");
+
+		return result;
+	}
+
 	//Creation
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

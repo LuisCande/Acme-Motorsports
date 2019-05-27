@@ -75,6 +75,8 @@ public class FanClubService {
 			Assert.isTrue(sectors.contains(f.getSector()));
 		}
 
+		Assert.isTrue(f.getNumberOfFans() <= (f.getSector().getColumns() * f.getSector().getRows()));
+
 		//Assertion that the rider does not belong to any fan club
 		if (f.getId() == 0)
 			Assert.isNull(this.getFanClubByRider(f.getRider().getId()));

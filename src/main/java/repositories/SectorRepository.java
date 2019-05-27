@@ -17,6 +17,6 @@ public interface SectorRepository extends JpaRepository<Sector, Integer> {
 	Double[] minMaxAvgStddevSectorsPerCircuit();
 
 	//Returns the sectors without fan clubs
-	@Query("selectt s from Sector where s not in (select f.sector from FanClub f)")
+	@Query("select s from Sector s where s not in (select f.sector from FanClub f)")
 	Collection<Sector> getSectorsWithoutFanClubs();
 }

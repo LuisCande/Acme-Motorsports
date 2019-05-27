@@ -76,6 +76,9 @@
  		<security:intercept-url pattern="/pole/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/worldChampion/**" access="hasRole('RIDER')" />
  		
+ 		<!-- Representative -->
+ 		<security:intercept-url pattern="/fanClub/**" access="hasRole('REPRESENTATIVE')" />
+ 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login
