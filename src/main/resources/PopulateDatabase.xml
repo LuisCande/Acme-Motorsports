@@ -1511,6 +1511,7 @@
 		<property name="pictures"><null/></property>
 		<property name="representative" ref="representative1" />
 		<property name="rider" ref="rider1" />
+		<property name="sector" ref="sector1" />
 	</bean>	
 	
 	<bean id="fanClub2" class="domain.FanClub">
@@ -1522,6 +1523,7 @@
 		<property name="pictures"><null/></property>
 		<property name="representative" ref="representative1" />
 		<property name="rider" ref="rider2" />
+		<property name="sector" ref="sector2" />
 	</bean>	
 	
 	<bean id="fanClub3" class="domain.FanClub">
@@ -1533,6 +1535,7 @@
 		<property name="pictures"><null/></property>
 		<property name="representative" ref="representative2" />
 		<property name="rider" ref="rider3" />
+		<property name="sector"><null/></property>
 	</bean>	
 	
 	<!-- FastestLap beans -->
@@ -1824,7 +1827,6 @@
 		<property name="stand" value="High floor" />
 		<property name="rows" value="10" />
 		<property name="columns" value="20" />
-		<property name="fanClub" ref="fanClub1"/>
 		<property name="circuit" ref="circuit1"/>
 	</bean>
 	
@@ -1832,7 +1834,6 @@
 		<property name="stand" value="Low floor" />
 		<property name="rows" value="3" />
 		<property name="columns" value="10" />
-		<property name="fanClub" ref="fanClub2"/>
 		<property name="circuit" ref="circuit1"/>
 	</bean>
 	
