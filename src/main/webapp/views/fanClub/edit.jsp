@@ -22,71 +22,65 @@
 
 <%-- Stored message variables --%>
 
-<spring:message code="forecast.moment" var="moment" />
-<spring:message code="forecast.asphaltTemperature" var="asphaltTemperature" />
-<spring:message code="forecast.ambientTemperature" var="ambientTemperature" />
-<spring:message code="forecast.windSpeed" var="windSpeed" />
-<spring:message code="forecast.windDirection" var="windDirection" />
-<spring:message code="forecast.rainMm" var="rainMm" />
-<spring:message code="forecast.cloudPercentage" var="cloudPercentage" />
-<spring:message code="forecast.grandPrix" var="grandPrix" />
-<spring:message code="forecast.save" var="save" />
-<spring:message code="forecast.cancel" var="cancel" />
+<spring:message code="fanClub.name" var="name" />
+<spring:message code="fanClub.summary" var="summary" />
+<spring:message code="fanClub.numberOfFans" var="numberOfFans" />
+<spring:message code="fanClub.establishmentDate" var="establishmentDate" />
+<spring:message code="fanClub.banner" var="banner" />
+<spring:message code="fanClub.pictures" var="pictures" />
+<spring:message code="fanClub.representative" var="representative" />
+<spring:message code="fanClub.rider" var="rider" />
+<spring:message code="fanClub.circuit" var="circuit" />
+<spring:message code="fanClub.sector" var="sector" />
+<spring:message code="fanClub.save" var="save" />
+<spring:message code="fanClub.cancel" var="cancel" />
+<spring:message code="fanClub.photo.pattern" var="photoPattern" />
 
-<security:authorize access="hasRole('RACEDIRECTOR')">
+<security:authorize access="hasRole('REPRESENTATIVE')">
 
-	<form:form action="${requestURI}" modelAttribute="forecast">
+	<form:form action="${requestURI}" modelAttribute="fanClub">
 
 		<%-- Forms --%>
 
 		<form:hidden path="id" />
 	
-		<form:label path="asphaltTemperature">
-			<jstl:out value="${asphaltTemperature}"/>
-		</form:label>	
-		<form:input path="asphaltTemperature" pattern="\d{0,2}"/>
-		<form:errors path="asphaltTemperature" cssClass="error" />
-		<br><br>
-		<form:label path="ambientTemperature">
-			<jstl:out value="${ambientTemperature}"/>
-		</form:label>	
-		<form:input path="ambientTemperature" pattern="\d{0,2}"/>
-		<form:errors path="ambientTemperature" cssClass="error" />
-		<br>
-		<br>
-		<form:label path="windSpeed">
-			<jstl:out value="${windSpeed}"/>
-		</form:label>	
-		<form:input path="windSpeed" pattern="\d{0,4}"/>
-		<form:errors path="windSpeed" cssClass="error" />
-		<br>
-		<br>
-		<acme:textbox code="forecast.windDirection" path="windDirection" />
-		<br>
-		<form:label path="rainMm">
-			<jstl:out value="${rainMm}"/>
-		</form:label>	
-		<form:input path="rainMm" pattern="\d{0,9}"/>
-		<form:errors path="rainMm" cssClass="error" />
-		<br>
-		<br>
-		<form:label path="cloudPercentage">
-			<jstl:out value="${cloudPercentage}"/>
-		</form:label>	
-		<form:input path="cloudPercentage" pattern="\d{0,2}"/>
-		<form:errors path="cloudPercentage" cssClass="error" />
-		<br>
-		<br>
-		
-		<jstl:if test="${forecast.id == 0}">
-		<acme:select code="forecast.grandPrix" path="grandPrix"
-				items="${grandPrixes}" itemLabel="ticker"
-				id="grandPrixes" />
+		<jstl:if test="${fanClub.id == 0 }">
+			<acme:select code="fanClub.rider" path="rider"
+				items="${riders}" itemLabel="name"
+				id="rider" />
+		</jstl:if>
+		<jstl:if test="${fanClub.id != 0 }">
+			<jstl:out value="${rider}" />:
+			<jstl:out value="${fanClub.rider.name}" />
 			<br />
 		</jstl:if>
+		
+		<acme:textbox code="fanClub.name" path="name" />
+		
+		<acme:textarea code="fanClub.summary" path="summary" />
+		
+		<acme:textbox code="fanClub.establishmentDate" path="establishmentDate" placeholder="fanClub.ph"/>
+		
+		<form:label path="numberOfFans">
+			<jstl:out value="${numberOfFans}"/>
+		</form:label>	
+		<form:input path="numberOfFans" pattern="\d{0,6}"/>
+		<form:errors path="numberOfFans" cssClass="error" />
+		
+		<acme:textbox code="fanClub.banner" path="banner"/>
+		 
+		 <acme:textbox code="fanClub.pictures" path="pictures"/>
+			
+		<acme:select code="fanClub.sector" path="sector"
+				items="${sectors}" itemLabel="stand"
+				id="sectors" />
+			
+		
 		<%-- Buttons --%>
-
-		<acme:submit code="forecast.save" name="save" />
-		<acme:cancel code="forecast.cancel" url="forecast/raceDirector/list.do" />
+		<jstl:out value="${photoPattern}" />
+		<br>
+		
+		<acme:submit code="fanClub.save" name="save" />
+		<acme:cancel code="fanClub.cancel" url="fanClub/representative/list.do" />
 	</form:form>
 </security:authorize>

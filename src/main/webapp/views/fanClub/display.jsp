@@ -28,6 +28,7 @@
 <spring:message code="fanClub.pictures" var="pictures" />
 <spring:message code="fanClub.representative" var="representative" />
 <spring:message code="fanClub.rider" var="rider" />
+<spring:message code="fanClub.circuit" var="circuit" />
 <spring:message code="fanClub.sector" var="sector" />
 <spring:message code="fanClub.formatDate" var="formatDate" />
 
@@ -54,38 +55,30 @@
 	<br />
 	
 	<jstl:out value="${pictures}" />:
-	<jstl:out value="${forecast.pictures}" />
+	<jstl:out value="${fanClub.pictures}" />
 	<br />
-	
-	<spring:url var="representativeUrl"
-		value="representative/display.do">
-		<spring:param name="varId"
-			value="${fanClub.representative.id}"/>
-	</spring:url>
 	
 	<jstl:out value="${representative}" />:
-	<a href="${representativeUrl}"><jstl:out value="${fanClub.representative.name} ${fanClub.representative.surnames}"/></a>
+	<jstl:out value="${fanClub.representative.name}" />
 	<br />
-	
-	<spring:url var="riderUrl"
-		value="rider/display.do">
-		<spring:param name="varId"
-			value="${fanClub.rider.id}"/>
-	</spring:url>
 	
 	<jstl:out value="${rider}" />:
-	<a href="${riderUrl}"><jstl:out value="${fanClub.rider.name} ${fanClub.rider.surnames}"/></a>
+	<jstl:out value="${fanClub.rider.name}" />
 	<br />
 	
-	<spring:url var="sectorUrl"
-		value="sector/display.do">
-		<spring:param name="varId"
-			value="${fanClub.sector.id}"/>
-	</spring:url>
+	<jstl:out value="${circuit}" />:
+	<jstl:out value="${fanClub.sector.circuit.name}" />
+	<br />
 	
 	<jstl:out value="${sector}" />:
-	<a href="${sectorUrl}"><jstl:out value="${fanClub.sector.stand}"/></a>
+	<jstl:out value="${fanClub.sector.stand}" />
 	<br />
+	
+	
+	
+	
+	
+
 	
 	
 	
