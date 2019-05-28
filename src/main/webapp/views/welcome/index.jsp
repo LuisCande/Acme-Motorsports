@@ -21,7 +21,7 @@
 
 <jstl:set var="localeCode" value="${pageContext.response.locale}"/>
 
-<img src="${configuration.banner}" width="489" height="297">
+<img src="${configuration.banner}" width="500" height="100">
 <br/>
 
 <jstl:if test="${localeCode == 'en'}">

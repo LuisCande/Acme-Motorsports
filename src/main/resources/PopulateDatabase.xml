@@ -1409,7 +1409,7 @@
 	<bean id="configuration1" class="domain.Configuration">
 		<property name="systemName" value="Acme Motoresports" />
 		<property name="banner"
-			value="https://png2.kisspng.com/sh/22fe445aff9f1d041759190b83e0daed/L0KzQYi4UsA5N5NnUJGAYULkR4rphvJnaZRnTpC7NkCzR4q8UsE2OWM8S6U6MUm6SIa4TwBvbz==/5a2a79bfbfacb6.2600795215127331197851.png" />
+			value="http://competitionmotorsports.org/wp/wp-content/themes/cms/img/competition-motorsports.png" />
 		<property name="welcomeES"
 			value="¡Bienvenidos a Acme Motorsports Carreras, calidad y competicion en el mismo sitio" />
 		<property name="welcomeEN"
