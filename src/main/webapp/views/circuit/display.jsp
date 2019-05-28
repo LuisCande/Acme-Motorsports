@@ -27,6 +27,7 @@
 <spring:message code="circuit.leftCorners" var="leftCorners" />
 <spring:message code="circuit.length" var="length" />
 <spring:message code="circuit.return" var="returnMsg" />
+<spring:message code="circuit.sectors" var="sectors" />
 
 <%-- Display the following information about the Social Profile: --%>
 	
@@ -53,6 +54,11 @@
 	<jstl:out value="${length}" />:
 	<jstl:out value="${circuit.length}" />
 	<br/>
+
+	<spring:url var="sectorsUrl" value="sector/list.do">
+		<spring:param name="varId" value="${circuit.id}" />
+	</spring:url>
+
+	<a href="${sectorsUrl}"><jstl:out value="${sectors}" /></a>
 	<br>
-	
 	<a href="welcome/index.do"><jstl:out value="${returnMsg}" /></a>

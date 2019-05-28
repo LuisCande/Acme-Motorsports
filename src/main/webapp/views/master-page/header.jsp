@@ -122,6 +122,8 @@
 								code="master.page.worldChampionship.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="master.page.list.category" /></a></li>
+					<li><a href="sector/administrator/list.do"><spring:message
+								code="master.page.list.sector" /></a></li>
 				</ul>
 				</li>
 				

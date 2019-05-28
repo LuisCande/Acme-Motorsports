@@ -19,4 +19,8 @@ public interface SectorRepository extends JpaRepository<Sector, Integer> {
 	//Returns the sectors without fan clubs
 	@Query("select s from Sector s where s not in (select f.sector from FanClub f)")
 	Collection<Sector> getSectorsWithoutFanClubs();
+
+	//Returns the sectors of a circuit
+	@Query("select s from Sector s where s.circuit.id=?1")
+	Collection<Sector> getSectorsOfACircuit(int circuitId);
 }
