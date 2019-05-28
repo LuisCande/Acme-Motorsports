@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +84,7 @@ public class SponsorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
-	public ModelAndView save(final FormObjectSponsor fos, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("fos") final FormObjectSponsor fos, final BindingResult binding) {
 		ModelAndView result;
 		Sponsor sponsor;
 
@@ -92,7 +93,7 @@ public class SponsorController extends AbstractController {
 		} catch (final ConstraintDefinitionException oops) {
 			return this.createEditModelAndView(fos, "sponsor.expirationDate.error");
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(fos, "sponsor.validation.error");
+			return this.createEditModelAndView(fos);
 		} catch (final Throwable oops) {
 			return this.createEditModelAndView(fos, "sponsor.reconstruct.error");
 		}

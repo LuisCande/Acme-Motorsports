@@ -34,6 +34,7 @@
 <spring:message code="grandPrix.maxRiders" var="maxRiders" />
 <spring:message code="grandPrix.title" var="grandPrixTitle" />
 <spring:message code="grandPrix.qualifying.title" var="qualifyingTitle" />
+<spring:message code="grandPrix.announcements" var="announcements" />
 <spring:message code="grandPrix.race.title" var="raceTitle" />
 <spring:message code="grandPrix.display" var="display" />
 <spring:message code="grandPrix.edit" var="edit" />
@@ -69,6 +70,16 @@
 	</display:column>
 	<%-- Links towards display, apply, edit and cancel views --%>
 
+	<security:authorize access="hasAnyRole('TEAMMANAGER','RACEDIRECTOR')">
+			<display:column title="${announcements}">
+				<spring:url var="announcementsUrl" value="announcement/list.do">
+					<spring:param name="varId" value="${row.id}" />
+				</spring:url>
+
+				<a href="${announcementsUrl}"><jstl:out
+						value="${announcements}" /></a>
+		</display:column>
+		</security:authorize>
 	<security:authorize access="hasRole('RACEDIRECTOR')">
 		<display:column title="${edit}">
 			<spring:url var="editUrl" value="grandPrix/raceDirector/edit.do">

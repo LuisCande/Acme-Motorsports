@@ -36,6 +36,10 @@ public interface GrandPrixRepository extends JpaRepository<GrandPrix, Integer> {
 	@Query("select gp from GrandPrix gp join gp.worldChampionship w join w.raceDirector r where r.id = ?1 and gp.finalMode ='1' and gp.cancelled='0' and gp  not in (select f.grandPrix from Forecast f)")
 	Collection<GrandPrix> getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(int actorId);
 
+	//Returns the final and not cancelled grand prixes  of a race director
+	@Query("select gp from GrandPrix gp join gp.worldChampionship w join w.raceDirector r where r.id = ?1 and gp.finalMode ='1' and gp.cancelled='0'")
+	Collection<GrandPrix> getFinalAndNotCancelledGrandPrixesOfARaceDirector(int actorId);
+
 	//Returns the grand prixes of a race director
 	@Query("select gp from GrandPrix gp join gp.worldChampionship w join w.raceDirector r where r.id = ?1")
 	Collection<GrandPrix> getGrandPrixesOfARaceDirector(int actorId);

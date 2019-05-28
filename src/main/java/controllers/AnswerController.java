@@ -10,47 +10,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AnnouncementService;
-import domain.Announcement;
+import services.AnswerService;
+import domain.Answer;
 
 @Controller
-@RequestMapping("announcement")
-public class AnnouncementController extends AbstractController {
+@RequestMapping("answer")
+public class AnswerController extends AbstractController {
 
 	//Services
 
 	@Autowired
-	private AnnouncementService	announcementService;
+	private AnswerService	answerService;
 
-
-	//Listing
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final int varId) {
 		final ModelAndView result;
-		final Collection<Announcement> announcements = this.announcementService.getFinalAnnouncementsOfAGrandPrix(varId);
+		final Collection<Answer> answers = this.answerService.getAnswersOfAnAnnouncement(varId);
 
-		result = new ModelAndView("announcement/list");
-		result.addObject("announcements", announcements);
-		result.addObject("requestURI", "announcement/list.do");
+		result = new ModelAndView("answer/list");
+		result.addObject("answers", answers);
+		result.addObject("requestURI", "answer/list.do");
 
 		return result;
 	}
+
+	//Displaying
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int varId) {
 		final ModelAndView result;
 
-		final Announcement announcement = this.announcementService.findOne(varId);
+		final Answer answer = this.answerService.findOne(varId);
 
-		if (announcement == null)
+		if (answer == null)
 			return new ModelAndView("redirect:/welcome/index.do");
 
-		result = new ModelAndView("announcement/display");
-		result.addObject("announcement", announcement);
-		result.addObject("requestURI", "announcement/display.do");
+		result = new ModelAndView("answer/display");
+		result.addObject("answer", answer);
+		result.addObject("requestURI", "answer/display.do");
 
 		return result;
 	}
-
 }

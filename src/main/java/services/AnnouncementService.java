@@ -135,9 +135,14 @@ public class AnnouncementService {
 		return this.announcementRepository.getAnnouncementsOfARaceDirector(actorId);
 	}
 
-	//Returns the announcements of a certain race director
-	public Collection<Announcement> getAnnouncementsOfAGrandPrix(final int grandPrixId) {
-		return this.announcementRepository.getAnnouncementsOfAGrandPrix(grandPrixId);
+	//Returns the announcements of a certain grand prix
+	public Collection<Announcement> getFinalAnnouncementsOfAGrandPrix(final int grandPrixId) {
+		return this.announcementRepository.getFinalAnnouncementsOfAGrandPrix(grandPrixId);
+	}
+
+	//Returns the final announcements
+	public Collection<Announcement> getFinalAnnouncements() {
+		return this.announcementRepository.getFinalAnnouncements();
 	}
 
 	public void flush() {

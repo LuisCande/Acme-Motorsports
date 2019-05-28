@@ -22,57 +22,53 @@
 
 <%-- Stored message variables --%>
 
-<spring:message code="announcement.moment" var="moment" />
-<spring:message code="announcement.title" var="title" />
-<spring:message code="announcement.description" var="description" />
-<spring:message code="announcement.attachments" var="attachments" />
-<spring:message code="announcement.grandPrix" var="grandPrix" />
-<spring:message code="announcement.finalMode" var="finalMode" />
-<spring:message code="announcement.formatDate" var="formatDate" />
-<spring:message code="announcement.save" var="save" />
-<spring:message code="announcement.cancel" var="cancel" />
+<spring:message code="answer.moment" var="moment" />
+<spring:message code="answer.comment" var="comment" />
+<spring:message code="answer.agree" var="agree" />
+<spring:message code="answer.reason" var="reason" />
+<spring:message code="answer.announcement" var="announcement" />
+<spring:message code="answer.teamManager" var="teamManager" />
+<spring:message code="answer.formatDate" var="formatDate" />
+<spring:message code="answer.save" var="save" />
+<spring:message code="answer.cancel" var="cancel" />
 <jstl:set var="localeCode" value="${pageContext.response.locale}" />
 
-<security:authorize access="hasRole('RACEDIRECTOR')">
+<security:authorize access="hasRole('TEAMMANAGER')">
 
-	<form:form action="${requestURI}" modelAttribute="announcement">
+	<form:form action="${requestURI}" modelAttribute="answer">
 
 		<%-- Forms --%>
 
 		<form:hidden path="id" />
 
-		<acme:textbox code="announcement.title" path="title" />
-		<acme:textarea code="announcement.description" path="description" />
-		<acme:textarea code="announcement.attachments" path="attachments" />
-		<acme:select code="announcement.grandPrix" path="grandPrix"
-			items="${grandPrixes}" itemLabel="ticker" id="grandPrixes" />
+		<acme:select code="answer.announcement" path="announcement"
+			items="${announcements}" itemLabel="title" id="announcements" />
 		<br />
 
-
-		<form:label path="finalMode">
-			<jstl:out value="${finalMode}" />:
+		<form:label path="agree">
+			<jstl:out value="${agree}" />:
 		</form:label>
 		<jstl:if test="${localeCode == 'en'}">
-			<form:select path="finalMode">
+			<form:select path="agree">
 				<form:option label="NO" value="false" />
 				<form:option label="YES" value="true" />
 			</form:select>
 		</jstl:if>
 		<jstl:if test="${localeCode == 'es'}">
-			<form:select path="finalMode">
+			<form:select path="agree">
 				<form:option label="NO" value="false" />
 				<form:option label="SI" value="true" />
 			</form:select>
 		</jstl:if>
-
 		<br>
+		<acme:textarea code="answer.reason" path="reason" />
+		<acme:textarea code="answer.comment" path="comment" />
 		<br>
-
-
 		<%-- Buttons --%>
 
-		<acme:submit code="announcement.save" name="save" />
-		<acme:cancel code="announcement.cancel"
-			url="announcement/raceDirector/list.do" />
+		<acme:submit code="answer.save" name="save" />
+		<acme:cancel code="answer.cancel"
+			url="answer/teamManager/list.do" />
+
 	</form:form>
 </security:authorize>

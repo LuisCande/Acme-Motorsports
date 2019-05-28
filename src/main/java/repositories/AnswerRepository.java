@@ -16,4 +16,8 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 	@Query("select a from Answer a where a.announcement.id = ?1")
 	Collection<Answer> getAnswersOfAnAnnouncement(int announcementId);
 
+	//Returns the answers of a certain team manager
+	@Query("select a from Answer a where a.teamManager.id = ?1")
+	Collection<Answer> getMyAnswers(int teamManagerId);
+
 }

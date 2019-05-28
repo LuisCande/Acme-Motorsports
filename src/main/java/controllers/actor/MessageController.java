@@ -8,6 +8,7 @@ import javax.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import controllers.AbstractController;
 import domain.Actor;
 import domain.Box;
 import domain.Message;
+import exceptions.RequiredException;
 
 @Controller
 @RequestMapping("/message")
@@ -97,13 +99,15 @@ public class MessageController extends AbstractController {
 	//Sending
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Message message, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("msg") Message message, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 			message = this.messageService.reconstruct(message, binding);
+		} catch (final RequiredException oops) {
+			return this.createCreateModelAndView(message, "message.provide.recipient.error");
 		} catch (final ValidationException oops) {
-			return this.createCreateModelAndView(message, "message.validation.error");
+			return this.createCreateModelAndView(message);
 		} catch (final Throwable oops) {
 			return this.createCreateModelAndView(message, "message.commit.error");
 		}

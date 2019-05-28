@@ -63,6 +63,7 @@
 		<security:intercept-url pattern="/actor/display.do" access="hasRole('ADMIN')" />
 		
 		<!-- Race Director -->
+		
 		<security:intercept-url pattern="/worldChampionship/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		<security:intercept-url pattern="/forecast/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		<security:intercept-url pattern="/announcement/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
@@ -75,12 +76,18 @@
  		<security:intercept-url pattern="/fastestLap/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/podium/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/forecast/**" access="hasAnyRole('RIDER', 'RACEDIRECTOR')" />
- 		<security:intercept-url pattern="/announcement/**" access="hasAnyRole('RIDER', 'RACEDIRECTOR')" />
+ 		<security:intercept-url pattern="/announcement/**" access="hasAnyRole('RIDER', 'RACEDIRECTOR', 'TEAMMANAGER')" />
  		<security:intercept-url pattern="/pole/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/worldChampion/**" access="hasRole('RIDER')" />
  		
  		<!-- Representative -->
  		<security:intercept-url pattern="/fanClub/**" access="hasRole('REPRESENTATIVE')" />
+ 		
+ 		<!-- Team manager -->
+ 		<security:intercept-url pattern="/answer/teamManager/**" access="hasRole('TEAMMANAGER')" />
+ 		<security:intercept-url pattern="/answer/**" access="hasAnyRole('TEAMMANAGER','RACEDIRECTOR')" />
+ 		
+ 		
  		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

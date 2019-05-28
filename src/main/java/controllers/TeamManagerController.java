@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -82,7 +83,7 @@ public class TeamManagerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
-	public ModelAndView save(final FormObjectManager fom, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("fom") final FormObjectManager fom, final BindingResult binding) {
 		ModelAndView result;
 		TeamManager manager;
 
@@ -91,7 +92,7 @@ public class TeamManagerController extends AbstractController {
 		} catch (final ConstraintDefinitionException oops) {
 			return this.createEditModelAndView(fom, "manager.expirationDate.error");
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(fom, "manager.validation.error");
+			return this.createEditModelAndView(fom);
 		} catch (final Throwable oops) {
 			return this.createEditModelAndView(fom, "manager.reconstruct.error");
 		}

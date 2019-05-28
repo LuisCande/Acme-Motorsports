@@ -31,12 +31,12 @@
 <spring:message code="announcement.formatDate" var="formatDate" />
 <spring:message code="announcement.edit" var="edit" />
 <spring:message code="announcement.delete" var="delete" />
+<spring:message code="announcement.answers" var="answers" />
 <spring:message code="announcement.confirm" var="msgConfirm" />
 <spring:message code="announcement.create" var="create" />
 <spring:message code="announcement.display" var="display" />
 
-<security:authorize
-	access="hasAnyRole('RACEDIRECTOR','TEAMMANAGER')">
+<security:authorize access="hasAnyRole('RACEDIRECTOR','TEAMMANAGER')">
 
 	<%-- Listing grid --%>
 
@@ -45,52 +45,67 @@
 
 		<%-- Attributes --%>
 
-			<display:column title="${moment}" sortable="true">
-		<fmt:formatDate value="${row.moment}" pattern="${formatDate}"/>
-	</display:column>
-		
+		<display:column title="${moment}" sortable="true">
+			<fmt:formatDate value="${row.moment}" pattern="${formatDate}" />
+		</display:column>
+
 		<display:column property="title" title="${title}" />
-			
+
 		<display:column property="grandPrix.ticker" title="${grandPrix}"
 			sortable="true" />
-			
+
 
 		<%-- Links towards display, apply, edit and cancel views --%>
-	<display:column title="${display}">
-				<spring:url var="displayUrl" value="announcement/display.do">
+
+		<security:authorize access="hasAnyRole('TEAMMANAGER','RACEDIRECTOR')">
+
+			<display:column title="${answers}">
+				<spring:url var="answersUrl" value="answer/list.do">
 					<spring:param name="varId" value="${row.id}" />
 				</spring:url>
+				<jstl:if test="${row.finalMode eq true}">
+					<a href="${answersUrl}"><jstl:out value="${answers}" /></a>
+				</jstl:if>
+			</display:column>
+		</security:authorize>
 
-				<a href="${displayUrl}"><jstl:out
-						value="${display}" /></a>
+		<display:column title="${display}">
+			<spring:url var="displayUrl" value="announcement/display.do">
+				<spring:param name="varId" value="${row.id}" />
+			</spring:url>
+
+			<a href="${displayUrl}"><jstl:out value="${display}" /></a>
 		</display:column>
-		
-	<security:authorize access="hasRole('RACEDIRECTOR')">
-		<display:column title="${edit}">
+
+		<security:authorize access="hasRole('RACEDIRECTOR')">
+			<display:column title="${edit}">
 				<spring:url var="editUrl" value="announcement/raceDirector/edit.do">
 					<spring:param name="varId" value="${row.id}" />
 				</spring:url>
 				<jstl:if test="${row.finalMode eq false}">
-				<a href="${editUrl}"><jstl:out value="${edit}" /></a>
+					<a href="${editUrl}"><jstl:out value="${edit}" /></a>
 				</jstl:if>
-		</display:column>
-		
-		<display:column title="${delete}">
-				<spring:url var="deleteUrl" value="announcement/raceDirector/delete.do">
+			</display:column>
+
+			<display:column title="${delete}">
+				<spring:url var="deleteUrl"
+					value="announcement/raceDirector/delete.do">
 					<spring:param name="varId" value="${row.id}" />
 				</spring:url>
-			<jstl:if test="${row.finalMode eq false}">
-				<a href="${deleteUrl}" onclick="return confirm('${msgConfirm}')"><jstl:out value="${delete}" /></a>
+				<jstl:if test="${row.finalMode eq false}">
+					<a href="${deleteUrl}" onclick="return confirm('${msgConfirm}')"><jstl:out
+							value="${delete}" /></a>
 				</jstl:if>
-		</display:column>
+			</display:column>
 
-	</security:authorize>
+		</security:authorize>
 	</display:table>
 
 	<security:authorize access="hasRole('RACEDIRECTOR')">
-	<spring:url var="createUrl" value="announcement/raceDirector/create.do" />
-	<a href="${createUrl}"><jstl:out value="${create}" /></a>
-		</security:authorize>
+		<spring:url var="createUrl"
+			value="announcement/raceDirector/create.do" />
+		<a href="${createUrl}"><jstl:out value="${create}" /></a>
+	</security:authorize>
 
 
 </security:authorize>
