@@ -372,7 +372,7 @@ public class GrandPrixService {
 
 	//Returns the final and not cancelled grand prixes of a race director
 	public Collection<GrandPrix> getFinalAndNotCancelledGrandPrixesOfARaceDirector(final int actorId) {
-		return this.grandPrixRepository.getFinalAndNotCancelledGrandPrixesWithoutForecastOfARaceDirector(actorId);
+		return this.grandPrixRepository.getFinalAndNotCancelledGrandPrixesOfARaceDirector(actorId);
 	}
 
 	//Returns the grand prixes of a race director

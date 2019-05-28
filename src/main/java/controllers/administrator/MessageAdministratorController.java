@@ -8,6 +8,7 @@ import javax.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,13 +48,13 @@ public class MessageAdministratorController extends AbstractController {
 	//Broadcast notification
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "broadcast")
-	public ModelAndView broadcast(Message message, final BindingResult binding) {
+	public ModelAndView broadcast(@ModelAttribute("msg") Message message, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 			message = this.messageService.reconstructBroadcast(message, binding);
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(message, "message.validation.error");
+			return this.createEditModelAndView(message);
 		} catch (final Throwable oops) {
 			return this.createEditModelAndView(message, "message.commit.error");
 		}

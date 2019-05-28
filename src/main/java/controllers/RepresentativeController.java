@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +84,7 @@ public class RepresentativeController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
-	public ModelAndView save(final FormObjectRepresentative fore, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("fore") final FormObjectRepresentative fore, final BindingResult binding) {
 		ModelAndView result;
 		Representative representative;
 
@@ -92,7 +93,7 @@ public class RepresentativeController extends AbstractController {
 		} catch (final ConstraintDefinitionException oops) {
 			return this.createEditModelAndView(fore, "representative.expirationDate.error");
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(fore, "representative.validation.error");
+			return this.createEditModelAndView(fore);
 		} catch (final Throwable oops) {
 			return this.createEditModelAndView(fore, "representative.reconstruct.error");
 		}

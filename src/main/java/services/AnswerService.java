@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.AnswerRepository;
-import domain.Announcement;
 import domain.Answer;
 import domain.TeamManager;
 
@@ -41,10 +40,8 @@ public class AnswerService {
 
 	//Simple CRUD methods
 
-	public Answer create(final int varId) {
+	public Answer create() {
 		final Answer a = new Answer();
-		final Announcement an = this.announcementService.findOne(varId);
-		a.setAnnouncement(an);
 		a.setTeamManager((TeamManager) this.actorService.findByPrincipal());
 		a.setMoment(new Date(System.currentTimeMillis() - 1));
 
@@ -65,6 +62,9 @@ public class AnswerService {
 
 		//Assertion that the user modifying this answer has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == a.getTeamManager().getId());
+
+		//Assertion that the user modifying this answer has the correct privilege.
+		Assert.isTrue(this.announcementService.getFinalAnnouncements().contains(a.getAnnouncement()));
 
 		final Answer saved = this.answerRepository.save(a);
 
@@ -89,10 +89,11 @@ public class AnswerService {
 		Answer result;
 
 		if (a.getId() == 0)
-			result = this.create(a.getAnnouncement().getId());
+			result = this.create();
 		else
 			result = this.answerRepository.findOne(a.getId());
 
+		result.setAnnouncement(a.getAnnouncement());
 		result.setMoment(new Date(System.currentTimeMillis() - 1));
 		result.setComment(a.getComment());
 		result.setAgree(a.getAgree());
@@ -106,6 +107,9 @@ public class AnswerService {
 		//Assertion that the user modifying this answer has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getTeamManager().getId());
 
+		//Assertion that the user modifying this answer has the correct privilege.
+		Assert.isTrue(this.announcementService.getFinalAnnouncements().contains(result.getAnnouncement()));
+
 		return result;
 
 	}
@@ -113,6 +117,11 @@ public class AnswerService {
 	//Returns the answers of a certain announcement
 	public Collection<Answer> getAnswersOfAnAnnouncement(final int announcementId) {
 		return this.answerRepository.getAnswersOfAnAnnouncement(announcementId);
+	}
+
+	//Returns the answers of a certain team manager
+	public Collection<Answer> getMyAnswers(final int teamManagerId) {
+		return this.answerRepository.getMyAnswers(teamManagerId);
 	}
 
 	public void flush() {

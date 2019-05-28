@@ -22,7 +22,7 @@
 	</definition>
 	
 	<definition name="grandPrix/list" extends="master.page">	
-		<put-attribute name="title" value="ista de grandes premios" />
+		<put-attribute name="title" value="Lista de grandes premios" />
 		<put-attribute name="body" value="/views/grandPrix/list.jsp" />
 	</definition>
 

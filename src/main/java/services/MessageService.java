@@ -24,6 +24,7 @@ import domain.GrandPrix;
 import domain.Message;
 import domain.Priority;
 import domain.Rider;
+import exceptions.RequiredException;
 
 @Service
 @Transactional
@@ -264,6 +265,10 @@ public class MessageService {
 		result.setTags(m.getTags());
 		result.setPriority(m.getPriority());
 		result.setRecipient(m.getRecipient());
+
+		//Assertion that the user sends this message has provided a recipient.
+		if (result.getRecipient() == null)
+			throw new RequiredException();
 
 		this.validator.validate(result, binding);
 

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -150,7 +151,7 @@ public class AdministratorController extends AbstractController {
 	}
 	//Create POST
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
-	public ModelAndView save(final FormObjectAdministrator foa, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("foa") final FormObjectAdministrator foa, final BindingResult binding) {
 		ModelAndView result;
 		Administrator administrator;
 
@@ -159,7 +160,7 @@ public class AdministratorController extends AbstractController {
 		} catch (final ConstraintDefinitionException oops) {
 			return this.createEditModelAndView(foa, "administrator.expirationDate.error");
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(foa, "administrator.validation.error");
+			return this.createEditModelAndView(foa);
 		} catch (final Throwable oops) {
 			return result = this.createEditModelAndView(foa, "administrator.reconstruct.error");
 		}

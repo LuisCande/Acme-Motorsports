@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,7 +86,7 @@ public class RiderController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "create")
-	public ModelAndView save(final FormObjectRider foh, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("fori") final FormObjectRider foh, final BindingResult binding) {
 		ModelAndView result;
 		Rider rider;
 
@@ -94,7 +95,7 @@ public class RiderController extends AbstractController {
 		} catch (final ConstraintDefinitionException oops) {
 			return this.createEditModelAndView(foh, "rider.expirationDate.error");
 		} catch (final ValidationException oops) {
-			return this.createEditModelAndView(foh, "rider.validation.error");
+			return this.createEditModelAndView(foh);
 		} catch (final Throwable oops) {
 			return this.createEditModelAndView(foh, "rider.reconstruct.error");
 		}
