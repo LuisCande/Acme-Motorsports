@@ -119,9 +119,11 @@
 					<li><a href="rider/list.do"><spring:message
 								code="master.page.list.riders" /></a></li>
 					<li><a href="worldChampionship/list.do"><spring:message
-								code="master.page.raceDirector.worldChampionship.list" /></a></li>
+								code="master.page.worldChampionship.list" /></a></li>
 					<li><a href="category/administrator/list.do"><spring:message
 								code="master.page.list.category" /></a></li>
+					<li><a href="sector/administrator/list.do"><spring:message
+								code="master.page.list.sector" /></a></li>
 				</ul>
 				</li>
 				
@@ -186,7 +188,8 @@
 								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
 								code="master.page.worldChampionship.list" /></a></li>
-				
+				<li><a href="answer/teamManager/list.do"><spring:message
+								code="master.page.answer.list" /></a></li>
 				</ul>
 			</li>
 			
@@ -265,7 +268,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="worldChampionship/list.do"><spring:message
-								code="master.page.raceDirector.worldChampionship.list" /></a></li>
+								code="master.page.worldChampionship.list" /></a></li>
 					<li><a href="fanClub/list.do"><spring:message
 								code="master.page.list.fanClub" /></a></li>
 				</ul>
