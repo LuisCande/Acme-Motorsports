@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ForecastService;
 import services.GrandPrixService;
 import services.QualifyingService;
 import services.RaceService;
+import domain.Forecast;
 import domain.GrandPrix;
 import domain.Qualifying;
 import domain.Race;
@@ -40,6 +42,9 @@ public class GrandPrixController extends AbstractController {
 
 	@Autowired
 	private QualifyingService	qualifyingService;
+
+	@Autowired
+	private ForecastService		forecastService;
 
 
 	//List
@@ -66,11 +71,14 @@ public class GrandPrixController extends AbstractController {
 		if (grandPrix == null)
 			return new ModelAndView("redirect:/welcome/index.do");
 
+		final Forecast forecast = this.forecastService.getForecastOfGrandPrix(varId);
+
 		final Race race = this.raceService.getRaceOfAGrandPrix(varId);
 		final Qualifying qualifying = this.qualifyingService.getQualifyingOfAGrandPrix(varId);
 
 		result = new ModelAndView("grandPrix/display");
 		result.addObject("grandPrix", grandPrix);
+		result.addObject("forecast", forecast);
 		result.addObject("race", race);
 		result.addObject("qualifying", qualifying);
 		result.addObject("requestURI", "grandPrix/display.do");

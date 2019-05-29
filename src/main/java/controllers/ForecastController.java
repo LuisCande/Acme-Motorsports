@@ -24,8 +24,9 @@ public class ForecastController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int varId) {
 		final ModelAndView result;
+		Forecast forecast;
 
-		final Forecast forecast = this.forecastService.findOne(varId);
+		forecast = this.forecastService.getForecastOfGrandPrix(varId);
 
 		if (forecast == null)
 			return new ModelAndView("redirect:/welcome/index.do");

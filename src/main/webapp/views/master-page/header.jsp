@@ -153,8 +153,15 @@
 								code="master.page.raceDirector.announcement.list" /></a></li>
 								
 				</ul>
-				
-			</li>
+				</li>
+				<li><a class="fNiv"><spring:message
+						code="master.page.create" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="grandPrix/raceDirector/create.do"><spring:message 
+							code="master.page.create.grandPrix" /></a></li>
+				</ul>
+				</li>
 		</security:authorize>
 		
 		<!-- Representative -->

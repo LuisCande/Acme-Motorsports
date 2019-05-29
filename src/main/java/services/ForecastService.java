@@ -114,6 +114,10 @@ public class ForecastService {
 		return this.forecastRepository.getForecastsOfARaceDirector(actorId);
 	}
 
+	//Returns the forecast of a certain grand prix
+	public Forecast getForecastOfGrandPrix(final int id) {
+		return this.forecastRepository.getForecastOfGrandPrix(id);
+	}
 	public void flush() {
 		this.forecastRepository.flush();
 	}

@@ -31,6 +31,7 @@
 <spring:message code="grandPrix.maxRiders" var="maxRiders" />
 <spring:message code="grandPrix.finalMode" var="finalMode" />
 <spring:message code="grandPrix.cancelled" var="cancelled" />
+<spring:message code="grandPrix.forecast" var="forecastMsg" />
 <spring:message code="grandPrix.qualifying.title" var="qualiTitle" />
 <spring:message code="grandPrix.qualifying.name" var="qualiName" />
 <spring:message code="grandPrix.qualifying.duration" var="duration" />
@@ -89,6 +90,13 @@
 	<jstl:out value="${grandPrix.cancelled}" />
 	<br />
 	
+		<spring:url var="forecastUrl" value="forecast/display.do">
+				<spring:param name="varId" value="${grandPrix.id}" />
+			</spring:url>
+			<jstl:if test="${not empty forecast}">
+			<a href="${forecastUrl}"><jstl:out value="${forecastMsg}" /></a>
+			</jstl:if>
+	<br />
 	<h2><jstl:out value="${qualiTitle}" /></h2>
 	
 	<jstl:out value="${qualiName}" />:
