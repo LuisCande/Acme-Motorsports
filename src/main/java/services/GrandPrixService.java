@@ -83,6 +83,12 @@ public class GrandPrixService {
 		//Assertion that the user modifying this task has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
 
+		//Assertion a world championship, a circuit and a category has been provided
+		Assert.isTrue(g.getCategory() != null && g.getCircuit() != null && g.getWorldChampionship() != null);
+
+		//Assertion the grand prix start date must be after today and the grand prix end date must be after the start date
+		Assert.isTrue(g.getStartDate().after(new Date(System.currentTimeMillis() - 1)) && g.getStartDate().before(g.getEndDate()));
+
 		//Assertion the start date must be after today
 		Assert.isTrue(g.getStartDate().after(new Date(System.currentTimeMillis() - 1)));
 

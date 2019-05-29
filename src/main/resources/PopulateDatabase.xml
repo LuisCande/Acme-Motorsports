@@ -1469,7 +1469,6 @@
 				<value>AMEX</value>
 			</list>
 		</property>
-	<property name="vat" value="1.21" />
 	</bean>
 	
 	<!-- CreditCard beans -->

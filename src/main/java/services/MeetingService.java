@@ -3,12 +3,15 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+
+import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.MeetingRepository;
 import security.Authority;
@@ -40,27 +43,26 @@ public class MeetingService {
 	@Autowired
 	private ConfigurationService	configurationService;
 
+	@Autowired
+	private Validator				validator;
+
 
 	//Simple CRUD methods
 
-	public Meeting create(final int actorId) {
+	public Meeting create() {
 
 		final Actor sender = this.actorService.findByPrincipal();
-		final Actor receiver = this.actorService.findOne(actorId);
 		final Meeting e = new Meeting();
 		final Authority authRep = new Authority();
 		final Authority authRid = new Authority();
 		authRep.setAuthority(Authority.REPRESENTATIVE);
 		authRid.setAuthority(Authority.RIDER);
-		e.setMoment(new Date(System.currentTimeMillis() - 1));
-		if (sender.getUserAccount().getAuthorities().contains(authRep) && receiver.getUserAccount().getAuthorities().contains(authRid)) {
-			e.setRider((Rider) receiver);
+		if (sender.getUserAccount().getAuthorities().contains(authRep)) {
 			e.setRiderToRepresentative(false);
 			e.setRepresentative((Representative) sender);
 		} else {
 			e.setRider((Rider) sender);
 			e.setRiderToRepresentative(true);
-			e.setRepresentative((Representative) receiver);
 		}
 
 		return e;
@@ -78,9 +80,7 @@ public class MeetingService {
 	public Meeting save(final Meeting e) {
 		Assert.notNull(e);
 
-		if (e.getId() == 0)
-			e.setMoment(new Date(System.currentTimeMillis() - 1));
-
+		//Assertions to make sure that the user modifying the meeting has the correct privilege.
 		if (e.getRiderToRepresentative() == true)
 			Assert.isTrue(this.actorService.findByPrincipal().getId() == e.getRider().getId());
 		if (e.getRiderToRepresentative() == false)
@@ -91,6 +91,44 @@ public class MeetingService {
 		return saved;
 	}
 
+	//Reconstruct
+	public Meeting reconstruct(final Meeting m, final BindingResult binding) {
+		Assert.notNull(m);
+		Meeting result;
+
+		if (m.getId() == 0)
+			result = this.create();
+		else
+			result = this.meetingRepository.findOne(m.getId());
+
+		result.setMoment(m.getMoment());
+		result.setComments(m.getComments());
+		result.setPlace(m.getPlace());
+		result.setSignatures(m.getSignatures());
+		result.setPhotos(m.getPhotos());
+		result.setDuration(m.getDuration());
+		if (result.getRiderToRepresentative() == true)
+			result.setRepresentative(m.getRepresentative());
+		if (result.getRiderToRepresentative() == false)
+			result.setRider(m.getRider());
+
+		this.validator.validate(result, binding);
+
+		if (binding.hasErrors())
+			throw new ValidationException();
+
+		//Assertions to make sure that the user modifying the meeting has the correct privilege.
+		if (result.getRiderToRepresentative() == true) {
+			Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRider().getId());
+			Assert.isTrue(this.getRepresentativesAbleToMeetForRider(result.getRider().getId()).contains(result.getRepresentative()));
+		}
+		if (result.getRiderToRepresentative() == false) {
+			Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRepresentative().getId());
+			Assert.isTrue(this.getRidersAbleToMeetForRepresentative(result.getRepresentative().getId()).contains(result.getRider()));
+		}
+		return result;
+
+	}
 	//Other methods 
 
 	//Compute score for all
@@ -161,5 +199,25 @@ public class MeetingService {
 	//Returns the received meetings done to a certain rider
 	public Collection<Meeting> getMeetingsDoneToRider(final int id) {
 		return this.meetingRepository.getMeetingsDoneToRider(id);
+	}
+
+	//Returns the list of riders able to be met by a representative
+	public Collection<Rider> getRidersAbleToMeetForRepresentative(final int id) {
+		return this.meetingRepository.getRidersAbleToMeetForRepresentative(id);
+	}
+
+	//Returns the list of representatives able to be met by a rider
+	public Collection<Representative> getRepresentativesAbleToMeetForRider(final int id) {
+		return this.meetingRepository.getRepresentativesAbleToMeetForRider(id);
+	}
+
+	//Retrieves the list of all meetings for a certain representative
+	public Collection<Meeting> getAllMeetingsForRepresentative(final int id) {
+		return this.meetingRepository.getAllMeetingsForRepresentative(id);
+	}
+
+	//Retrieves the list of all meetings for a certain rider
+	public Collection<Meeting> getAllMeetingsForRider(final int id) {
+		return this.meetingRepository.getAllMeetingsForRider(id);
 	}
 }
