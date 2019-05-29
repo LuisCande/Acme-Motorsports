@@ -100,9 +100,8 @@
 					
 					<li><a href="administrator/dashboard.do"><spring:message
 								code="master.page.administrator.dashboard" /></a></li>
-								
-			<%--		<li><a href="configuration/administrator/display.do"><spring:message
-								code="master.page.administrator.configuration" /></a></li>--%>
+					<li><a href="configuration/administrator/display.do"><spring:message
+								code="master.page.administrator.configuration" /></a></li>
 					<li><a href="administrator/flagSpam.do"><spring:message
 								code="master.page.administrator.flagSpam" /></a></li>
 					<li><a href="administrator/bannableList.do"><spring:message
@@ -172,6 +171,8 @@
 								code="master.page.worldChampionship.list" /></a></li>
 				<li><a href="fanClub/representative/list.do"><spring:message
 								code="master.page.list.fanClub" /></a></li>
+				<li><a href="meeting/representative/list.do"><spring:message
+								code="master.page.list.meetings" /></a></li>
 				</ul>
 			</li>
 			
@@ -225,7 +226,8 @@
 								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
 								code="master.page.worldChampionship.list" /></a></li>
-				
+				<li><a href="meeting/rider/list.do"><spring:message
+								code="master.page.list.meetings" /></a></li>
 				</ul>
 			</li>
 		

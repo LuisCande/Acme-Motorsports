@@ -60,9 +60,11 @@
 	<jstl:out value="${actor.address}"/>
 	<br />
 	
+	<jstl:if test="${not empty score}">
 	<jstl:out value="${scoreMsg}" />:
 	<jstl:out value="${score}" />
 	<br />
+	</jstl:if>
 	
 	<jstl:out value="${spammer}" />:
 	<jstl:if test="${actor.suspicious eq true}">
