@@ -89,8 +89,7 @@
  		<security:intercept-url pattern="/answer/teamManager/**" access="hasRole('TEAMMANAGER')" />
  		<security:intercept-url pattern="/answer/**" access="hasAnyRole('TEAMMANAGER','RACEDIRECTOR')" />
  		
- 		
- 		
+ 		 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login
