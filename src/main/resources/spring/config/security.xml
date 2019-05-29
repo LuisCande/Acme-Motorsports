@@ -50,6 +50,7 @@
 		<security:intercept-url pattern="/grandPrix/**" access="permitAll" />
 		<security:intercept-url pattern="/circuit/**" access="permitAll" />
 		<security:intercept-url pattern="/sector/**" access="permitAll" />
+		<security:intercept-url pattern="/fanClub/**" access="permitAll" />
  		
  		<!-- Authenticated -->
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
@@ -76,6 +77,7 @@
  		<security:intercept-url pattern="/palmares/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/victory/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/fastestLap/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/finder/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/podium/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/forecast/**" access="hasAnyRole('RIDER', 'RACEDIRECTOR')" />
  		<security:intercept-url pattern="/announcement/**" access="hasAnyRole('RIDER', 'RACEDIRECTOR', 'TEAMMANAGER')" />
@@ -83,7 +85,7 @@
  		<security:intercept-url pattern="/worldChampion/**" access="hasRole('RIDER')" />
  		
  		<!-- Representative -->
- 		<security:intercept-url pattern="/fanClub/**" access="hasRole('REPRESENTATIVE')" />
+ 		<security:intercept-url pattern="/fanClub/representative/**" access="hasRole('REPRESENTATIVE')" />
  		
  		<!-- Team manager -->
  		<security:intercept-url pattern="/answer/teamManager/**" access="hasRole('TEAMMANAGER')" />
