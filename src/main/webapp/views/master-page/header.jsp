@@ -170,7 +170,8 @@
 								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
 								code="master.page.worldChampionship.list" /></a></li>
-				
+				<li><a href="fanClub/representative/list.do"><spring:message
+								code="master.page.list.fanClub" /></a></li>
 				</ul>
 			</li>
 			
@@ -239,30 +240,6 @@
 					code="master.page.rider.palmares" /></a></li>
 		</security:authorize>
 		
-		<!-- Rider -->
-		<security:authorize access="hasRole('REPRESENTATIVE')">
-		
-		<!-- Lista para logeados -->
-			<li><a class="fNiv"><spring:message
-						code="master.page.list" /></a>
-				<ul>
-					<li class="arrow"></li>
-				<li><a href="fanClub/representative/display.do"><spring:message
-								code="master.page.display.fanClub" /></a></li>
-				</ul>
-			</li>
-		
-
-			<li><a href="finder/rider/edit.do"><spring:message
-					code="master.page.finder.edit" /></a></li>
-					<%--  
-			<li><a href="application/hacker/list.do"><spring:message
-					code="master.page.application.list" /></a></li>--%>
-					
-			<li><a href="palmares/rider/display.do"><spring:message
-					code="master.page.rider.palmares" /></a></li>
-		</security:authorize>
-		
 		
 		<!-- Anonymous -->
 		<security:authorize access="isAnonymous()">
@@ -294,6 +271,9 @@
 					<li class="arrow"></li>
 					<li><a href="worldChampionship/list.do"><spring:message
 								code="master.page.worldChampionship.list" /></a></li>
+					<li><a href="fanClub/list.do"><spring:message
+								code="master.page.list.fanClub" /></a></li>
+				
 			
 				</ul>
 			</li>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import services.ActorService;
 import services.FanClubService;
 import services.RiderService;
@@ -20,6 +21,7 @@ import services.SectorService;
 import controllers.AbstractController;
 import domain.FanClub;
 import domain.Sector;
+import exceptions.GenericException;
 
 @Controller
 @RequestMapping("fanClub/representative")
@@ -39,22 +41,6 @@ public class FanClubRepresentativeController extends AbstractController {
 	@Autowired
 	private RiderService	riderService;
 
-
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
-		final ModelAndView result;
-
-		final FanClub fanClub = this.fanClubService.findOne(5291);
-
-		if (fanClub == null)
-			return new ModelAndView("redirect:/welcome/index.do");
-
-		result = new ModelAndView("fanClub/display");
-		result.addObject("fanClub", fanClub);
-		result.addObject("requestURI", "fanClub/representative/display.do");
-
-		return result;
-	}
 
 	//Creation
 
@@ -93,6 +79,7 @@ public class FanClubRepresentativeController extends AbstractController {
 		final Collection<FanClub> fanClubs = this.fanClubService.getFanClubsOfARepresentative(this.actorService.findByPrincipal().getId());
 
 		result = new ModelAndView("fanClub/list");
+		result.addObject("principalId", this.actorService.findByPrincipal().getId());
 		result.addObject("fanClubs", fanClubs);
 		result.addObject("requestURI", "fanClub/representative/list.do");
 
@@ -107,6 +94,8 @@ public class FanClubRepresentativeController extends AbstractController {
 
 		try {
 			fanClub = this.fanClubService.reconstruct(fanClub, binding);
+		} catch (final GenericException oops) {
+			return this.createEditModelAndView(fanClub, "fanClub.capacity.error");
 		} catch (final ValidationException oops) {
 			return this.createEditModelAndView(fanClub);
 		} catch (final Throwable oops) {
@@ -118,6 +107,31 @@ public class FanClubRepresentativeController extends AbstractController {
 			result = new ModelAndView("redirect:/fanClub/representative/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(fanClub, "fanClub.commit.error");
+		}
+		return result;
+	}
+
+	//Deleting
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int varId) {
+		ModelAndView result;
+		final FanClub fanClub = this.fanClubService.findOne(varId);
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.REPRESENTATIVE);
+
+		if (fanClub == null || (this.actorService.findByPrincipal().getId() != fanClub.getRepresentative().getId()))
+			return new ModelAndView("redirect:/welcome/index.do");
+
+		try {
+			this.fanClubService.delete(fanClub);
+			result = this.list();
+
+		} catch (final Throwable oops) {
+			result = this.list();
+			result.addObject("message", "fanClub.delete.error");
+			return result;
 		}
 		return result;
 	}
@@ -135,7 +149,8 @@ public class FanClubRepresentativeController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final FanClub fanClub, final String messageCode) {
 		final ModelAndView result;
 		final Collection<Sector> sectors = this.sectorService.getSectorsWithoutFanClubs();
-
+		if (fanClub.getSector() != null)
+			sectors.add(fanClub.getSector());
 		result = new ModelAndView("fanClub/edit");
 		if (fanClub.getId() == 0)
 			result.addObject("riders", this.riderService.getRiderWithoutFanClub());

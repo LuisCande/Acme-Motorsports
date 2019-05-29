@@ -1844,6 +1844,20 @@
 		<property name="circuit" ref="circuit1"/>
 	</bean>
 	
+	<bean id="sector3" class="domain.Sector">
+		<property name="stand" value="First sector" />
+		<property name="rows" value="5" />
+		<property name="columns" value="15" />
+		<property name="circuit" ref="circuit2"/>
+	</bean>
+
+ 	<bean id="sector4" class="domain.Sector">
+		<property name="stand" value="Second sector" />
+		<property name="rows" value="7" />
+		<property name="columns" value="9" />
+		<property name="circuit" ref="circuit2"/>
+	</bean>
+	
 	<!-- Social Profile beans -->
 	
 	<bean id="socialProfile1" class="domain.SocialProfile">
