@@ -107,6 +107,8 @@ public class ApplicationService {
 		//Assertion that the user modifying this request has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRider().getId() || this.actorService.findByPrincipal().getId() == result.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
 
+		//TODO metodo de enviar mensaje de notificacion de status. Si result.getStatus es ACCEPTED o REJECTED, llamar a ese metodo @Luis
+		
 		return result;
 
 	}
