@@ -27,6 +27,7 @@
 <spring:message code="rider.socialProfiles" var="socialProfiles" />
 <spring:message code="rider.display" var="display" />
 <spring:message code="rider.return" var="msgReturn" />
+<spring:message code="rider.sign" var="sign" />
 
 <jsp:useBean id="now" class="java.util.Date"/>
 
@@ -44,6 +45,21 @@
 
 	<%-- Links towards display, apply, edit and cancel views --%>
 	
+	<security:authorize access="hasRole('TEAMMANAGER')">
+	
+	<spring:url var="signUrl"
+		value="team/teamManager/sign.do">
+		<spring:param name="varId"
+			value="${row.id}"/>
+	</spring:url>
+	
+	<display:column title="${sign}">
+			<a href="${signUrl}"><jstl:out value="${sign}" /></a>
+	</display:column>
+	
+	</security:authorize>
+	
+	
 	<spring:url var="socialProfileUrl"
 		value="socialProfile/listByRider.do">
 		<spring:param name="varId"
@@ -57,11 +73,11 @@
 	</spring:url>
 	
 
-	<display:column>
+	<display:column title="${socialProfiles}">
 			<a href="${socialProfileUrl}"><jstl:out value="${socialProfiles}" /></a>
 	</display:column>
 	
-	<display:column>
+	<display:column title="${display}">
 			<a href="${displayUrl}"><jstl:out value="${display}" /></a>
 	</display:column>
 

@@ -92,6 +92,8 @@
  		
  		<!-- Team manager -->
  		<security:intercept-url pattern="/answer/teamManager/**" access="hasRole('TEAMMANAGER')" />
+ 		<security:intercept-url pattern="/team/teamManager/**" access="hasRole('TEAMMANAGER')" />
+ 		<security:intercept-url pattern="/team/**" access="hasRole('SPONSOR')" />
  		<security:intercept-url pattern="/answer/**" access="hasAnyRole('TEAMMANAGER','RACEDIRECTOR')" />
 
  		

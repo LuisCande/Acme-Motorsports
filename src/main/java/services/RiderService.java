@@ -17,6 +17,7 @@ import repositories.RiderRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Rider;
+import domain.Team;
 import forms.FormObjectRider;
 
 @Service
@@ -35,6 +36,9 @@ public class RiderService {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private TeamService		teamService;
 
 	@Autowired
 	private Validator		validator;
@@ -66,6 +70,32 @@ public class RiderService {
 		Assert.notNull(id);
 
 		return this.riderRepository.findOne(id);
+	}
+
+	public void sign(final int id) {
+		Assert.notNull(id);
+		final Rider rider = this.riderRepository.findOne(id);
+
+		//Assertion the rider does not belong to a team
+		Assert.isTrue(this.getRidersWithoutTeam().contains(rider));
+
+		final Team team = this.teamService.getTeamOfATeamManager(this.actorService.findByPrincipal().getId());
+		rider.setTeam(team);
+
+		this.riderRepository.save(rider);
+	}
+
+	public void signOut(final int id) {
+		Assert.notNull(id);
+		final Rider rider = this.riderRepository.findOne(id);
+		final Team team = this.teamService.getTeamOfATeamManager(this.actorService.findByPrincipal().getId());
+
+		//Assertion the user signing our the rider has the correct privilege
+		Assert.isTrue(rider.getTeam().equals(team));
+
+		rider.setTeam(null);
+
+		this.riderRepository.save(rider);
 	}
 
 	public Rider save(final Rider rider) {
@@ -106,6 +136,12 @@ public class RiderService {
 
 		//Assertion to make sure that the user has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
+
+		this.riderRepository.save(rider);
+	}
+
+	//Save from team (used for the delete team method)
+	public void saveFromTeam(final Rider rider) {
 
 		this.riderRepository.save(rider);
 	}
@@ -215,5 +251,15 @@ public class RiderService {
 	//Returns the riders without fan club
 	public Collection<Rider> getRiderWithoutFanClub() {
 		return this.riderRepository.getRiderWithoutFanClub();
+	}
+
+	//Returns the riders of a team
+	public Collection<Rider> getRidersOfATeam(final int teamId) {
+		return this.riderRepository.getRidersOfATeam(teamId);
+	}
+
+	//Returns the riders without team
+	public Collection<Rider> getRidersWithoutTeam() {
+		return this.riderRepository.getRidersWithoutTeam();
 	}
 }

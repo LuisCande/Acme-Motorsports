@@ -50,6 +50,7 @@
 		<value>/views/sector/messages</value>
 		<value>/views/forecast/messages</value>
 		<value>/views/announcement/messages</value>
+		<value>/views/team/messages</value>
 		<value>/views/worldChampion/messages</value>
 		<value>/views/circuit/messages</value>
 		<value>/views/category/messages</value>

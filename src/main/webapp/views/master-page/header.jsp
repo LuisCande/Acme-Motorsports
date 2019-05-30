@@ -202,6 +202,17 @@
 				</ul>
 			</li>
 			
+			<li><a class="fNiv"><spring:message
+						code="master.page.myTeam" /></a>
+				<ul>
+					<li class="arrow"></li>
+				<li><a href="team/teamManager/createOrDisplay.do"><spring:message
+								code="master.page.team.display" /></a></li>
+				<li><a href="team/teamManager/listAvailableRiders.do"><spring:message
+								code="master.page.rider.sign" /></a></li>
+				</ul>
+			</li>
+			
 		</security:authorize>
 		
 		<!-- Representative -->
