@@ -35,6 +35,7 @@
 <spring:message code="team.confirm" var="confirm" />
 <spring:message code="team.save" var="save" />
 <spring:message code="team.cancel" var="cancel" />
+<spring:message code="team.placeholder" var="placeholder" />
 
 <security:authorize access="hasRole('TEAMMANAGER')">
 
@@ -52,7 +53,7 @@
 		<form:errors path="contractYears" cssClass="error" />
 		<br>
 		<acme:textbox code="team.colours" path="colours" />
-		<acme:textbox code="team.logo" path="logo" />
+		<acme:textbox code="team.logo" path="logo" placeholder="team.placeholder"/>
 		<acme:textbox code="team.factory" path="factory" />
 		<form:label path="yearBudget">
 			<jstl:out value="${yearBudget}"/>
