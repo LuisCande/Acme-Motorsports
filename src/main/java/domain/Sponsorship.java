@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +18,7 @@ public class Sponsorship extends DomainEntity {
 
 	//Attributes
 
+	private String		brandName;
 	private String		banner;
 	private String		link;
 	private CreditCard	creditCard;
@@ -30,6 +32,12 @@ public class Sponsorship extends DomainEntity {
 	//Getters
 
 	@NotBlank
+	public String getBrandName() {
+		return this.brandName;
+	}
+
+	@NotBlank
+	@URL
 	public String getBanner() {
 		return this.banner;
 	}
@@ -47,8 +55,7 @@ public class Sponsorship extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
+	@OneToOne(optional = true)
 	public Team getTeam() {
 		return this.team;
 	}
@@ -61,6 +68,11 @@ public class Sponsorship extends DomainEntity {
 	}
 
 	//Setters
+
+	public void setBrandName(final String brandName) {
+		this.brandName = brandName;
+	}
+
 	public void setBanner(final String banner) {
 		this.banner = banner;
 	}

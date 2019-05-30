@@ -27,4 +27,12 @@ public interface RiderRepository extends JpaRepository<Rider, Integer> {
 	@Query("select r from Rider r where r not in (select f.rider from FanClub f)")
 	Collection<Rider> getRiderWithoutFanClub();
 
+	//Returns the riders of a team
+	@Query("select r from Rider r where r.team.id=?1")
+	Collection<Rider> getRidersOfATeam(int teamId);
+
+	//Returns the riders without team
+	@Query("select r from Rider r where r.team.id=null")
+	Collection<Rider> getRidersWithoutTeam();
+
 }

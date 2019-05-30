@@ -299,6 +299,9 @@
 		<property name="country" value="Italia" />
 		<property name="age" value="18" />
 		<property name="score" value="0.0" />
+			<property name="team">
+			<null />
+		</property>
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 	
@@ -315,7 +318,7 @@
 		<property name="country" value="Francia" />
 		<property name="age" value="23" />
 		<property name="score" value="0.0" />
-		<property name="userAccount" ref="userAccount3" />
+		<property name="team" ref="team1" />
 	</bean>
 	
 	<bean id="rider3" class="domain.Rider">
@@ -331,6 +334,9 @@
 		<property name="country" value="Alemania" />
 		<property name="age" value="28" />
 		<property name="score" value="0.0" />
+		<property name="team">
+			<null />
+		</property>
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
 	
@@ -1904,46 +1910,41 @@
 	<!-- Sponsorship beans -->
 	
 	<bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="banner" value="http://store.latingamers.net/image/cache/catalog/Manufacturers/Intel-400x200.png" />
-		<property name="link" value="https://www.intel.es/content/www/es/es/homepage.html" />
+		<property name="brandName" value="Monster Energy" />
+		<property name="banner" value="https://dydza6t6xitx6.cloudfront.net/ci-monster-energy-drink-a44417a571bd8be7.jpeg" />
+		<property name="link" value="https://www.monsterenergy.com/" />
 		<property name="creditCard" ref="creditCard1" />
 		<property name="team" ref="team1" />
 		<property name="sponsor" ref="sponsor1" />
 	</bean>
 	
 	<bean id="sponsorship2" class="domain.Sponsorship">
-		<property name="banner" value="https://s03.s3c.es/imag/_v0/640x319/4/5/e/telegram.jpg" />
-		<property name="link" value="http://telegram.com.es/" />
+		<property name="brandName" value="RedBull" />
+		<property name="banner" value="https://seeklogo.com/images/R/red-bull-logo-00BE208AF1-seeklogo.com.png" />
+		<property name="link" value="https://www.redbull.com/es-es/" />
 		<property name="creditCard" ref="creditCard2" />
 		<property name="team" ref="team2" />
-		<property name="sponsor" ref="sponsor2" />
-	</bean>
-	<bean id="sponsorship3" class="domain.Sponsorship">
-		<property name="banner" value="https://upload.wikimedia.org/wikipedia/commons/7/71/DAZN_logo.svg" />
-		<property name="link" value="https://www.dazn.com" />
-		<property name="creditCard" ref="creditCard3" />
-		<property name="team" ref="team3" />
 		<property name="sponsor" ref="sponsor2" />
 	</bean>
 	
 	<!-- Team beans -->
 	<bean id="team1" class="domain.Team">
-		<property name="name" value="Yamaha" />
+		<property name="name" value="Monster Energy Yamaha" />
 		<property name="moment" value="21/01/2005 10:00" />
 		<property name="contractYears" value="3" />
 		<property name="colours" value="blue-white" />
-		<property name="logo" value="http://www.youtube.com" />
+		<property name="logo" value="https://cdn.shopify.com/s/files/1/0235/2123/products/Yamaha_Motorcycles_Logo_2048x2048.jpg?v=1521556097" />
 		<property name="factory" value="Yamaha" />
 		<property name="yearBudget" value="150000" />
 		<property name="teamManager" ref="teamManager1" />
 	</bean>
 	
 	<bean id="team2" class="domain.Team">
-		<property name="name" value="Repsol" />
+		<property name="name" value="RedBull Honda" />
 		<property name="moment" value="20/11/2005 10:00" />
 		<property name="contractYears" value="5" />
 		<property name="colours" value="orange" />
-		<property name="logo" value="http://www.youtube.com" />
+		<property name="logo" value="https://www.88motorsport.se/5894-tm_thickbox_default/honda-logo-sticker-31-cm.jpg" />
 		<property name="factory" value="Repsol" />
 		<property name="yearBudget" value="220000" />
 		<property name="teamManager" ref="teamManager2" />

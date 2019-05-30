@@ -84,6 +84,11 @@ public class SponsorshipService {
 		return saved;
 	}
 
+	public void saveFromTeam(final Sponsorship ss) {
+		Assert.notNull(ss);
+		this.sponsorshipRepository.save(ss);
+	}
+
 	public void delete(final Sponsorship ss) {
 		Assert.notNull(ss);
 
@@ -133,4 +138,8 @@ public class SponsorshipService {
 
 	//Other methods
 
+	//Returns the sponsorship of a team
+	public Sponsorship getSponsorshipOfATeam(final int teamId) {
+		return this.sponsorshipRepository.getSponsorshipOfATeam(teamId);
+	}
 }
