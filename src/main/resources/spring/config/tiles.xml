@@ -55,6 +55,7 @@
 		<value>/views/category/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
 		<value>/views/meeting/tiles.xml</value>
+		<value>/views/application/tiles.xml</value>
 	</util:list>
 
 </beans>

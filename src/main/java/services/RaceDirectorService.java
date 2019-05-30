@@ -90,7 +90,6 @@ public class RaceDirectorService {
 		} else {
 			final RaceDirector saved = this.raceDirectorRepository.save(raceDirector);
 			this.actorService.hashPassword(saved);
-			//TODO revisar que las boxes se crean bien
 			this.boxService.generateDefaultFolders(saved);
 			saved2 = this.raceDirectorRepository.save(saved);
 		}

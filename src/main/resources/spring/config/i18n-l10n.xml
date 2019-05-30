@@ -56,6 +56,7 @@
 		<value>/views/category/messages</value>
 		<value>/views/configuration/messages</value>
 		<value>/views/meeting/messages</value>
+		<value>/views/application/messages</value>
 	</util:list>
 
 </beans>

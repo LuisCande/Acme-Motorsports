@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -26,4 +28,11 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	@Query("select count(a)*1./(select count(a1) from Application a1) from Application a where a.status='2'")
 	Double ratioRejectedApplications();
 
+	//Retrieves the list of applications of a certain rider
+	@Query("select a from Application a where a.rider.id=?1")
+	Collection<Application> getAllApplicationsForRider(int id);
+
+	//Retrieves the list of applications of a certain race director
+	@Query("select a from Application a where a.grandPrix.worldChampionship.raceDirector.id=?1")
+	Collection<Application> getAllApplicationsForRaceDirector(int id);
 }

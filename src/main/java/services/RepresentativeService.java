@@ -92,7 +92,6 @@ public class RepresentativeService {
 		} else {
 			final Representative saved = this.representativeRepository.save(representative);
 			this.actorService.hashPassword(saved);
-			//TODO revisar que las boxes se crean bien
 			this.boxService.generateDefaultFolders(saved);
 			saved2 = this.representativeRepository.save(saved);
 		}

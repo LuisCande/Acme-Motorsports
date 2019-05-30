@@ -147,7 +147,6 @@ public class TeamTeamManagerController extends AbstractController {
 		riders = this.riderService.getRidersOfATeam(team.getId());
 		result.addObject("riders", riders);
 		result.addObject("team", team);
-		//TODO Preguntar esto a Antonio
 		result.addObject("requestURI", "team/teamManager/createOrDisplay.do");
 
 		return result;

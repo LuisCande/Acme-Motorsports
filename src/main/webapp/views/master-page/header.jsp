@@ -143,6 +143,8 @@
 						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="application/raceDirector/list.do"><spring:message
+								code="master.page.application.list" /></a></li>
 					<li><a href="rider/list.do"><spring:message
 								code="master.page.list.riders" /></a></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
@@ -240,6 +242,8 @@
 						code="master.page.list" /></a>
 				<ul>
 					<li class="arrow"></li>
+				<li><a href="application/rider/list.do"><spring:message
+					code="master.page.application.list" /></a></li>
 				<li><a href="rider/list.do"><spring:message
 								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
@@ -249,13 +253,18 @@
 				</ul>
 			</li>
 		
+			<li><a class="fNiv"><spring:message
+						code="master.page.create" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="application/rider/create.do"><spring:message 
+							code="master.page.create.application" /></a></li>
+				</ul>
+			</li>
 
 			<li><a href="finder/rider/edit.do"><spring:message
 					code="master.page.finder.edit" /></a></li>
-					<%--  
-			<li><a href="application/hacker/list.do"><spring:message
-					code="master.page.application.list" /></a></li>--%>
-					
+					  
 			<li><a href="palmares/rider/display.do"><spring:message
 					code="master.page.rider.palmares" /></a></li>
 		</security:authorize>

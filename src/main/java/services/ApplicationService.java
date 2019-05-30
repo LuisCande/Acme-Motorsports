@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.validation.ValidationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import repositories.ApplicationRepository;
 import domain.Application;
 import domain.Rider;
 import domain.Status;
+import exceptions.GenericException;
 
 @Service
 @Transactional
@@ -68,71 +70,39 @@ public class ApplicationService {
 		//Assertion that the user modifying this application has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == application.getRider().getId() || this.actorService.findByPrincipal().getId() == application.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
 
+		//Assertion to make sure that the status is a valid one.
+		Assert.isTrue(application.getStatus().equals(Status.ACCEPTED) || application.getStatus().equals(Status.REJECTED) || application.getStatus().equals(Status.PENDING));
+
 		saved = this.applicationRepository.save(application);
 
 		return saved;
 	}
-	//Reject method
-
-	/*
-	 * public void reject(final Application app) {
-	 * Assert.notNull(app);
-	 * 
-	 * //Assertion that the user rejecting this app has the correct privilege.
-	 * Assert.isTrue(this.actorService.findByPrincipal().getId() == app.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
-	 * 
-	 * //Assertion that application is submitted.
-	 * Assert.isTrue(app.getStatus() == Status.PENDING);
-	 * 
-	 * app.setStatus(Status.REJECTED);
-	 * 
-	 * final Application saved = this.applicationRepository.save(app);
-	 * 
-	 * //TODO this.messageService.applicationStatusNotification(saved);
-	 * }
-	 * 
-	 * //Accept method
-	 * 
-	 * public void accept(final Application app) {
-	 * Assert.notNull(app);
-	 * 
-	 * //Assertion that the user accepting this app has the correct privilege.
-	 * Assert.isTrue(this.actorService.findByPrincipal().getId() == app.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
-	 * 
-	 * //Assertion that application is submitted.
-	 * Assert.isTrue(app.getStatus() == Status.PENDING);
-	 * 
-	 * app.setStatus(Status.ACCEPTED);
-	 * 
-	 * final Application saved = this.applicationRepository.save(app);
-	 * 
-	 * //TODO this.messageService.applicationStatusNotification(saved);
-	 * }
-	 */
 
 	//Reconstruct
 
 	public Application reconstruct(final Application app, final BindingResult binding) {
 		Application result;
 
-		if (app.getId() == 0)
+		if (app.getId() == 0) {
 			result = this.create();
-		else
+			result.setGrandPrix(app.getGrandPrix());
+			result.setComments(app.getComments());
+		} else {
 			result = this.applicationRepository.findOne(app.getId());
-
-		result.setComments(app.getComments());
-		result.setStatus(app.getStatus());
+			result.setStatus(app.getStatus());
+			result.setReason(app.getReason());
+		}
 
 		this.validator.validate(result, binding);
 
 		if (binding.hasErrors())
 			throw new ValidationException();
 
-		//TODO Probar esto, no estoy seguro de que funcione jeje
-		if (app.getStatus() == Status.REJECTED) {
-			result.setReason(app.getReason());
-			Assert.notNull(result.getReason());
-		}
+		if (app.getStatus() == Status.REJECTED && StringUtils.isWhitespace(app.getReason()))
+			throw new GenericException();
+
+		//Assertion to make sure that the status is a valid one.
+		Assert.isTrue(result.getStatus().equals(Status.ACCEPTED) || result.getStatus().equals(Status.REJECTED) || result.getStatus().equals(Status.PENDING));
 
 		//Assertion that the user modifying this request has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRider().getId() || this.actorService.findByPrincipal().getId() == result.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
@@ -140,7 +110,6 @@ public class ApplicationService {
 		return result;
 
 	}
-
 	//Other methods
 
 	//The average, the minimum, the maximum, and the standard deviation of the number of applications per grand prixes
@@ -161,6 +130,16 @@ public class ApplicationService {
 	//The ratio of rejected applications
 	public Double ratioRejectedApplications() {
 		return this.applicationRepository.ratioRejectedApplications();
+	}
+
+	//Retrieves the list of applications of a certain rider
+	public Collection<Application> getAllApplicationsForRider(final int id) {
+		return this.applicationRepository.getAllApplicationsForRider(id);
+	}
+
+	//Retrieves the list of applications of a certain race director
+	public Collection<Application> getAllApplicationsForRaceDirector(final int id) {
+		return this.applicationRepository.getAllApplicationsForRaceDirector(id);
 	}
 
 	/*
