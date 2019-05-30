@@ -385,4 +385,9 @@ public class GrandPrixService {
 	public Collection<GrandPrix> getGrandPrixesOfARaceDirector(final int actorId) {
 		return this.grandPrixRepository.getGrandPrixesOfARaceDirector(actorId);
 	}
+
+	//Retrieves the list of applicable grand prixes for a certain rider
+	public Collection<GrandPrix> getApplicableGrandPrixesForRider(final int id) {
+		return this.grandPrixRepository.getApplicableGrandPrixesForRider(id);
+	}
 }

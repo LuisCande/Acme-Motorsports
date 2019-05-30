@@ -73,6 +73,7 @@
  		<security:intercept-url pattern="/announcement/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		<security:intercept-url pattern="/circuit/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		<security:intercept-url pattern="/grandPrix/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
+ 		<security:intercept-url pattern="/application/raceDirector/**" access="hasRole('RACEDIRECTOR')" />
  		
  		<!-- Rider -->
  		<security:intercept-url pattern="/palmares/**" access="hasRole('RIDER')" />
@@ -84,6 +85,7 @@
  		<security:intercept-url pattern="/pole/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/worldChampion/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/meeting/rider/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/application/rider/**" access="hasRole('RIDER')" />
  		
  		<!-- Representative -->
  		<security:intercept-url pattern="/fanClub/representative/**" access="hasRole('REPRESENTATIVE')" />

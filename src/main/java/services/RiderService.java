@@ -121,7 +121,6 @@ public class RiderService {
 		} else {
 			final Rider saved = this.riderRepository.save(rider);
 			this.actorService.hashPassword(saved);
-			//TODO revisar que las boxes se crean bien
 			this.boxService.generateDefaultFolders(saved);
 			saved2 = this.riderRepository.save(saved);
 		}
