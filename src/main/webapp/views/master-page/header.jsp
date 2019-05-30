@@ -145,6 +145,8 @@
 					<li class="arrow"></li>
 					<li><a href="application/raceDirector/list.do"><spring:message
 								code="master.page.application.list" /></a></li>
+					<li><a href="circuit/list.do"><spring:message
+								code="master.page.list.circuit" /></a></li>
 					<li><a href="rider/list.do"><spring:message
 								code="master.page.list.riders" /></a></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
