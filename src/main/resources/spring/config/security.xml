@@ -84,6 +84,7 @@
  		<security:intercept-url pattern="/announcement/**" access="hasAnyRole('RIDER', 'RACEDIRECTOR', 'TEAMMANAGER')" />
  		<security:intercept-url pattern="/pole/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/worldChampion/**" access="hasRole('RIDER')" />
+ 		<security:intercept-url pattern="/team/rider/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/meeting/rider/**" access="hasRole('RIDER')" />
  		<security:intercept-url pattern="/application/rider/**" access="hasRole('RIDER')" />
  		
@@ -98,6 +99,8 @@
  		<security:intercept-url pattern="/team/**" access="hasRole('SPONSOR')" />
  		<security:intercept-url pattern="/answer/**" access="hasAnyRole('TEAMMANAGER','RACEDIRECTOR')" />
 
+ 		<!-- Sponsor -->
+ 		<security:intercept-url pattern="/sponsorship/**" access="hasRole('SPONSOR')" />
  		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
