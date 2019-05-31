@@ -55,6 +55,7 @@
 		<value>/views/circuit/messages</value>
 		<value>/views/category/messages</value>
 		<value>/views/configuration/messages</value>
+		<value>/views/sponsorship/messages</value>
 		<value>/views/meeting/messages</value>
 	</util:list>
 

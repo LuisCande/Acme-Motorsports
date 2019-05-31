@@ -61,7 +61,6 @@
 		<form:input path="yearBudget" pattern="\d{0,8}"/>
 		<form:errors path="yearBudget" cssClass="error" />
 		<br>
-		
 
 		<%-- Buttons --%>
 

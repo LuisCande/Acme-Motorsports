@@ -75,6 +75,11 @@ public class TeamService {
 		return saved;
 	}
 
+	public void saveFromSponsorship(final Team t) {
+		Assert.notNull(t);
+		this.teamRepository.save(t);
+	}
+
 	public void delete(final Team team) {
 		Assert.notNull(team);
 
@@ -140,6 +145,11 @@ public class TeamService {
 	//Returns the team of a team manager
 	public Team getTeamOfATeamManager(final int teamManagerId) {
 		return this.teamRepository.getTeamOfATeamManager(teamManagerId);
+	}
+
+	//Returns the teams without sponsorship
+	public Collection<Team> getTeamsWithoutSponsorship() {
+		return this.teamRepository.getTeamsWithoutSponsorship();
 	}
 
 }
