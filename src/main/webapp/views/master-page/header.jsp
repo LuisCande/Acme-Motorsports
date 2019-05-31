@@ -231,7 +231,10 @@
 								code="master.page.list.riders" /></a></li>
 				<li><a href="worldChampionship/list.do"><spring:message
 								code="master.page.worldChampionship.list" /></a></li>
-				
+				<li><a href="team/list.do"><spring:message
+								code="master.page.team.list" /></a></li>
+				<li><a href="sponsorship/sponsor/list.do"><spring:message
+								code="master.page.sponsorship.list" /></a></li>
 				</ul>
 			</li>
 			
@@ -266,6 +269,9 @@
 
 			<li><a href="finder/rider/edit.do"><spring:message
 					code="master.page.finder.edit" /></a></li>
+					
+			<li><a href="team/rider/display.do"><spring:message
+					code="master.page.rider.myTeam" /></a></li>
 					  
 			<li><a href="palmares/rider/display.do"><spring:message
 					code="master.page.rider.palmares" /></a></li>

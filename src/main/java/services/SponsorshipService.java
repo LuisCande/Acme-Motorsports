@@ -17,6 +17,8 @@ import repositories.SponsorshipRepository;
 import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
+import domain.Team;
+import exceptions.GenericException;
 
 @Service
 @Transactional
@@ -37,6 +39,9 @@ public class SponsorshipService {
 	@Autowired
 	private ConfigurationService	configurationService;
 
+	@Autowired
+	private TeamService				teamService;
+
 
 	// Simple CRUD methods
 
@@ -45,7 +50,6 @@ public class SponsorshipService {
 		final Sponsor s = (Sponsor) this.actorService.findByPrincipal();
 		ss.setSponsor(s);
 		ss.setCreditCard(new CreditCard());
-		//TODO el team se le seteará en un desplegable supongo (?)
 		return ss;
 	}
 
@@ -80,10 +84,12 @@ public class SponsorshipService {
 		final Collection<String> makes = this.configurationService.findAll().iterator().next().getCreditCardList();
 		Assert.isTrue(makes.contains(ss.getCreditCard().getMake()));
 
+		//Setting team name
+
 		final Sponsorship saved = this.sponsorshipRepository.save(ss);
+
 		return saved;
 	}
-
 	public void saveFromTeam(final Sponsorship ss) {
 		Assert.notNull(ss);
 		this.sponsorshipRepository.save(ss);
@@ -95,9 +101,13 @@ public class SponsorshipService {
 		//Assertion that the user deleting this sponsorship has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == ss.getSponsor().getId());
 
+		if (ss.getTeam() != null) {
+			final Team team = ss.getTeam();
+			team.setName(team.getName().substring(ss.getBrandName().length() + 1));
+			this.teamService.saveFromSponsorship(team);
+		}
 		this.sponsorshipRepository.delete(ss);
 	}
-
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
 
 		Sponsorship result;
@@ -107,6 +117,8 @@ public class SponsorshipService {
 			result = this.create();
 		else
 			result = this.sponsorshipRepository.findOne(sponsorship.getId());
+
+		result.setBrandName(sponsorship.getBrandName());
 		result.setBanner(sponsorship.getBanner());
 		result.setLink(sponsorship.getLink());
 		result.setCreditCard(sponsorship.getCreditCard());
@@ -122,24 +134,31 @@ public class SponsorshipService {
 
 		//Assertion to make sure that the credit card has a valid expiration date.
 		if (result.getCreditCard() != null) {
-			Assert.isTrue(result.getCreditCard().getExpYear() >= year);
+			if (result.getCreditCard().getExpYear() < year)
+				throw new GenericException();
 
 			if (result.getCreditCard().getExpYear() == year)
-				Assert.isTrue(result.getCreditCard().getExpMonth() >= month);
+				if (result.getCreditCard().getExpMonth() < month + 1)
+					throw new GenericException();
 		}
 
 		//Assertion is a valid make
 		final Collection<String> makes = this.configurationService.findAll().iterator().next().getCreditCardList();
-		Assert.isTrue(makes.contains(result.getCreditCard().getMake()));
+		if (!makes.contains(result.getCreditCard().getMake()))
+			throw new GenericException();
 
 		return result;
 
 	}
-
 	//Other methods
 
 	//Returns the sponsorship of a team
 	public Sponsorship getSponsorshipOfATeam(final int teamId) {
 		return this.sponsorshipRepository.getSponsorshipOfATeam(teamId);
+	}
+
+	//Returns the sponsorships of a sponsor
+	public Collection<Sponsorship> getSponsorshipsOfASponsor(final int actorId) {
+		return this.sponsorshipRepository.getSponsorshipsOfASponsor(actorId);
 	}
 }

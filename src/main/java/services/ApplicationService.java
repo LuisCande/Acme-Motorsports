@@ -37,6 +37,9 @@ public class ApplicationService {
 	@Autowired
 	private Validator				validator;
 
+	@Autowired
+	private MessageService			messageService;
+
 
 	//Simple CRUD Methods --------------------------------
 
@@ -75,6 +78,9 @@ public class ApplicationService {
 
 		saved = this.applicationRepository.save(application);
 
+		if (saved.getStatus() == Status.ACCEPTED || saved.getStatus() == Status.REJECTED)
+			this.messageService.applicationNotification(saved);
+
 		return saved;
 	}
 
@@ -107,8 +113,6 @@ public class ApplicationService {
 		//Assertion that the user modifying this request has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRider().getId() || this.actorService.findByPrincipal().getId() == result.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
 
-		//TODO metodo de enviar mensaje de notificacion de status. Si result.getStatus es ACCEPTED o REJECTED, llamar a ese metodo @Luis
-		
 		return result;
 
 	}
