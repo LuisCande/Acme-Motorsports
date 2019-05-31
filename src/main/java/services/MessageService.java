@@ -18,6 +18,7 @@ import org.springframework.validation.Validator;
 import repositories.MessageRepository;
 import domain.Actor;
 import domain.Announcement;
+import domain.Application;
 import domain.Box;
 import domain.Configuration;
 import domain.GrandPrix;
@@ -216,6 +217,19 @@ public class MessageService {
 				this.send(msg, r);
 	}
 
+	public void applicationNotification(final Application a) {
+		Assert.notNull(a);
+		final Rider rider = a.getRider();
+
+		final Message msg = this.create();
+		msg.setSubject("Application status changed / Se ha modificado el estado de tu solicitud");
+		msg.setBody("Your application status with status pending has changed  / Se ha modificado el estado de la solicitud que tenias pendiente");
+		msg.setPriority(Priority.HIGH);
+		msg.setTags("APPLICATION, STATUS, CHANGED / SOLICITUD, ESTADO, CAMBIADO");
+		msg.setSent(new Date(System.currentTimeMillis() - 1));
+		this.send(msg, rider);
+	}
+
 	public void cancelledGrandPrixNotification(final GrandPrix g) {
 		Assert.notNull(g);
 		final Collection<Rider> riders = this.riderService.getRidersWhoHasAppliedToAGrandPrix(g.getId());
@@ -231,25 +245,6 @@ public class MessageService {
 			for (final Rider r : riders)
 				this.send(msg, r);
 	}
-
-	// TODO Sends a message to the brotherhoods members when a parade is published.
-	//	public void paradePublished(final Parade p) {
-	//		Assert.notNull(p);
-	//
-	//		final Brotherhood b = p.getBrotherhood();
-	//		final Collection<Member> activeMembers = this.memberService.activeMembersOfBrotherhood(b.getId());
-	//
-	//		final Message msg = this.create();
-	//		msg.setSubject("A parade has been published / Se ha publicado un desfile.");
-	//		msg.setBody("A parade has been published / Se ha publicado un desfile.");
-	//		msg.setPriority("HIGH");
-	//		msg.setTags("Parade published / Desfile publicado");
-	//		msg.setSent(new Date(System.currentTimeMillis() - 1));
-	//
-	//		if (!activeMembers.isEmpty())
-	//			for (final Member m : activeMembers)
-	//				this.send(msg, m);
-	//	}
 
 	//Reconstruct
 	public Message reconstruct(final Message m, final BindingResult binding) {

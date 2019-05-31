@@ -33,6 +33,9 @@ public class ApplicationService {
 	private ActorService			actorService;
 
 	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -69,6 +72,9 @@ public class ApplicationService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == application.getRider().getId() || this.actorService.findByPrincipal().getId() == application.getGrandPrix().getWorldChampionship().getRaceDirector().getId());
 
 		saved = this.applicationRepository.save(application);
+
+		if (saved.getStatus() == Status.ACCEPTED || saved.getStatus() == Status.REJECTED)
+			this.messageService.applicationNotification(saved);
 
 		return saved;
 	}
