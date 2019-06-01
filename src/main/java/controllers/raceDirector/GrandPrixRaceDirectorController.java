@@ -226,6 +226,27 @@ public class GrandPrixRaceDirectorController extends AbstractController {
 
 		return result;
 	}
+
+	//Listing
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(final int varId) {
+		final ModelAndView result;
+		final WorldChampionship wc = this.worldChampionshipService.findOne(varId);
+
+		if (wc.getRaceDirector().getId() != this.actorService.findByPrincipal().getId())
+			return new ModelAndView("redirect:/welcome/index.do");
+
+		final Collection<GrandPrix> gps = this.grandPrixService.grandPrixesByWorldChampionship(varId);
+
+		result = new ModelAndView("grandPrix/list");
+		result.addObject("grandPrixes", gps);
+		result.addObject("actorId", this.actorService.findByPrincipal().getId());
+		result.addObject("requestURI", "grandPrix/raceDirector/list.do");
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final FormObjectGrandPrix fogp) {
 		ModelAndView result;
 

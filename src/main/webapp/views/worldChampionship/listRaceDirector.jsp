@@ -58,15 +58,17 @@
 			<a href="${displayUrl}"><jstl:out value="${display}" /></a>
 		</display:column>
 		
-
+	<security:authorize access="hasRole('RACEDIRECTOR')">
+		
 		<display:column title="${grandPrixMsg}">
-				<spring:url var="grandPrixesUrl" value="grandPrix/list.do">
+				<spring:url var="grandPrixesUrl" value="grandPrix/raceDirector/list.do">
 					<spring:param name="varId" value="${row.id}" />
 				</spring:url>
 		
 				<a href="${grandPrixesUrl}"><jstl:out value="${grandPrixMsg}" /></a>
 		</display:column>
-			
+		
+			</security:authorize>	
 			
 </display:table>
 	<security:authorize access="hasRole('RACEDIRECTOR')">

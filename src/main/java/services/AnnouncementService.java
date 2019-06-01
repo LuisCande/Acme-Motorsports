@@ -73,7 +73,8 @@ public class AnnouncementService {
 
 		final Announcement saved = this.announcementRepository.save(a);
 
-		//TODO Meter el mensaje de notificacion si la id es 0
+		if (saved.getFinalMode() == true)
+			this.messageService.announcementNotification(saved);
 
 		return saved;
 	}
@@ -122,9 +123,6 @@ public class AnnouncementService {
 
 		//Assertion the Announcement published for a grand prix is contained in Race Director WordChampionship grand prixes list
 		Assert.isTrue(gps.contains(result.getGrandPrix()));
-
-		if (result.getFinalMode() == true)
-			this.messageService.announcementNotification(result);
 
 		return result;
 

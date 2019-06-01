@@ -53,7 +53,7 @@ public class GrandPrixController extends AbstractController {
 	public ModelAndView list(@RequestParam final int varId) {
 		final ModelAndView result;
 		Collection<GrandPrix> grandPrixes;
-		grandPrixes = this.grandPrixService.grandPrixesByWorldChampionship(varId);
+		grandPrixes = this.grandPrixService.getPublicGrandPrixesByWorldChampionship(varId);
 
 		result = new ModelAndView("grandPrix/list");
 		result.addObject("grandPrixes", grandPrixes);

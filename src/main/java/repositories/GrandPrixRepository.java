@@ -28,6 +28,10 @@ public interface GrandPrixRepository extends JpaRepository<GrandPrix, Integer> {
 	@Query("select gp from GrandPrix gp where gp.worldChampionship.id=?1")
 	Collection<GrandPrix> grandPrixesByWorldChampionship(int id);
 
+	//Returns the public grand prixes of a world championship
+	@Query("select gp from GrandPrix gp where gp.worldChampionship.id=?1 and gp.finalMode='1' and gp.cancelled='0'")
+	Collection<GrandPrix> getPublicGrandPrixesByWorldChampionship(int id);
+
 	//The average, the minimum, the maximum, and the standard deviation of the maximum riders of the grand prixes.
 	@Query("select avg(g.maxRiders), min(g.maxRiders), max(g.maxRiders), stddev(g.maxRiders) from GrandPrix g")
 	Double[] avgMinMaxStddevMaxRidersPerGrandPrix();
