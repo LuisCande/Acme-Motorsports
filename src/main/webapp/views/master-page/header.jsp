@@ -151,6 +151,8 @@
 								code="master.page.list.riders" /></a></li>
 					<li><a href="worldChampionship/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.worldChampionship.list" /></a></li>
+					<li><a href="worldChampionship/list.do"><spring:message
+								code="master.page.worldChampionship.list" /></a></li>
 					<li><a href="forecast/raceDirector/list.do"><spring:message
 								code="master.page.raceDirector.forecast.list" /></a></li>
 					<li><a href="announcement/raceDirector/list.do"><spring:message
@@ -310,7 +312,6 @@
 								code="master.page.worldChampionship.list" /></a></li>
 					<li><a href="fanClub/list.do"><spring:message
 								code="master.page.list.fanClub" /></a></li>
-				
 			
 				</ul>
 			</li>

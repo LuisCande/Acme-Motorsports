@@ -31,6 +31,11 @@
 		<put-attribute name="body" value="/views/worldChampionship/list.jsp" />
 	</definition>
 	
+	<definition name="worldChampionship/listRaceDirector" extends="master.page">	
+		<put-attribute name="title" value="World championship list" />
+		<put-attribute name="body" value="/views/worldChampionship/listRaceDirector.jsp" />
+	</definition>
+	
 	<definition name="worldChampionship/display" extends="master.page">	
 		<put-attribute name="title" value="World championship display" />
 		<put-attribute name="body" value="/views/worldChampionship/display.jsp" />

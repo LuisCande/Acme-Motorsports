@@ -262,47 +262,6 @@ public class GrandPrixService {
 		}
 
 	}
-	//Reconstruct Pruned
-
-	//	public GrandPrix reconstruct(final GrandPrix g, final BindingResult binding) {
-	//		Assert.notNull(g);
-	//		GrandPrix result;
-	//
-	//		if (g.getId() == 0)
-	//			result = this.create(g.getWorldChampionship().getId());
-	//		else
-	//			result = this.grandPrixRepository.findOne(g.getId());
-	//
-	//		//Assertion that the user modifying this grand prix has the correct privilege.
-	//		Assert.isTrue(result.getFinalMode() == false);
-	//
-	//		result.setDescription(g.getDescription());
-	//		result.setStartDate(g.getStartDate());
-	//		result.setEndDate(g.getEndDate());
-	//		result.setFinalMode(false);
-	//		result.setCancelled(false);
-	//		result.setMaxRiders(g.getMaxRiders());
-	//		result.setFinalMode(g.getFinalMode());
-	//		result.setCategory(g.getCategory());
-	//		result.setCircuit(g.getCircuit());
-	//
-	//		this.validator.validate(result, binding);
-	//
-	//		if (binding.hasErrors())
-	//			throw new ValidationException();
-	//
-	//		//Assertion that the user modifying this task has the correct privilege.
-	//		Assert.isTrue(this.actorService.findByPrincipal().getId() == g.getWorldChampionship().getRaceDirector().getId());
-	//
-	//		//Assertion the start date must be after today
-	//		Assert.isTrue(g.getStartDate().after(new Date(System.currentTimeMillis() - 1)));
-	//
-	//		//Assertion the start date must be before end date
-	//		Assert.isTrue(g.getStartDate().before(g.getEndDate()));
-	//
-	//		return result;
-	//
-	//	}
 
 	//Other methods
 
@@ -389,5 +348,10 @@ public class GrandPrixService {
 	//Retrieves the list of applicable grand prixes for a certain rider
 	public Collection<GrandPrix> getApplicableGrandPrixesForRider(final int id) {
 		return this.grandPrixRepository.getApplicableGrandPrixesForRider(id);
+	}
+
+	//Returns the public grand prixes of a world championship
+	public Collection<GrandPrix> getPublicGrandPrixesByWorldChampionship(final int id) {
+		return this.grandPrixRepository.getPublicGrandPrixesByWorldChampionship(id);
 	}
 }

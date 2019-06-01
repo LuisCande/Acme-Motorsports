@@ -29,7 +29,7 @@
 
 <%-- For the selected floatAcme, display the following information: --%>
 
-	<jstl:out value="${name}" />
+	<jstl:out value="${name}" />:
 	<jstl:out value="${worldChampionship.name}"/>
 	<br />
 	

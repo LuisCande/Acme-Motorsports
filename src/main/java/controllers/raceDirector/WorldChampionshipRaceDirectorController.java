@@ -77,9 +77,9 @@ public class WorldChampionshipRaceDirectorController extends AbstractController 
 		//QUERY
 		worldChampionships = this.worldChampionshipService.worldChampionshipsFromRaceDirector(raceDirector.getId());
 
-		result = new ModelAndView("worldChampionship/list");
+		result = new ModelAndView("worldChampionship/listRaceDirector");
 		result.addObject("worldChampionships", worldChampionships);
-		result.addObject("requestURI", "worldChampionship/raceDirector/list.do");
+		result.addObject("requestURI", "worldChampionship/raceDirector/listRaceDirector.do");
 
 		return result;
 	}

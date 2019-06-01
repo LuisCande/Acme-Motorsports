@@ -66,7 +66,8 @@ public class ForecastService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == f.getRaceDirector().getId());
 
 		//Assertion the forecast published for a grand prix is contained in Race Director WordChampionship grand prixes list
-		Assert.isTrue(gps.contains(f.getGrandPrix()));
+		if (f.getId() == 0)
+			Assert.isTrue(gps.contains(f.getGrandPrix()));
 
 		final Forecast saved = this.forecastRepository.save(f);
 
@@ -104,8 +105,8 @@ public class ForecastService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == result.getRaceDirector().getId());
 
 		//Assertion the forecast published for a grand prix is contained in Race Director WordChampionship grand prixes list
-		Assert.isTrue(gps.contains(result.getGrandPrix()));
-
+		if (result.getId() == 0)
+			Assert.isTrue(gps.contains(result.getGrandPrix()));
 		return result;
 
 	}
