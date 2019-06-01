@@ -149,11 +149,16 @@ public class FanClubRepresentativeController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final FanClub fanClub, final String messageCode) {
 		final ModelAndView result;
 		final Collection<Sector> sectors = this.sectorService.getSectorsWithoutFanClubs();
-		if (fanClub.getSector() != null)
-			sectors.add(fanClub.getSector());
+		final FanClub f = this.fanClubService.findOne(fanClub.getId());
+
+		if (fanClub.getId() != 0 && f.getSector() != null)
+			sectors.add(f.getSector());
+
 		result = new ModelAndView("fanClub/edit");
+
 		if (fanClub.getId() == 0)
 			result.addObject("riders", this.riderService.getRiderWithoutFanClub());
+
 		result.addObject("sectors", sectors);
 		result.addObject("fanClub", fanClub);
 		result.addObject("message", messageCode);
