@@ -84,8 +84,6 @@ public class SponsorshipService {
 		final Collection<String> makes = this.configurationService.findAll().iterator().next().getCreditCardList();
 		Assert.isTrue(makes.contains(ss.getCreditCard().getMake()));
 
-		//Setting team name
-
 		final Sponsorship saved = this.sponsorshipRepository.save(ss);
 
 		return saved;

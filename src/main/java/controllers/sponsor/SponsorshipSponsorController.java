@@ -163,29 +163,11 @@ public class SponsorshipSponsorController {
 			return result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
 		}
 		try {
+			final Sponsorship saved = this.sponsorshipService.save(sponsorship);
 
-			//Setting team name 
-
-			if (sponsorship.getId() == 0) {
-				if (sponsorship.getTeam() != null) {
-					final Team team = sponsorship.getTeam();
-					team.setName(sponsorship.getBrandName() + " " + team.getName());
-					this.teamService.saveFromSponsorship(team);
-				}
-			} else if (sponsorship.getTeam() != null) {
-				final Sponsorship spo = this.getPreviousSponsorship();
-				if (spo != null) {
-					final Team team = sponsorship.getTeam();
-					final String brandName = sponsorship.getBrandName();
-					final String shortedName = team.getName().substring(spo.getBrandName().length() + 1);
-					team.setName(brandName + " " + shortedName);
-					this.teamService.saveFromSponsorship(team);
-				} else {
-					final Team team = sponsorship.getTeam();
-					team.setName(sponsorship.getBrandName() + " " + team.getName());
-					this.teamService.saveFromSponsorship(team);
-				}
-			} else {
+			//Setting team name
+			//Editamos un sponsorship y le quedamos el equipo a null
+			if (saved.getTeam() == null && this.getPreviousTeam() != null) {
 				final Team team = this.getPreviousTeam();
 				final Sponsorship sp = this.getPreviousSponsorship();
 				final String name = team.getName();
@@ -193,7 +175,29 @@ public class SponsorshipSponsorController {
 				team.setName(name.substring(spName.length() + 1));
 				this.teamService.saveFromSponsorship(team);
 			}
-			this.sponsorshipService.save(sponsorship);
+
+			//Creamos o editamos un sponsorship que no tenia equipo y le pasamos team
+			if (saved.getTeam() != null && this.getPreviousTeam() == null) {
+				final Team team = saved.getTeam();
+				team.setName(saved.getBrandName() + " " + team.getName());
+				this.teamService.saveFromSponsorship(team);
+			}
+
+			//Editamos un sponsorship y le cambiamos el equipo que tenia asignado 
+			if (saved.getTeam() != null && this.getPreviousTeam() != null) {
+
+				//Cambio el nombre del equipo que tenia asignado
+				final Sponsorship spo = this.getPreviousSponsorship();
+				final Team team = this.getPreviousTeam();
+				final String shortedName = team.getName().substring(spo.getBrandName().length() + 1);
+				team.setName(shortedName);
+				this.teamService.saveFromSponsorship(team);
+
+				//Cambio el nombre del equipo actual
+				final Team teamNew = saved.getTeam();
+				teamNew.setName(saved.getBrandName() + " " + teamNew.getName());
+				this.teamService.saveFromSponsorship(teamNew);
+			}
 			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
