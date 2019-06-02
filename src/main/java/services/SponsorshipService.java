@@ -17,7 +17,6 @@ import repositories.SponsorshipRepository;
 import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
-import domain.Team;
 import exceptions.GenericException;
 
 @Service
@@ -38,9 +37,6 @@ public class SponsorshipService {
 
 	@Autowired
 	private ConfigurationService	configurationService;
-
-	@Autowired
-	private TeamService				teamService;
 
 
 	// Simple CRUD methods
@@ -99,11 +95,9 @@ public class SponsorshipService {
 		//Assertion that the user deleting this sponsorship has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == ss.getSponsor().getId());
 
-		if (ss.getTeam() != null) {
-			final Team team = ss.getTeam();
-			team.setName(team.getName().substring(ss.getBrandName().length() + 1));
-			this.teamService.saveFromSponsorship(team);
-		}
+		//Assertion that the sponsorship has not team asociated
+		Assert.isTrue(ss.getTeam() == null);
+
 		this.sponsorshipRepository.delete(ss);
 	}
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {

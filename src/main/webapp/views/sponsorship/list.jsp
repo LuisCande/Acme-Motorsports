@@ -48,7 +48,7 @@
 		
 	<%-- Edit --%>	
 		<spring:url var="editUrl" value="sponsorship/sponsor/edit.do">
-			<spring:param name="sponsorshipId" value="${row.id}" />
+			<spring:param name="varId" value="${row.id}" />
 		</spring:url>
 		<display:column title="${edit}">
 			<a href="${editUrl}"><jstl:out value="${edit}" /></a>
@@ -56,7 +56,7 @@
 
 	<%-- Display --%>
 		<spring:url var="displayUrl" value="sponsorship/sponsor/display.do">
-			<spring:param name="sponsorshipId" value="${row.id}" />
+			<spring:param name="varId" value="${row.id}" />
 		</spring:url>
 		<display:column title="${display}">
 			<a href="${displayUrl}"><jstl:out value="${display}" /></a>
@@ -71,7 +71,9 @@
 	</spring:url>
 
 	<display:column title="${delete}">
+	<jstl:if test="${empty row.team}">
 		<a href="${deleteURL}" onclick="return confirm('${confirm}')" ><jstl:out value="${delete}" /></a>
+		</jstl:if>
 	</display:column>
 	
 	
