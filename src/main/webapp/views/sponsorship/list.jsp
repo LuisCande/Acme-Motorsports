@@ -24,7 +24,6 @@
 
 <spring:message code="sponsorship.create" var="create" />
 <spring:message code="sponsorship.edit" var="edit" />
-<spring:message code="sponsorship.delete" var="delete" />
 <spring:message code="sponsorship.display" var="display" />
 <spring:message code="sponsorship.confirm.delete" var="confirm" />
 <spring:message code="sponsorship.brandName" var="brandName" />
@@ -61,20 +60,6 @@
 		<display:column title="${display}">
 			<a href="${displayUrl}"><jstl:out value="${display}" /></a>
 		</display:column>
-		
-	
-
-	<!--  Pay sponsorship -->
-
-	<spring:url var="deleteURL" value="sponsorship/sponsor/delete.do">
-		<spring:param name="varId" value="${row.id}" />
-	</spring:url>
-
-	<display:column title="${delete}">
-	<jstl:if test="${empty row.team}">
-		<a href="${deleteURL}" onclick="return confirm('${confirm}')" ><jstl:out value="${delete}" /></a>
-		</jstl:if>
-	</display:column>
 	
 	
 </display:table>
