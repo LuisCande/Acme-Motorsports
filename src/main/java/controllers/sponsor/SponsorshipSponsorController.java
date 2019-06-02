@@ -70,11 +70,11 @@ public class SponsorshipSponsorController {
 	//Edition
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int sponsorshipId) {
+	public ModelAndView edit(@RequestParam final int varId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+		sponsorship = this.sponsorshipService.findOne(varId);
 		Assert.notNull(sponsorship);
 
 		if (sponsorship.getSponsor().getId() != this.actorService.findByPrincipal().getId())
@@ -112,11 +112,11 @@ public class SponsorshipSponsorController {
 	//Display 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int sponsorshipId) {
+	public ModelAndView display(@RequestParam final int varId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+		sponsorship = this.sponsorshipService.findOne(varId);
 		if (sponsorship.getSponsor().getId() != this.actorService.findByPrincipal().getId())
 			return new ModelAndView("redirect:/welcome/index.do");
 
@@ -134,7 +134,7 @@ public class SponsorshipSponsorController {
 		ModelAndView result;
 		final Sponsorship sponsorship = this.sponsorshipService.findOne(varId);
 
-		if (this.actorService.findByPrincipal().getId() != sponsorship.getSponsor().getId())
+		if (this.actorService.findByPrincipal().getId() != sponsorship.getSponsor().getId() || sponsorship.getTeam() != null)
 			return new ModelAndView("redirect:/welcome/index.do");
 
 		try {
@@ -142,7 +142,12 @@ public class SponsorshipSponsorController {
 			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
+			final Collection<Sponsorship> sponsorships = this.sponsorshipService.getSponsorshipsOfASponsor(this.actorService.findByPrincipal().getId());
+			result = new ModelAndView("sponsorship/list");
+			result.addObject("sponsorships", sponsorships);
+			result.addObject("requestURI", "sponsorship/sponsor/list.do");
+			result.addObject("message", "sponsorship.commit.error");
+			return result;
 		}
 		return result;
 	}
