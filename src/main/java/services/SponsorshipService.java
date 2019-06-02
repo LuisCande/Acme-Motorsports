@@ -89,17 +89,6 @@ public class SponsorshipService {
 		this.sponsorshipRepository.save(ss);
 	}
 
-	public void delete(final Sponsorship ss) {
-		Assert.notNull(ss);
-
-		//Assertion that the user deleting this sponsorship has the correct privilege.
-		Assert.isTrue(this.actorService.findByPrincipal().getId() == ss.getSponsor().getId());
-
-		//Assertion that the sponsorship has not team asociated
-		Assert.isTrue(ss.getTeam() == null);
-
-		this.sponsorshipRepository.delete(ss);
-	}
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
 
 		Sponsorship result;

@@ -127,31 +127,6 @@ public class SponsorshipSponsorController {
 		return result;
 	}
 
-	//Deleting
-
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int varId) {
-		ModelAndView result;
-		final Sponsorship sponsorship = this.sponsorshipService.findOne(varId);
-
-		if (this.actorService.findByPrincipal().getId() != sponsorship.getSponsor().getId() || sponsorship.getTeam() != null)
-			return new ModelAndView("redirect:/welcome/index.do");
-
-		try {
-			this.sponsorshipService.delete(sponsorship);
-			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
-
-		} catch (final Throwable oops) {
-			final Collection<Sponsorship> sponsorships = this.sponsorshipService.getSponsorshipsOfASponsor(this.actorService.findByPrincipal().getId());
-			result = new ModelAndView("sponsorship/list");
-			result.addObject("sponsorships", sponsorships);
-			result.addObject("requestURI", "sponsorship/sponsor/list.do");
-			result.addObject("message", "sponsorship.commit.error");
-			return result;
-		}
-		return result;
-	}
-
 	//Save
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
