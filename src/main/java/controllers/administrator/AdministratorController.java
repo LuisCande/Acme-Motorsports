@@ -10,8 +10,10 @@
 
 package controllers.administrator;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.ConstraintDefinitionException;
 import javax.validation.ValidationException;
@@ -250,7 +252,17 @@ public class AdministratorController extends AbstractController {
 
 		this.meetingService.computeScoreForAll();
 
-		result = new ModelAndView("redirect:/welcome/index.do");
+		SimpleDateFormat formatter;
+		String moment;
+
+		final Configuration configuration = this.configurationService.findAll().iterator().next();
+
+		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		moment = formatter.format(new Date());
+
+		result = new ModelAndView("welcome/index");
+		result.addObject("configuration", configuration);
+		result.addObject("moment", moment);
 		result.addObject("message", "welcome.computeScore");
 
 		return result;
