@@ -21,6 +21,8 @@
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="banned" value="false" />
+		<property name="inactive" value="false" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -31,5 +33,333 @@
 	</bean>
 	
 	<!-- Other domain beans come here -->	
+	
+	<!-- Configuration beans -->
+	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="systemName" value="Acme Motoresports" />
+		<property name="banner"
+			value="http://competitionmotorsports.org/wp/wp-content/themes/cms/img/competition-motorsports.png" />
+		<property name="welcomeES"
+			value="¡Bienvenidos a Acme Motorsports Carreras, calidad y competicion en el mismo sitio" />
+		<property name="welcomeEN"
+			value="Welcome to Acme Motorsports! Racing, quality, and competition in a single place" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>
+		<property name="countryCode" value="+34 " />
+		<property name="expireFinderMinutes" value="60" />
+		<property name="maxFinderResults" value="10" />
+		<property name="positiveWords">
+			<list>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+				<value>beautiful</value>
+				<value>bueno</value>
+				<value>fantastico</value>
+				<value>excelente</value>
+				<value>increible</value>
+				<value>genial</value>
+				<value>estupendo</value>
+				<value>hermoso</value>
+			</list>
+		</property>
+		<property name="negativeWords">
+			<list>
+				<value>not</value>
+				<value>bad</value>
+				<value>horrible</value>
+				<value>average</value>
+				<value>disaster</value>
+				<value>no</value>
+				<value>malo</value>
+				<value>mediocre</value>
+				<value>desastre</value>
+			</list>
+		</property>
+		<property name="creditCardList">
+			<list>
+				<value>VISA</value>
+				<value>MASTER</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
+			</list>
+		</property>
+	</bean>
+	
+		<!-- Administrator beans -->
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Amador" />
+		<property name="surnames" value="Guerrero Matamoros" />
+		<property name="photo"
+			value="https://cdnb.20m.es/sites/76/2015/07/La-an%C3%A9cdota-sobre-la-famosa-e-ic%C3%B3nica-foto-de-Albert-Einstein-sacando-la-lengua.jpeg" />
+		<property name="email" value="amaguemat@gmail.com" />
+		<property name="phone" value="639854163" />
+		<property name="address" value="c/Sevilla 34" />
+		<property name="suspicious" value="false" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<!-- admin boxes -->
+	<bean id="inBox1" class="domain.Box">
+		<property name="name" value="In box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="outBox1" class="domain.Box">
+		<property name="name" value="Out box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="trashBox1" class="domain.Box">
+		<property name="name" value="Trash box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<bean id="spamBox1" class="domain.Box">
+		<property name="name" value="Spam box" />
+		<property name="system" value="true" />
+		<property name="actor" ref="admin" />
+		<property name="parent">
+			<null />
+		</property>
+	</bean>
+	
+	<!-- Category beans -->
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="CATEGORY" />
+		<property name="parent"><null/></property>
+	</bean>
+	
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="Motorbikes" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="Cars" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="Quads" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Trucks" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category6" class="domain.Category">
+		<property name="name" value="Buggles" />
+		<property name="parent" ref="category1"/>
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Moto3" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Moto2" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category9" class="domain.Category">
+		<property name="name" value="MotoGP" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category10" class="domain.Category">
+		<property name="name" value="MxGP" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category11" class="domain.Category">
+		<property name="name" value="MxGP2" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category12" class="domain.Category">
+		<property name="name" value="Superbikes" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category13" class="domain.Category">
+		<property name="name" value="Supermoto" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category14" class="domain.Category">
+		<property name="name" value="CEV" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category15" class="domain.Category">
+		<property name="name" value="Enduro" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category16" class="domain.Category">
+		<property name="name" value="Superenduro" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category17" class="domain.Category">
+		<property name="name" value="Dirt track" />
+		<property name="parent" ref="category2"/>
+	</bean>
+	
+	<bean id="category18" class="domain.Category">
+		<property name="name" value="Formula 1" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category19" class="domain.Category">
+		<property name="name" value="GP2" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category20" class="domain.Category">
+		<property name="name" value="Rallycross" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category21" class="domain.Category">
+		<property name="name" value="Land Rush" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category22" class="domain.Category">
+		<property name="name" value="Rally" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category23" class="domain.Category">
+		<property name="name" value="Nascar" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category24" class="domain.Category">
+		<property name="name" value="Raid" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category25" class="domain.Category">
+		<property name="name" value="Indianapolis" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category26" class="domain.Category">
+		<property name="name" value="Drift" />
+		<property name="parent" ref="category3"/>
+	</bean>
+	
+	<bean id="category27" class="domain.Category">
+		<property name="name" value="Quad cross" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category28" class="domain.Category">
+		<property name="name" value="Beach Cross" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category29" class="domain.Category">
+		<property name="name" value="Endurance Racing" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category30" class="domain.Category">
+		<property name="name" value="Quad Tournament" />
+		<property name="parent" ref="category4"/>
+	</bean>
+	
+	<bean id="category31" class="domain.Category">
+		<property name="name" value="Monster Jam" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category32" class="domain.Category">
+		<property name="name" value="Trade Trucks" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category33" class="domain.Category">
+		<property name="name" value="Volvo Trucks" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category34" class="domain.Category">
+		<property name="name" value="Tuff Challenge" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category35" class="domain.Category">
+		<property name="name" value="Tough Challenge" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category36" class="domain.Category">
+		<property name="name" value="Super Trucks" />
+		<property name="parent" ref="category5"/>
+	</bean>
+	
+	<bean id="category37" class="domain.Category">
+		<property name="name" value="Baja" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category38" class="domain.Category">
+		<property name="name" value="Club Handicap" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category39" class="domain.Category">
+		<property name="name" value="Greenock" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category40" class="domain.Category">
+		<property name="name" value="Peter Lynn Competition" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category41" class="domain.Category">
+		<property name="name" value="Belton Park" />
+		<property name="parent" ref="category6"/>
+	</bean>
+	
+	<bean id="category42" class="domain.Category">
+		<property name="name" value="Extreme" />
+		<property name="parent" ref="category6"/>
+	</bean>
 	
 </beans>
