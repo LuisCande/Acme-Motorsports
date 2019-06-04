@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
@@ -11,7 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
+import domain.Box;
 import domain.Message;
+import domain.Priority;
 import domain.Rider;
 
 @ContextConfiguration(locations = {
@@ -34,6 +39,9 @@ public class MessageServiceTest extends AbstractTest {
 	@Autowired
 	private RiderService	riderService;
 
+	@Autowired
+	private BoxService		boxService;
+
 
 	@Test
 	public void MessagePositiveTest() {
@@ -51,7 +59,7 @@ public class MessageServiceTest extends AbstractTest {
 			 * Exception expected: None. A Rider can create messages.
 			 */
 			{
-				"rider3", null, "message1", "edit", null
+				"rider2", "trashBox4", "message1", "move", null
 			},
 			/*
 			 * Positive test: A rider edits his message.
@@ -61,7 +69,7 @@ public class MessageServiceTest extends AbstractTest {
 			 * Exception expected: None. A Rider can edit his messages.
 			 */
 			{
-				"rider1", null, "message1", "delete", null
+				"rider2", null, "message1", "delete", null
 			},
 		/*
 		 * Negative: A rider deletes his message.
@@ -97,17 +105,6 @@ public class MessageServiceTest extends AbstractTest {
 			 * Exchange messages with other actors and manage them.
 			 * Data coverage : We tried to create a message with 3 out of 4 valid parameters.
 			 * Exception expected: None. A Rider can create messages.
-			 */
-
-			{
-				"rider1", null, "message1", "edit", IllegalArgumentException.class
-			},
-			/*
-			 * Negative: A rider tries to edit a message that not owns.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange messages with other actors and manage them.
-			 * Data coverage : A rider tries to edit a message that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not edit messages from another rider.
 			 */
 			{
 				"rider1", null, "message1", "delete", IllegalArgumentException.class
@@ -148,17 +145,19 @@ public class MessageServiceTest extends AbstractTest {
 				final Rider riderR = this.riderService.findOne(this.getEntityId(id));
 				message.setRecipient(riderR);
 				message.setTags("Test tags");
+				final Collection<Box> boxes = new ArrayList<Box>();
+				message.setPriority(Priority.HIGH);
+				message.setBoxes(boxes);
 
 				this.messageService.save(message);
 
-			} else if (operation.equals("edit")) {
+			} else if (operation.equals("move")) {
 				final Message message = this.messageService.findOne(this.getEntityId(id));
-				message.setBody("Testing body edition");
+				final Box box = this.boxService.findOne(this.getEntityId(st));
 
-				this.messageService.save(message);
+				this.messageService.move(message, box);
 
-			}
-			if (operation.equals("createNegative")) {
+			} else if (operation.equals("createNegative")) {
 				final Message message = this.messageService.create();
 
 				message.setSubject(st);

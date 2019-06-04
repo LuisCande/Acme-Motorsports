@@ -102,6 +102,9 @@ public class TeamService {
 		}
 		this.teamRepository.delete(team);
 	}
+	public void flush() {
+		this.teamRepository.flush();
+	}
 
 	//Reconstruct
 
