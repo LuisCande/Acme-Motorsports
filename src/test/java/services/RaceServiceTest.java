@@ -14,7 +14,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
+import domain.Category;
+import domain.Circuit;
+import domain.GrandPrix;
 import domain.Race;
+import domain.WorldChampionship;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -31,17 +35,29 @@ public class RaceServiceTest extends AbstractTest {
 	// Since having one @Test for every case is not optimal we divided the user cases in two cases. Positives and Negatives.
 
 	@Autowired
-	private RaceService	raceService;
+	private RaceService					raceService;
+
+	@Autowired
+	private GrandPrixService			grandPrixService;
+
+	@Autowired
+	private CircuitService				circuitService;
+
+	@Autowired
+	private CategoryService				categoryService;
+
+	@Autowired
+	private WorldChampionshipService	worldChampionshipService;
 
 
 	@Test
 	public void RacePositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 93.5% | Covered Instructions 87 | Missed Instructions 6 | Total Instructions 93
 
-			//			{
-			//				"raceDirector1", "race3", "grandPrix3", "create", null
-			//			},
+			{
+				"raceDirector1", "category9", "worldChampionship1", "create", null
+			},
 			/*
 			 * Positive test: A race director creates a race.
 			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
@@ -78,28 +94,28 @@ public class RaceServiceTest extends AbstractTest {
 	@Test
 	public void RaceNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
-			//			{
-			//				"raceDirector1", null, "grandPrix3", "create", IllegalArgumentException.class
-			//			},
+			//Total sentence coverage : Coverage 95.9% | Covered Instructions 141 | Missed Instructions 6 | Total Instructions 147
+			{
+				"raceDirector2", "category9", "worldChampionship1", "create", IllegalArgumentException.class
+			},
 			/*
-			 * Negative test: A race director tries to create a race for a grand prix which already has one.
+			 * Negative test: A race director tries to create a race for another race director's world championship..
 			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
 			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
 			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a race with 3 out of 4 valid parameters.
-			 * Exception expected: IllegalArgumentException.class. There can only be one race per grand prix.
+			 * Exception expected: IllegalArgumentException.class. A race director can not create races for another race director's world championship.
 			 */
-			//			{
-			//				"raceDirector1", "TestNegativeRace", null, "createNegative", ConstraintViolationException.class
-			//			},
+			{
+				"raceDirector1", "category9", "worldChampionship1", "createNegative", ConstraintViolationException.class
+			},
 			/*
-			 * Negative test: A race director tries to create a race with negative laps.
+			 * Negative test: A race director tries to create a race for a grand prix that has no description
 			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
 			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
 			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a race with 3 out of 4 valid parameters.
-			 * Exception expected: ConstraintViolationException.class. Laps must be a positive number.
+			 * Exception expected:ConstraintViolationException.class. Description must not be blank
 			 */
 			{
 				"raceDirector1", null, "race1", "editNegative", ConstraintViolationException.class
@@ -143,15 +159,31 @@ public class RaceServiceTest extends AbstractTest {
 			super.authenticate(username);
 
 			if (operation.equals("create")) {
-				final Race raceOld = this.raceService.findOne(this.getEntityId(st));
-				this.raceService.delete(raceOld);
-				final Race race = this.raceService.create(this.getEntityId(id));
+				final GrandPrix grandPrix = this.grandPrixService.create();
+
+				grandPrix.setDescription("The worst test");
+				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				final Date startMoment1 = sdf.parse("12/01/2030 12:00");
+				grandPrix.setStartDate(startMoment1);
+				final Date endMoment1 = sdf.parse("16/01/2030 12:00");
+				grandPrix.setEndDate(endMoment1);
+				grandPrix.setMaxRiders(9);
+				grandPrix.setCancelled(false);
+				grandPrix.setFinalMode(false);
+				final Circuit circuit = this.circuitService.findOne(this.getEntityId("circuit2"));
+				grandPrix.setCircuit(circuit);
+				final Category category = this.categoryService.findOne(this.getEntityId(st));
+				grandPrix.setCategory(category);
+				final WorldChampionship worldChampionship = this.worldChampionshipService.findOne(this.getEntityId(id));
+				grandPrix.setWorldChampionship(worldChampionship);
+
+				final GrandPrix gp = this.grandPrixService.save(grandPrix);
+				final Race race = this.raceService.create(gp.getId());
 
 				race.setLaps(15);
-				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				final Date startMoment = sdf.parse("23/03/2014 11:15");
+				final Date startMoment = sdf.parse("14/01/2030 11:15");
 				race.setStartMoment(startMoment);
-				final Date endMoment = sdf.parse("23/03/2014 11:15");
+				final Date endMoment = sdf.parse("15/01/2030 11:15");
 				race.setEndMoment(endMoment);
 
 				this.raceService.save(race);
@@ -162,23 +194,39 @@ public class RaceServiceTest extends AbstractTest {
 
 				this.raceService.save(race);
 
-			} else if (operation.equals("createNegative")) {
-				final Race raceOld = this.raceService.findOne(this.getEntityId(st));
-				this.raceService.delete(raceOld);
-				final Race race = this.raceService.create(this.getEntityId(id));
-
-				race.setLaps(-15);
-				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				final Date startMoment = sdf.parse("23/03/2014 11:15");
-				race.setStartMoment(startMoment);
-				final Date endMoment = sdf.parse("23/03/2014 11:15");
-				race.setEndMoment(endMoment);
-
-				this.raceService.save(race);
-
 			} else if (operation.equals("editNegative")) {
 				final Race race = this.raceService.findOne(this.getEntityId(id));
 				race.setLaps(-4);
+
+				this.raceService.save(race);
+
+			} else if (operation.equals("createNegative")) {
+				final GrandPrix grandPrix = this.grandPrixService.create();
+
+				grandPrix.setDescription(" ");
+				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				final Date startMoment1 = sdf.parse("12/01/2030 12:00");
+				grandPrix.setStartDate(startMoment1);
+				final Date endMoment1 = sdf.parse("16/01/2030 12:00");
+				grandPrix.setEndDate(endMoment1);
+				grandPrix.setMaxRiders(9);
+				grandPrix.setCancelled(false);
+				grandPrix.setFinalMode(false);
+				final Circuit circuit = this.circuitService.findOne(this.getEntityId("circuit1"));
+				grandPrix.setCircuit(circuit);
+				final Category category = this.categoryService.findOne(this.getEntityId(st));
+				grandPrix.setCategory(category);
+				final WorldChampionship worldChampionship = this.worldChampionshipService.findOne(this.getEntityId(id));
+				grandPrix.setWorldChampionship(worldChampionship);
+
+				final GrandPrix gp = this.grandPrixService.save(grandPrix);
+				final Race race = this.raceService.create(gp.getId());
+
+				race.setLaps(15);
+				final Date startMoment = sdf.parse("14/01/2030 11:15");
+				race.setStartMoment(startMoment);
+				final Date endMoment = sdf.parse("15/01/2030 11:15");
+				race.setEndMoment(endMoment);
 
 				this.raceService.save(race);
 

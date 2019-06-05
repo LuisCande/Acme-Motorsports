@@ -14,7 +14,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
+import domain.Category;
+import domain.Circuit;
+import domain.GrandPrix;
 import domain.Qualifying;
+import domain.WorldChampionship;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -31,17 +35,29 @@ public class QualifyingServiceTest extends AbstractTest {
 	// Since having one @Test for every case is not optimal we divided the user cases in two cases. Positives and Negatives.
 
 	@Autowired
-	private QualifyingService	qualifyingService;
+	private QualifyingService			qualifyingService;
+
+	@Autowired
+	private GrandPrixService			grandPrixService;
+
+	@Autowired
+	private CircuitService				circuitService;
+
+	@Autowired
+	private CategoryService				categoryService;
+
+	@Autowired
+	private WorldChampionshipService	worldChampionshipService;
 
 
 	@Test
 	public void QualifyingPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 93.5% | Covered Instructions 87 | Missed Instructions 6 | Total Instructions 93
 
-			//			{
-			//				"raceDirector1", "qualifying2", "grandPrix2", "create", null
-			//			},
+			{
+				"raceDirector1", "category9", "worldChampionship1", "create", null
+			},
 			/*
 			 * Positive test: A race director creates a qualifying.
 			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
@@ -78,28 +94,28 @@ public class QualifyingServiceTest extends AbstractTest {
 	@Test
 	public void QualifyingNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 94.1% | Covered Instructions 95 | Missed Instructions 6 | Total Instructions 101
-			//			{
-			//				"raceDirector1", "", "grandPrix1", "create", ConstraintViolationException.class
-			//			},
+			//Total sentence coverage : Coverage 96.0% | Covered Instructions 145 | Missed Instructions 6 | Total Instructions 151
+			{
+				"raceDirector2", "category9", "worldChampionship1", "create", IllegalArgumentException.class
+			},
 			/*
-			 * Negative test: A rider tries to create a qualifying with a blank namet.
+			 * Negative test: A race director tries to create a qualifying for another race director's world championship.
 			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
 			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
 			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a qualifying with 3 out of 4 valid parameters.
-			 * Exception expected: ConstraintViolationException.class. Name can not be blank.
+			 * Exception expected: ConstraintViolationException.class. A race director can not create qualifyings for another race director's world championship.
 			 */
-			//			{
-			//				"raceDirector2", "TestNegativeQualifying", "grandPrix1", "createNegative", IllegalArgumentException.class
-			//			},
+			{
+				"raceDirector1", "category9", "worldChampionship1", "createNegative", IllegalArgumentException.class
+			},
 			/*
-			 * Negative test: A race director tries to create a qualifying for another race director's grand prix.
+			 * Negative test: A race director tries to create a qualifying for a grand prix whose start date is later than its end date.
 			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
 			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
 			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a qualifying with 4 out of 4 valid parameters.
-			 * Exception expected: IllegalArgumentException.class. A race director can not create qualifyings for another race director's grand prix.
+			 * Exception expected: IllegalArgumentException.class. End date must be afer start date.
 			 */
 			{
 				"raceDirector1", null, "qualifying1", "editNegative", ConstraintViolationException.class
@@ -144,16 +160,33 @@ public class QualifyingServiceTest extends AbstractTest {
 			super.authenticate(username);
 
 			if (operation.equals("create")) {
-				final Qualifying qualifyingOld = this.qualifyingService.findOne(this.getEntityId(st));
-				this.qualifyingService.delete(qualifyingOld);
-				final Qualifying qualifying = this.qualifyingService.create(this.getEntityId(id));
+				final GrandPrix grandPrix = this.grandPrixService.create();
+
+				grandPrix.setDescription("The worst test");
+				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				final Date startMoment1 = sdf.parse("12/01/2030 12:00");
+				grandPrix.setStartDate(startMoment1);
+				final Date endMoment1 = sdf.parse("16/01/2030 12:00");
+				grandPrix.setEndDate(endMoment1);
+				grandPrix.setMaxRiders(9);
+				grandPrix.setCancelled(false);
+				grandPrix.setFinalMode(false);
+				final Circuit circuit = this.circuitService.findOne(this.getEntityId("circuit1"));
+				grandPrix.setCircuit(circuit);
+				final Category category = this.categoryService.findOne(this.getEntityId(st));
+				grandPrix.setCategory(category);
+				final WorldChampionship worldChampionship = this.worldChampionshipService.findOne(this.getEntityId(id));
+				grandPrix.setWorldChampionship(worldChampionship);
+
+				final GrandPrix gp = this.grandPrixService.save(grandPrix);
+				final Qualifying qualifying = this.qualifyingService.create(gp.getId());
 				qualifying.setName("Hello");
 				qualifying.setDuration(100);
-				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				final Date startMoment = sdf.parse("23/03/2014 11:15");
+				final Date startMoment = sdf.parse("12/01/2030 12:00");
 				qualifying.setStartMoment(startMoment);
-				final Date endMoment = sdf.parse("23/03/2014 12:55");
+				final Date endMoment = sdf.parse("12/01/2030 13:00");
 				qualifying.setEndMoment(endMoment);
+
 				this.qualifyingService.save(qualifying);
 
 			} else if (operation.equals("edit")) {
@@ -164,15 +197,33 @@ public class QualifyingServiceTest extends AbstractTest {
 				this.qualifyingService.save(qualifying);
 
 			} else if (operation.equals("createNegative")) {
-				final Qualifying qualifying = this.qualifyingService.create(this.getEntityId(id));
+				final GrandPrix grandPrix = this.grandPrixService.create();
 
-				qualifying.setName(st);
-				qualifying.setDuration(100);
+				grandPrix.setDescription("The worst test");
 				final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				final Date startMoment = sdf.parse("21/12/2020 12:34");
+				final Date startMoment1 = sdf.parse("17/01/2030 12:00");
+				grandPrix.setStartDate(startMoment1);
+				final Date endMoment1 = sdf.parse("16/01/2030 12:00");
+				grandPrix.setEndDate(endMoment1);
+				grandPrix.setMaxRiders(9);
+				grandPrix.setCancelled(false);
+				grandPrix.setFinalMode(false);
+				final Circuit circuit = this.circuitService.findOne(this.getEntityId("circuit1"));
+				grandPrix.setCircuit(circuit);
+				final Category category = this.categoryService.findOne(this.getEntityId(st));
+				grandPrix.setCategory(category);
+				final WorldChampionship worldChampionship = this.worldChampionshipService.findOne(this.getEntityId(id));
+				grandPrix.setWorldChampionship(worldChampionship);
+
+				final GrandPrix gp = this.grandPrixService.save(grandPrix);
+				final Qualifying qualifying = this.qualifyingService.create(gp.getId());
+				qualifying.setName("Hello");
+				qualifying.setDuration(100);
+				final Date startMoment = sdf.parse("12/01/2030 12:00");
 				qualifying.setStartMoment(startMoment);
-				final Date endMoment = sdf.parse("21/12/2021 14:34");
+				final Date endMoment = sdf.parse("12/01/2030 13:00");
 				qualifying.setEndMoment(endMoment);
+
 				this.qualifyingService.save(qualifying);
 
 			} else if (operation.equals("editNegative")) {
