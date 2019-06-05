@@ -299,7 +299,8 @@
 		<property name="country" value="Italia" />
 		<property name="age" value="18" />
 		<property name="score" value="0.0" />
-			<property name="team">
+		<property name="finder" ref="finder1" />
+		<property name="team">
 			<null />
 		</property>
 		<property name="userAccount" ref="userAccount2" />
@@ -318,6 +319,7 @@
 		<property name="country" value="Francia" />
 		<property name="age" value="23" />
 		<property name="score" value="0.0" />
+		<property name="finder" ref="finder2" />
 		<property name="team" ref="team1" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
@@ -335,6 +337,7 @@
 		<property name="country" value="Alemania" />
 		<property name="age" value="28" />
 		<property name="score" value="0.0" />
+		<property name="finder"><null /></property>
 		<property name="team">
 			<null />
 		</property>
