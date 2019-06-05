@@ -45,30 +45,30 @@ public class BoxServiceTest extends AbstractTest {
 			},
 			/*
 			 * Positive test: A rider creates a box.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange boxs with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
+			 * Requisite tested: Functional requirement - 25.4. An actor who is authenticated must be able to:
+			 * Manage his or her message boxes which includes listing, creating, editing and deleting them, except for the system boxes.
+			 * Data coverage : We created a box with 1 out of 1 valid parameters.
 			 * Exception expected: None. A Rider can create boxs.
 			 */
 			{
 				"rider3", "testBox", "inBox4", "createWithParent", null
 			},
 			/*
-			 * Positive test: A rider edits his box.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange boxs with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his boxs.
+			 * Positive test: A rider create a box with parent.
+			 * Requisite tested: Functional requirement - 25.4. An actor who is authenticated must be able to:
+			 * Manage his or her message boxes which includes listing, creating, editing and deleting them, except for the system boxes.
+			 * Data coverage : We created a box with 1 out of 1 valid parameters and set it as a children box.
+			 * Exception expected: None. A Rider can create boxs.
 			 */
 			{
 				"rider1", "testDeleteBox", null, "delete", null
 			},
 		/*
-		 * Negative: A rider tries to delete a box that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange boxs with other actors and manage them.
-		 * Data coverage : A rider tries to delete a box that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete boxs from another rider.
+		 * Positive test: A rider deletes a box that is not a system box.
+		 * Requisite tested: Functional requirement - 25.4. An actor who is authenticated must be able to:
+		 * Manage his or her message boxes which includes listing, creating, editing and deleting them, except for the system boxes.
+		 * Data coverage : A rider tries to delete a box that owns
+		 * Exception expected: IllegalArgumentException. A Rider can delete his boxs.
 		 */
 
 		};
@@ -87,35 +87,35 @@ public class BoxServiceTest extends AbstractTest {
 	@Test
 	public void BoxNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 94.5% | Covered Instructions 104 | Missed Instructions 6 | Total Instructions 110
 			{
 				"rider1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a box with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange boxs with other actors and manage them.
-			 * Data coverage : We tried to create a box with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create boxs.
+			 * Negative test: A rider tries to create a box with a blank name.
+			 * Requisite tested: Functional requirement - 25.4. An actor who is authenticated must be able to:
+			 * Manage his or her message boxes which includes listing, creating, editing and deleting them, except for the system boxes.
+			 * Data coverage : We tried to create a box with 0 out of 1 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name cannot be blank.
 			 */
 
 			{
 				"rider1", null, "inBox1", "deleteNegative", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A rider tries to delete a system box.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange boxs with other actors and manage them.
-			 * Data coverage : A rider tries to delete a box that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not delete boxs from another rider.
+			 * Negative test: A rider tries to delete a system box.
+			 * Requisite tested: Functional requirement - 25.4. An actor who is authenticated must be able to:
+			 * Manage his or her message boxes which includes listing, creating, editing and deleting them, except for the system boxes.
+			 * Data coverage : A rider tries to delete a system box.
+			 * Exception expected: IllegalArgumentException. System boxes can not be deleted.
 			 */
 			{
 				"rider1", "testDeleteBox", "rider2", "deleteNegative2", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a box that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange boxs with other actors and manage them.
+		 * Negative test: A rider tries to delete a box that not owns.
+		 * Requisite tested: Functional requirement - 25.4. An actor who is authenticated must be able to:
+		 * Manage his or her message boxes which includes listing, creating, editing and deleting them, except for the system boxes.
 		 * Data coverage : A rider tries to delete a box that not owns
 		 * Exception expected: IllegalArgumentException. A Rider can not delete boxs from another rider.
 		 */

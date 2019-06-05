@@ -41,8 +41,8 @@ public class PoleServiceTest extends AbstractTest {
 			},
 			/*
 			 * Positive test: A rider creates a pole.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange poles with other actors and manage them.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
 			 * Exception expected: None. A Rider can create poles.
 			 */
@@ -51,9 +51,9 @@ public class PoleServiceTest extends AbstractTest {
 			},
 			/*
 			 * Positive test: A rider edits his pole.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange poles with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (year) with valid data.
 			 * Exception expected: None. A Rider can edit his poles.
 			 */
 			{
@@ -61,8 +61,8 @@ public class PoleServiceTest extends AbstractTest {
 			},
 		/*
 		 * Negative: A rider deletes his pole.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange poles with other actors and manage them.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider deletes a pole
 		 * Exception expected: None. A Rider can delete his poles.
 		 */
@@ -88,49 +88,49 @@ public class PoleServiceTest extends AbstractTest {
 				"rider1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a pole with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange poles with other actors and manage them.
-			 * Data coverage : We tried to create a pole with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create poles.
+			 * Negative test: A rider tries to create a pole with a blank team.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a pole with 4 out of 5 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. team can not be blank.
 			 */
 			{
 				"raceDirector1", "TestNegativePole", null, "create", ClassCastException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a pole with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange poles with other actors and manage them.
-			 * Data coverage : We tried to create a pole with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create poles.
+			 * Negative test: A race director tries to create a podium.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a podium with 5 out of 5 valid parameters.
+			 * Exception expected: ClassCastException.class. A Race director can not create poles.
 			 */
 			{
 				"rider1", null, "pole1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his pole and sets a year too small.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange poles with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his poles.
+			 * Negative test: A rider edits his pole and sets a year too small.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (year) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. Year must be between 1885 and 2019.
 			 */
 			{
-				"rider2", "Not your lap", "pole1", "editNegative2", IllegalArgumentException.class
+				"rider2", "Not your pole", "pole1", "editNegative2", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his pole.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange poles with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his poles.
+			 * Negative test: A rider tries to edit a pole that not owns..
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (team) with valid data.
+			 * Exception expected: IllegalArgumentException. A Rider can not delete poles from another rider.
 			 */
 			{
 				"rider3", null, "pole1", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a pole that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange poles with other actors and manage them.
+		 * Negative test: A rider tries to delete a pole that not owns.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider tries to delete a pole that not owns
 		 * Exception expected: IllegalArgumentException. A Rider can not delete poles from another rider.
 		 */

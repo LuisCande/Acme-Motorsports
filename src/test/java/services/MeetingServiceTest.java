@@ -45,17 +45,18 @@ public class MeetingServiceTest extends AbstractTest {
 	@Test
 	public void MeetingPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
 
 			{
 				"representative1", "ETSII", "rider1", "create", null
 			},
 			/*
 			 * Positive test: A rider creates a meeting.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange meetings with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create meetings.
+			 * Requisite tested: Functional requirement - 28.3. An actor who is authenticated as a representative must be able to:
+			 * Manage his or her meetings, which includes listing them, showing them and creating
+			 * a meeting about a rider who is involved in one of his or her fan clubs
+			 * Data coverage : We created a meeting with 7 out of 7 valid parameters.
+			 * Exception expected: None. A Representative can create meetings.
 			 */
 			{
 				"rider1", "ETSII", "representative1", "create2", null
@@ -64,7 +65,7 @@ public class MeetingServiceTest extends AbstractTest {
 		 * Positive test: A rider creates a meeting.
 		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
 		 * Exchange meetings with other actors and manage them.
-		 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
+		 * Data coverage : We created a meeting with 7 out of 7 valid parameters.
 		 * Exception expected: None. A Rider can create meetings.
 		 */
 
@@ -84,26 +85,28 @@ public class MeetingServiceTest extends AbstractTest {
 	@Test
 	public void MeetingNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 94.3% | Covered Instructions 99 | Missed Instructions 6 | Total Instructions 105
 			{
 				"representative1", " ", "rider1", "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a meeting with a blank name.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange meetings with other actors and manage them.
-			 * Data coverage : We tried to create a meeting with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create meetings.
+			 * Negative test: A rider tries to create a meeting with a blank place.
+			 * Requisite tested: Functional requirement - 28.3. An actor who is authenticated as a representative must be able to:
+			 * Manage his or her meetings, which includes listing them, showing them and creating
+			 * a meeting about a rider who is involved in one of his or her fan clubs
+			 * Data coverage : We tried to create a meeting with 6 out of 7 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Place can not be blank.
 			 */
 			{
 				"representative1", "Negative creation ", "rider1", "createNegative", ConstraintViolationException.class
 			},
 		/*
 		 * Negative test: A rider tries to create a meeting for a rider that belongs to another fanclub.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange meetings with other actors and manage them.
+		 * Requisite tested: Functional requirement - 28.3. An actor who is authenticated as a representative must be able to:
+		 * Manage his or her meetings, which includes listing them, showing them and creating
+		 * a meeting about a rider who is involved in one of his or her fan clubs
 		 * Data coverage : We tried to create a meeting with 3 out of 4 valid parameters.
-		 * Exception expected: None. A Rider can create meetings.
+		 * Exception expected: ConstraintViolationException.class. A Rider can only belong to one fan club.
 		 */
 
 		};

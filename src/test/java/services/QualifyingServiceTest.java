@@ -43,21 +43,23 @@ public class QualifyingServiceTest extends AbstractTest {
 			//				"raceDirector1", "qualifying2", "grandPrix2", "create", null
 			//			},
 			/*
-			 * Positive test: A rider creates a qualifying.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange qualifyings with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create qualifyings.
+			 * Positive test: A race director creates a qualifying.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
+			 * Data coverage : We created a qualifying with 4 out of 4 valid parameters.
+			 * Exception expected: None. A Race director can create qualifyings.
 			 */
 			{
 				"raceDirector1", null, "qualifying3", "edit", null
 			},
 		/*
 		 * Positive test: A rider edits his qualifying.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange qualifyings with other actors and manage them.
-		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-		 * Exception expected: None. A Rider can edit his qualifyings.
+		 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+		 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+		 * and updating them as long as their grand prix is not saved on final mode or cancelled.
+		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (start moment) with valid data.
+		 * Exception expected: None. A race director can edit his qualifyings.
 		 */
 
 		};
@@ -76,46 +78,50 @@ public class QualifyingServiceTest extends AbstractTest {
 	@Test
 	public void QualifyingNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 94.1% | Covered Instructions 95 | Missed Instructions 6 | Total Instructions 101
 			//			{
 			//				"raceDirector1", "", "grandPrix1", "create", ConstraintViolationException.class
 			//			},
 			/*
-			 * Negative test: A rider tries to create a qualifying with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange qualifyings with other actors and manage them.
+			 * Negative test: A rider tries to create a qualifying with a blank namet.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a qualifying with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create qualifyings.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank.
 			 */
 			//			{
 			//				"raceDirector2", "TestNegativeQualifying", "grandPrix1", "createNegative", IllegalArgumentException.class
 			//			},
 			/*
-			 * Negative test: A rider tries to create a qualifying with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange qualifyings with other actors and manage them.
-			 * Data coverage : We tried to create a qualifying with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create qualifyings.
+			 * Negative test: A race director tries to create a qualifying for another race director's grand prix.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
+			 * Data coverage : We tried to create a qualifying with 4 out of 4 valid parameters.
+			 * Exception expected: IllegalArgumentException.class. A race director can not create qualifyings for another race director's grand prix.
 			 */
 			{
 				"raceDirector1", null, "qualifying1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his qualifying.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange qualifyings with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his qualifyings.
+			 * Positive test: A rider edits his qualifying with a negative duration.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (duration) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. Duration must be a postitive number.
 			 */
 			{
 				"raceDirector1", "", "qualifying1", "editNegative2", ConstraintViolationException.class
 			},
 		/*
-		 * Positive test: A rider edits his qualifying.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange qualifyings with other actors and manage them.
+		 * Positive test: A rider edits his qualifying with a blank name.
+		 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+		 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+		 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-		 * Exception expected: None. A Rider can edit his qualifyings.
+		 * Exception expected: ConstraintViolationException.class. Name can not be blank.
 		 */
 
 		};

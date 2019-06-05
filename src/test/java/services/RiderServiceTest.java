@@ -40,22 +40,21 @@ public class RiderServiceTest extends AbstractTest {
 				null, "testRider1", null, "create", null
 			},
 			/*
-			 * 
 			 * Positive test: An user registers as a new rider
-			 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a rider.
-			 * Data coverage : We created a new rider with valid data.
-			 * Exception expected: None.
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new representative with 13 out of 13 valid parameters.
+			 * Exception expected: None.An user can register as a rider
 			 */
 			{
-				"rider1", null, "rider1", "editPositive", null
+				"rider1", null, "rider1", "edit", null
 			}
 
 		/*
-		 * Positive test: A rider edit its makeP.
-		 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a rider.
-		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (makeP) with valid data.
+		 * Positive test: A rider edit its Age.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (age) with valid data.
 		 * Exception expected: None. A rider can edit his data.
 		 */
 
@@ -75,28 +74,38 @@ public class RiderServiceTest extends AbstractTest {
 	@Test
 	public void RiderNegativeTest() {
 		final Object testingData[][] = {
-			//Total Sentence Coverage: Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total Sentence Coverage: Coverage 94.7% | Covered Instructions 108 | Missed Instructions 6 | Total Instructions 114
 			{
-				"rider1", null, "rider2", "editNegative", IllegalArgumentException.class
+				null, " ", null, "create", ConstraintViolationException.class
+			},
+			/*
+			 * Negative test: An user tries to register as a new Rider with a blank name
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new rider with 12 out of 13 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank
+			 */
+			{
+				"rider1", null, "rider2", "edit", IllegalArgumentException.class
 			},
 			/*
 			 * Negative test: A rider tries to edit the another rider personal data.
-			 * Requisite tested: Functional requirement 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a rider.
-			 * Data coverage: From 11 editable attributes we tried to edit 1 attribute (makeP) of another user.
-			 * Exception expected: IllegalArgumentException A rider cannot edit others personal data.
+			 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+			 * Edit his or her personal data.
+			 * Data coverage: From 12 editable attributes we tried to edit 1 attribute (age) of another user.
+			 * Exception expected: IllegalArgumentException A rider cannot edit other rider personal data.
 			 */
 
 			{
-				"rider2", "", null, "editNegative1", ConstraintViolationException.class
+				"rider2", "", null, "editNegative", ConstraintViolationException.class
 			},
 
 		/*
 		 * Negative test: A rider tries to edit its profile with invalid data.
-		 * Requisite tested: Functional requirement -9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a rider.
-		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (makeP) with invalid data.
-		 * Exception expected: ConstraintViolationException. MakeP cannot be blank.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (name) with invalid data.
+		 * Exception expected: ConstraintViolationException. Name cannot be blank.
 		 */
 		};
 
@@ -136,20 +145,13 @@ public class RiderServiceTest extends AbstractTest {
 
 				this.riderService.save(rider);
 
-			} else if (operation.equals("editPositive")) {
+			} else if (operation.equals("edit")) {
 				final Rider rider = this.riderService.findOne(this.getEntityId(id));
 				rider.setAge(11);
 
 				this.riderService.save(rider);
-			} else if (operation.equals("editNegative")) {
-				final Rider rider = this.riderService.findOne(this.getEntityId(id));
-				rider.setName("Test negative name");
-				rider.setSurnames("Test negative surnames");
-				rider.setAge(15);
-				rider.setAddress("Test address");
-				this.riderService.save(rider);
 
-			} else if (operation.equals("editNegative1")) {
+			} else if (operation.equals("editNegative")) {
 				final Rider rider = this.riderService.findOne(this.getEntityId(username));
 				rider.setAge(5);
 				this.riderService.save(rider);

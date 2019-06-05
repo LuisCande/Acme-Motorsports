@@ -43,32 +43,32 @@ public class ApplicationServiceTest extends AbstractTest {
 				"rider1", "testApplication", "grandPrix1", "create", null
 			},
 			/*
-			 * Positive test: A race director creates an application.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-			 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : We created an application with 5 out of 5 valid parameters.
-			 * Exception expected: None. A RaceDirector can create applications.
+			 * Positive test: A rider creates an application.
+			 * Requisite tested: Functional requirement - 29. 3. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her applications, which includes listing, showing and creating them.
+			 * Data coverage : We created an application with 2 out of 2 valid parameters.
+			 * Exception expected: None. A rider can create applications.
 			 */
 
 			{
 				"raceDirector1", null, "application1", "accept", null
 			},
 			/*
-			 * Positive test: A race director edits his application.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-			 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (AmbientTemperature) with valid data.
-			 * Exception expected: None. A RaceDirector can edit his applications.
+			 * Positive test: A race director accepts an application.
+			 * Requisite tested: Functional requirement - 26.7. An actor who is authenticated as a race director must be able to:
+			 * Manage the applications for his or her grand prixes, which includes listing and updating them
+			 * Data coverage : From 2 editable attributes we tried to edit 1 attribute (status) with valid data.
+			 * Exception expected: None. A RaceDirector can accept his applications.
 			 */
 			{
 				"raceDirector1", null, "application1", "reject", null
 			},
 		/*
-		 * Positive test: A race director edits his application.
-		 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-		 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (AmbientTemperature) with valid data.
-		 * Exception expected: None. A RaceDirector can edit his applications.
+		 * Positive test: A race director rejects an application.
+		 * Requisite tested: Functional requirement - 26.7. An actor who is authenticated as a race director must be able to:
+		 * Manage the applications for his or her grand prixes, which includes listing and updating them
+		 * Data coverage : From 2 editable attributes we tried to edit 1 attribute (status) with valid data.
+		 * Exception expected: None. A RaceDirector can reject his applications.
 		 */
 
 		};
@@ -92,64 +92,33 @@ public class ApplicationServiceTest extends AbstractTest {
 				"raceDirector3", "Race director cannot create applications", "grandPrix1", "createNegative", ClassCastException.class
 			},
 			/*
-			 * Negative test: A race director tries to create an application with a negative RainMm.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-			 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : We tried to create an application with 4 out of 5 valid parameters.
-			 * Exception expected:ConstraintViolationException.RainMm must be positive.
-			 */
-
-			//			{
-			//				"rider1", "", "grandPrix2", "createNegative", ConstraintViolationException.class
-			//			},
-			/*
-			 * Negative test: A race director tries to create an application with a negative RainMm.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-			 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : We tried to create an application with 4 out of 5 valid parameters.
-			 * Exception expected:ConstraintViolationException.RainMm must be positive.
+			 * Negative test: A race director tries to create an application
+			 * Requisite tested: Functional requirement - 29. 3. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her applications, which includes listing, showing and creating them.
+			 * Data coverage : We tried to create an application with 2 out of 2 valid parameters.
+			 * Exception expected: ClassCastException.class. Race directors can not create applications.
 			 */
 
 			{
 				"raceDirector2", "Not your app", "application2", "acceptNegative", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A race director tries to edit a application that not owns.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-			 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
-			 * Exception expected: ConstraintViolationException.RainMm must be positive.
+			 * Negative: A race director to accept an application that not owns.
+			 * Requisite tested: Functional requirement - 26.7. An actor who is authenticated as a race director must be able to:
+			 * Manage the applications for his or her grand prixes, which includes listing and updating them
+			 * Data coverage : From 2 editable attributes we tried to edit 2 attribute (Comments, status) with valid data.
+			 * Exception expected: IllegalArgumentException.class.A race dircetor can not accept another race director's applications for a GP.
 			 */
 
-			{
-				"rider3", "riders cannot edit apps", "application2", "acceptNegative", IllegalArgumentException.class
-			},
-			/*
-			 * Negative: A race director tries to edit a application that not owns.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-			 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
-			 * Exception expected: ConstraintViolationException.RainMm must be positive.
-			 */
 			{
 				"raceDirector3", "Not your app neither", "application1", "rejectNegative", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A race director tries to edit a application that not owns.
-		 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-		 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
-		 * Exception expected: ConstraintViolationException.RainMm must be positive.
-		 */
-		//			{
-		//				"rider2", "Not your app neither", "application2", "rejectNegative", IllegalArgumentException.class
-		//			},
-		/*
-		 * Negative: A race director tries to edit a application that not owns.
-		 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
-		 * Publish a application of his or her grand prixes, which includes showing, creating, updating them.
-		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
-		 * Exception expected: ConstraintViolationException.RainMm must be positive.
+		 * Negative: A race director tries to reject an application that not owns.
+		 * Requisite tested: Functional requirement - 26.7. An actor who is authenticated as a race director must be able to:
+		 * Manage the applications for his or her grand prixes, which includes listing and updating them
+		 * Data coverage : From 2 editable attributes we tried to edit 2 attribute (Comments, status) with valid data.
+		 * Exception expected: IllegalArgumentException.class.A race dircetor can not reject another race director's applications for a GP.
 		 */
 
 		};

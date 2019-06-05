@@ -34,16 +34,16 @@ public class PodiumServiceTest extends AbstractTest {
 	@Test
 	public void PodiumPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.3% | Covered Instructions 100 | Missed Instructions 6 | Total Instructions 106
 
 			{
 				"rider1", "Test podium", null, "create", null
 			},
 			/*
 			 * Positive test: A rider creates a podium.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange podiums with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We created a podium with 5 out of 5 valid parameters.
 			 * Exception expected: None. A Rider can create podiums.
 			 */
 			{
@@ -51,9 +51,9 @@ public class PodiumServiceTest extends AbstractTest {
 			},
 			/*
 			 * Positive test: A rider edits his podium.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange podiums with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (year) with valid data.
 			 * Exception expected: None. A Rider can edit his podiums.
 			 */
 			{
@@ -61,8 +61,8 @@ public class PodiumServiceTest extends AbstractTest {
 			},
 		/*
 		 * Negative: A rider deletes his podium.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange podiums with other actors and manage them.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider deletes a podium
 		 * Exception expected: None. A Rider can delete his podiums.
 		 */
@@ -83,54 +83,54 @@ public class PodiumServiceTest extends AbstractTest {
 	@Test
 	public void PodiumNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.3% | Covered Instructions 158 | Missed Instructions 6 | Total Instructions 164
 			{
 				"rider1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a podium with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange podiums with other actors and manage them.
-			 * Data coverage : We tried to create a podium with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create podiums.
+			 * Negative test: A rider tries to create a podium with a blank team.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a podium with 4 out of 5 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. team can not be blank.
 			 */
 			{
 				"raceDirector1", "TestNegativePodium", null, "create", ClassCastException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a podium with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange podiums with other actors and manage them.
-			 * Data coverage : We tried to create a podium with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create podiums.
+			 * Negative test: A race director tries to create a podium.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a podium with 5 out of 5 valid parameters.
+			 * Exception expected: ClassCastException.class. A Race director can not create podiums.
 			 */
 			{
 				"rider1", null, "podium1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his podium and sets a year too small.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange podiums with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Negative test: A rider edits his podium and sets a year too small.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (year) with invalid data.
 			 * Exception expected: None. A Rider can edit his podiums.
 			 */
 			{
 				"rider1", "", "podium1", "editNegative2", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his podium.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange podiums with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his podiums.
+			 * Negative test: A rider tries to edit with a blank team.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (team) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. team can not be blank.
 			 */
 			{
 				"rider1", null, "podium4", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a podium that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange podiums with other actors and manage them.
+		 * Negative test: A rider tries to delete a podium that not owns.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider tries to delete a podium that not owns
 		 * Exception expected: IllegalArgumentException. A Rider can not delete podiums from another rider.
 		 */

@@ -34,26 +34,26 @@ public class WorldChampionServiceTest extends AbstractTest {
 	@Test
 	public void WorldChampionPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.5% | Covered Instructions 104 | Missed Instructions 6 | Total Instructions 110
 
 			{
 				"rider1", "Test worldChampion", null, "create", null
 			},
 			/*
 			 * Positive test: A rider creates a worldChampion.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampions with other actors and manage them.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
 			 * Exception expected: None. A Rider can create worldChampions.
 			 */
 			{
-				"rider1", null, "worldChampion1", "edit", null
+				"rider1", "TeamTestEdition", "worldChampion1", "edit", null
 			},
 			/*
 			 * Positive test: A rider edits his worldChampion.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampions with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 5 editable attributes we edited 2 attributes (team,year) with valid data.
 			 * Exception expected: None. A Rider can edit his worldChampions.
 			 */
 			{
@@ -61,9 +61,9 @@ public class WorldChampionServiceTest extends AbstractTest {
 			},
 		/*
 		 * Negative: A rider deletes his worldChampion.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange worldChampions with other actors and manage them.
-		 * Data coverage : A rider deletes a worldChampion
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+		 * Data coverage : A rider deletes his worldChampion
 		 * Exception expected: None. A Rider can delete his worldChampions.
 		 */
 
@@ -83,54 +83,54 @@ public class WorldChampionServiceTest extends AbstractTest {
 	@Test
 	public void WorldChampionNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.3% | Covered Instructions 158 | Missed Instructions 6 | Total Instructions 154
 			{
 				"rider1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a worldChampion with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampions with other actors and manage them.
-			 * Data coverage : We tried to create a worldChampion with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create worldChampions.
+			 * Negative test: A rider tries to create a worldChampion with a blank team.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a worldChampion with 4 out of 5 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Team can not be blank.
 			 */
 			{
 				"raceDirector1", "TestNegativeWorldChampion", null, "create", ClassCastException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a worldChampion with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampions with other actors and manage them.
-			 * Data coverage : We tried to create a worldChampion with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create worldChampions.
+			 * Negative test: A rider tries to create a worldChampion.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a worldChampion with 5 out of 5 valid parameters.
+			 * Exception expected: ClassCastException.class. A race director can not create worldChampions.
 			 */
 			{
 				"rider1", null, "worldChampion1", "editNegative", ConstraintViolationException.class
 			},
 			/*
 			 * Positive test: A rider edits his worldChampion and sets a year too small.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampions with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his worldChampions.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (points) with valid data.
+			 * Exception expected: ConstraintViolationException.class. Points must be a positive number.
 			 */
 			{
-				"rider2", "Not your lap", "worldChampion1", "editNegative2", IllegalArgumentException.class
+				"rider2", "Not your lap", "worldChampion1", "edit", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his worldChampion.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampions with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his worldChampions.
+			 * Positive test: A rider tries to edit another rider's worldchampion
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 3 editable attributes we tried to edit 2 attribute (team, year) with valid data.
+			 * Exception expected: IllegalArgumentException.class. A Rider can not edit another rider's worldChampions.
 			 */
 			{
 				"rider3", null, "worldChampion1", "delete", IllegalArgumentException.class
 			},
 		/*
 		 * Negative: A rider tries to delete a worldChampion that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange worldChampions with other actors and manage them.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider tries to delete a worldChampion that not owns
 		 * Exception expected: IllegalArgumentException. A Rider can not delete worldChampions from another rider.
 		 */
@@ -168,6 +168,7 @@ public class WorldChampionServiceTest extends AbstractTest {
 			} else if (operation.equals("edit")) {
 				final WorldChampion worldChampion = this.worldChampionService.findOne(this.getEntityId(id));
 				worldChampion.setYear(2017);
+				worldChampion.setTeam(st);
 
 				this.worldChampionService.save(worldChampion);
 
@@ -180,11 +181,6 @@ public class WorldChampionServiceTest extends AbstractTest {
 				final WorldChampion worldChampion = this.worldChampionService.findOne(this.getEntityId(id));
 				worldChampion.setPoints(-1223);
 
-				this.worldChampionService.save(worldChampion);
-
-			} else if (operation.equals("editNegative2")) {
-				final WorldChampion worldChampion = this.worldChampionService.findOne(this.getEntityId(id));
-				worldChampion.setTeam(st);
 				this.worldChampionService.save(worldChampion);
 
 			}

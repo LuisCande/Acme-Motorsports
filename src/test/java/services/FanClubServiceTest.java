@@ -42,36 +42,36 @@ public class FanClubServiceTest extends AbstractTest {
 	@Test
 	public void FanClubPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.7% | Covered Instructions 108 | Missed Instructions 6 | Total Instructions 114
 
 			{
 				"representative1", "Test fanClub", "rider1", "create", null
 			},
 			/*
-			 * Positive test: A rider creates a fanClub.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
+			 * Positive test: A representative creates a fan Club.
+			 * Requisite tested: Functional requirement - 28.1. An actor who is authenticated as a representative must be able to:
+			 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+			 * Data coverage : We created a miscellaneousRecord with 6 out of 6 valid parameters.
 			 * Exception expected: None. A Rider can create fanClubs.
 			 */
 			{
 				"representative1", "sector3", "fanClub2", "edit", null
 			},
 			/*
-			 * Positive test: A rider edits his fanClub.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Positive test: A representative sets his fan Club in a sector.
+			 * Requisite tested: Functional requirement - 28.2. An actor who is authenticated as a representative must be able to:
+			 * Settle one of their fan clubs in a circuit sector
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (sector) with valid data.
 			 * Exception expected: None. A Rider can edit his fanClubs.
 			 */
 			{
 				"representative1", null, "fanClub1", "delete", null
 			},
 		/*
-		 * Negative: A rider deletes his fanClub.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange fanClubs with other actors and manage them.
-		 * Data coverage : A rider deletes a fanClub
+		 * Positive test: A representative deletes his fan Club.
+		 * Requisite tested: Functional requirement - 28. 1.An actor who is authenticated as a representative must be able to:
+		 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+		 * Data coverage : A representative deletes a fan Club
 		 * Exception expected: None. A Rider can delete his fanClubs.
 		 */
 
@@ -91,66 +91,66 @@ public class FanClubServiceTest extends AbstractTest {
 	@Test
 	public void FanClubNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 97.0% | Covered Instructions 191 | Missed Instructions 6 | Total Instructions 197
 			{
 				"representative1", " ", "rider1", "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a fanClub with a blank name.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : We tried to create a fanClub with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create fanClubs.
+			 * Negative test: A representative tries to create a fanClub with a blank name.
+			 * Requisite tested: Functional requirement - 28. 1.An actor who is authenticated as a representative must be able to:
+			 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+			 * Data coverage : We tried to create a fanClub with 5 out of 6 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank.
 			 */
 			{
 				"representative1", "Negative creation ", "rider1", "createNegative", IllegalArgumentException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a fanClub for a rider that belongs to another fanclub.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : We tried to create a fanClub with 3 out of 4 valid parameters.
+			 * Negative test: A representative to create a fanClub for a rider that belongs to another fanclub.
+			 * Requisite tested: Functional requirement - 28. 1.An actor who is authenticated as a representative must be able to:
+			 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+			 * Data coverage : We tried to create a fanClub with 5 out of 6 valid parameters.
 			 * Exception expected: None. A Rider can create fanClubs.
 			 */
 			{
 				"representative1", "sector3", "fanClub1", "edit", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A representative tries to add a fanClub to a sector where they dont fit in.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his fanClubs.
+			 * Neagaive test: A representative tries to add a fanClub to a sector where they dont fit in.
+			 * Requisite tested: Functional requirement - 28.2. An actor who is authenticated as a representative must be able to:
+			 * Settle one of their fan clubs in a circuit sector
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (sector) with invalid data.
+			 * Exception expected: IllegalArgumentException.class. Fan Clubs must fit in the sector they are set in.
 			 */
 			{
 				"representative2", "sector3", "fanClub2", "edit", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his fanClub.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his fanClubs.
+			 * Negative test: A representative tries to edit another representative's fanClub.
+			 * Requisite tested: Functional requirement - 28. 1.An actor who is authenticated as a representative must be able to:
+			 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+			 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Exception expected: IllegalArgumentException.class. A representative can not edit another representative's fanClub.
 			 */
 			{
 				"representative2", null, "fanClub1", "delete", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A rider tries to delete a fanClub that not owns.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fanClubs with other actors and manage them.
-			 * Data coverage : A rider tries to delete a fanClub that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not delete fanClubs from another rider.
+			 * Negative: A representative tries to delete a fanClub that not owns.
+			 * Requisite tested: Functional requirement - 28. 1.An actor who is authenticated as a representative must be able to:
+			 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+			 * Data coverage : A representative tries to delete a fanClub that not owns
+			 * Exception expected: IllegalArgumentException.class. A representative can not edit another representative's fanClub.
 			 */
 			{
 				"rider2", null, "fanClub1", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a fanClub that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange fanClubs with other actors and manage them.
-		 * Data coverage : A rider tries to delete a fanClub that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete fanClubs from another rider.
+		 * Negative: A rider tries to delete a fanClub.
+		 * Requisite tested: Functional requirement - 28. 1.An actor who is authenticated as a representative must be able to:
+		 * Manage his or her fan clubs which includes listing, showing, creating, updating and deleting them.
+		 * Data coverage : A rider tries to delete a fanClub.
+		 * Exception expected: IllegalArgumentException. A Rider can not delete fanClubs.
 		 */
 		};
 
@@ -213,13 +213,6 @@ public class FanClubServiceTest extends AbstractTest {
 				fanClub.setPictures("http://www.pictures.com");
 				final Rider rider = this.riderService.findOne(this.getEntityId(id));
 				fanClub.setRider(rider);
-
-				this.fanClubService.save(fanClub);
-
-			} else if (operation.equals("editNegative")) {
-				final FanClub fanClub = this.fanClubService.findOne(this.getEntityId(id));
-				final Sector sector = this.sectorService.findOne(this.getEntityId(st));
-				fanClub.setSector(sector);
 
 				this.fanClubService.save(fanClub);
 

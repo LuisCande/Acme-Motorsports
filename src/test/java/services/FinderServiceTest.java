@@ -40,8 +40,8 @@ public class FinderServiceTest extends AbstractTest {
 			},
 		/*
 		 * Positive test: A rider edits his finder.
-		 * Requisite tested: Functional requirement - 17. An actor who is authenticated as a rider must be able to:
-		 * 2. Manage his or her finder, which involves updating the search criteria, listing its contents, and clearing it.
+		 * Requisite tested: Functional requirement - 29.5. An actor who is authenticated as a rider must be able to:
+		 * Change the filters of his or her finder
 		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (keyword) with valid authority.
 		 * Exception expected: None. A rider can edit his finders.
 		 */
@@ -68,8 +68,8 @@ public class FinderServiceTest extends AbstractTest {
 			}
 		/*
 		 * Negative test: A raceDirector edit finder.
-		 * Requisite tested: Functional requirement - 17. An actor who is authenticated as a rider must be able to:
-		 * 2. Manage his or her finder, which involves updating the search criteria, listing its contents, and clearing it.
+		 * Requisite tested: Functional requirement - 29.5. An actor who is authenticated as a rider must be able to:
+		 * Change the filters of his or her finder
 		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (keyword) with invalid authority.
 		 * Exception expected: IllegalArgumentException. A raceDirector can not edit a finder.
 		 */

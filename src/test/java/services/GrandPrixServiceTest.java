@@ -2,6 +2,7 @@
 package services;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -45,37 +46,62 @@ public class GrandPrixServiceTest extends AbstractTest {
 	@Test
 	public void GrandPrixPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 95.9% | Covered Instructions 142 | Missed Instructions 6 | Total Instructions 148
 
 			{
 				"raceDirector1", "category9", "worldChampionship1", "create", null
 			},
 			/*
-			 * Positive test: A rider creates a grandPrix.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create grandPrixs.
+			 * Positive test: A race director creates a grandPrix.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
+			 * Data coverage : We created a miscellaneousRecord with 9 out of 9 valid parameters.
+			 * Exception expected: None. A race director can create grand prixes.
 			 */
 			{
-				"raceDirector1", null, "grandPrix3", "edit", null
+				"raceDirector1", "Positive edition", "grandPrix3", "edit", null
 			},
 			/*
-			 * Positive test: A rider edits his grandPrix.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his grandPrixs.
+			 * Positive test: A race director edits his grandPrix.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
+			 * Data coverage : From 9 editable attributes we tried to edit 1 attribute (description) with valid data.
+			 * Exception expected: None. A race director can edit his grand prixes.
+			 */
+			{
+				"raceDirector1", null, "grandPrix3", "cancel", null
+			},
+			/*
+			 * Positive test: A race director cancels his grandPrix.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
+			 * Data coverage : From 9 editable attributes we tried to edit 1 attribute (cancelled) with valid data.
+			 * Exception expected: None. A race director can cancel his grand prixes.
 			 */
 			{
 				"raceDirector1", null, "grandPrix3", "delete", null
 			},
+			/*
+			 * Positive test: A race director deletes his grandPrix.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
+			 * Data coverage : A race director deletes a grandPrix
+			 * Exception expected: None. A race director can delete his grand prixes.
+			 */
+			{
+				"raceDirector1", null, "grandPrix3", "list", null
+			},
 		/*
-		 * Negative: A rider deletes his grandPrix.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange grandPrixs with other actors and manage them.
-		 * Data coverage : A rider deletes a grandPrix
-		 * Exception expected: None. A Rider can delete his grandPrixs.
+		 * Positive test: A race director lists his grandPrix.
+		 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+		 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+		 * as long as they are not saved in final mode.
+		 * Data coverage : We check that the given grand prix is contained in those of the given race director
+		 * Exception expected: None. A race director can delete his grand prixes.
 		 */
 
 		};
@@ -94,66 +120,62 @@ public class GrandPrixServiceTest extends AbstractTest {
 	@Test
 	public void GrandPrixNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.4% | Covered Instructions 162 | Missed Instructions 6 | Total Instructions 168
 			{
 				"raceDirector1", null, "worldChampionship1", "createNegative", IllegalArgumentException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a grandPrix with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
-			 * Data coverage : We tried to create a grandPrix with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create grandPrixs.
+			 * Negative test: A race director tries to create a grandPrix without a category
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
+			 * Data coverage : We tried to create a grandPrix with 8 out of 9 valid parameters.
+			 * Exception expected: IllegalArgumentException.class. A grand prix must have a category
 			 */
 			{
 				"raceDirector1", "category9", "worldChampionship1", "createNegative2", IllegalArgumentException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a grandPrix with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
-			 * Data coverage : We tried to create a grandPrix with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create grandPrixs.
+			 * Negative test: A race director tries to create a grandPrix without a circuit.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
+			 * Data coverage : We tried to create a grandPrix with 8 out of 9 valid parameters.
+			 * Exception expected: IllegalArgumentException.class. A grand prix must have a circuit.
 			 */
 			{
-				"raceDirector3", "Not your GP", "grandPrix1", "editNegative", IllegalArgumentException.class
+				"raceDirector3", "Not your GP", "grandPrix1", "edit", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his grandPrix.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
+			 * Negative test: A race director tries to edit another race director's grand prix.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his grandPrixs.
+			 * Exception expected: IllegalArgumentException.class. A race director can not edit another race director's grand prix.
 			 */
-			//			{
-			//				"raceDirector1", "", "grandPrix1", "editNegative2", ConstraintViolationException.class
-			//			},
-			/*
-			 * Positive test: A rider edits his grandPrix.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his grandPrixs.
-			 */
+
 			{
 				"raceDirector1", null, "grandPrix1", "delete", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A rider tries to delete a grandPrix that is in final mode.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange grandPrixs with other actors and manage them.
+			 * Negative test: A race director to delete a grandPrix that is in final mode.
+			 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+			 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+			 * as long as they are not saved in final mode.
 			 * Data coverage : A rider tries to delete a grandPrix that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not delete grandPrixs from another rider.
+			 * Exception expected: IllegalArgumentException. A race director can not delete grand prixes that are in final mode.
 			 */
 			{
 				"raceDirector3", null, "grandPrix3", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a grandPrix that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange grandPrixs with other actors and manage them.
-		 * Data coverage : A rider tries to delete a grandPrix that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete grandPrixs from another rider.
+		 * Negative test: A race director tries to delete a grandPrix that not owns.
+		 * Requisite tested: Functional requirement - 26.2. An actor who is authenticated as a race director must be able to:
+		 * Manage an arbitrary number of grand prixes, which includes listing, showing, creating,updating and deleting them
+		 * as long as they are not saved in final mode.
+		 * Data coverage : A race director tries to delete a grandPrix that not owns
+		 * Exception expected: IllegalArgumentException. A race director can not delete grand prixes from another race director.
 		 */
 		};
 
@@ -197,7 +219,13 @@ public class GrandPrixServiceTest extends AbstractTest {
 
 			} else if (operation.equals("edit")) {
 				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
-				grandPrix.setDescription("nananan");
+				grandPrix.setDescription(st);
+
+				this.grandPrixService.save(grandPrix);
+
+			} else if (operation.equals("cancel")) {
+				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
+				this.grandPrixService.cancel(grandPrix);
 
 				this.grandPrixService.save(grandPrix);
 
@@ -205,6 +233,12 @@ public class GrandPrixServiceTest extends AbstractTest {
 				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
 
 				this.grandPrixService.delete(grandPrix);
+
+			} else if (operation.equals("list")) {
+				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
+				final Collection<GrandPrix> gps = this.grandPrixService.getFinalAndNotCancelledGrandPrixesOfARaceDirector(this.getEntityId(username));
+				if (gps.contains(grandPrix))
+					this.grandPrixService.save(grandPrix);
 
 			} else if (operation.equals("createNegative")) {
 				final GrandPrix grandPrix = this.grandPrixService.create();
@@ -243,23 +277,6 @@ public class GrandPrixServiceTest extends AbstractTest {
 				grandPrix.setWorldChampionship(worldChampionship);
 
 				this.grandPrixService.save(grandPrix);
-
-			} else if (operation.equals("editNegative")) {
-				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
-				grandPrix.setDescription(st);
-
-				this.grandPrixService.save(grandPrix);
-
-			} else if (operation.equals("editNegative2")) {
-				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
-				grandPrix.setDescription(st);
-
-				this.grandPrixService.save(grandPrix);
-
-			} else if (operation.equals("deleteNegative")) {
-				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
-
-				this.grandPrixService.delete(grandPrix);
 
 			}
 

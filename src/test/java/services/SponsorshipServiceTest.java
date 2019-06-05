@@ -45,9 +45,9 @@ public class SponsorshipServiceTest extends AbstractTest {
 			}
 			/*
 			 * Positive test: A provider creates a sponsorship.
-			 * Requisite tested: Functional requirement 13.1. An actor who is authenticated as a provider must be able to:
-			 * Manage his or her sponsorships, which includes listing, showing, creating, updating, and deleting them.
-			 * Data coverage : We created a sponsorship with a valid position (positon5) and a valid VISA credit card.
+			 * Requisite tested: Functional requirement 30.1. An actor who is authenticated as a sponsor must be able to:
+			 * Manage his or her sponsorships which includes listing, showing, creating and updating them.
+			 * Data coverage : We created a sponsorship with 5 out of 5 valid parameters.
 			 * Exception expected: None.A Provider can create sponsorships.
 			 */
 			, {
@@ -57,8 +57,8 @@ public class SponsorshipServiceTest extends AbstractTest {
 		 * Positive: A provider edits his sponsorship.
 		 * Requisite tested: Functional requirement 13.1. An actor who is authenticated as a provider must be able to:
 		 * Manage his or her sponsorships, which includes listing, showing, creating, updating, and deleting them.
-		 * Data coverage :From 4 editable atributes we tried to edit 1 atribute (banner) with valid data.
-		 * Exception expected: None. A Provider can edit his sponsorships.
+		 * Data coverage :From 4 editable atributes we edited 1 atribute (banner) with valid data.
+		 * Exception expected: None. A sponsor can edit his sponsorships.
 		 */
 
 		};
@@ -77,46 +77,46 @@ public class SponsorshipServiceTest extends AbstractTest {
 	@Test
 	public void SponsorshipNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 94.9% | Covered Instructions 112 | Missed Instructions 6 | Total Instructions 118
+			//Total sentence coverage : Coverage 95.7% | Covered Instructions 133 | Missed Instructions 6 | Total Instructions 139
 			{
 				"sponsor1", null, "team1", "createNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Negative: A provider tries to create a sponsorship for a position which is not in final mode
-			 * Requisite tested: Functional requirement 13.1. An actor who is authenticated as a provider must be able to:
-			 * Manage his or her sponsorships, which includes listing, showing, creating, updating, and deleting them.
-			 * Data coverage : We tried to create a sponsorship with valid atributes, but for an invalid position
-			 * Exception expected: IllegalArgumentException.Position must be in final mode.
+			 * Negative: A sponsor tries to create a sponsorship with a blank banner
+			 * Requisite tested: Functional requirement 30.1. An actor who is authenticated as a sponsor must be able to:
+			 * Manage his or her sponsorships which includes listing, showing, creating and updating them.
+			 * Data coverage : We tried to create a sponsorship with 4 out of 5 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Banner can not be blank.
 			 */
 			{
 				"sponsor1", null, "team1", "createNegative2", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A provider tries to create a sponsorship for a position which is not in final mode
-			 * Requisite tested: Functional requirement 13.1. An actor who is authenticated as a provider must be able to:
-			 * Manage his or her sponsorships, which includes listing, showing, creating, updating, and deleting them.
-			 * Data coverage : We tried to create a sponsorship with valid atributes, but for an invalid position
-			 * Exception expected: IllegalArgumentException.Position must be in final mode.
+			 * Negative: A sponsor tries to create a sponsorship with a cc with an invalid exp year
+			 * Requisite tested: Functional requirement 30.1. An actor who is authenticated as a sponsor must be able to:
+			 * Manage his or her sponsorships which includes listing, showing, creating and updating them.
+			 * Data coverage : We tried to create a sponsorship with 4 out of 5 valid parameters.
+			 * Exception expected: IllegalArgumentException.Exp year must be bigger than current year.
 			 */
 			{
 				"sponsor1", null, "sponsorship1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Negative: A provider tries to edit a sponsorship with invalid data.
-			 * Requisite tested: Functional requirement 13.1. An actor who is authenticated as a provider must be able to:
-			 * Manage his or her sponsorships, which includes listing, showing, creating, updating, and deleting them.
+			 * Negative: A sponsor tries to edit a sponsorship a blank banner
+			 * Requisite tested: Functional requirement 30.1. An actor who is authenticated as a sponsor must be able to:
+			 * Manage his or her sponsorships which includes listing, showing, creating and updating them.
 			 * Data coverage : From 4 editable attributes we tried to edit 1 attribute (banner) with invalid data.
 			 * Exception expected: ConstraintViolationException .The Sponsorship Banner must be a valid url.
 			 */
 			{
-				"sponsor1", null, "sponsorship2", "editNegative", IllegalArgumentException.class
+				"sponsor1", null, "sponsorship2", "edit", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A provider tries to edit a sponsorship with invalid data.
-		 * Requisite tested: Functional requirement 13.1. An actor who is authenticated as a provider must be able to:
-		 * Manage his or her sponsorships, which includes listing, showing, creating, updating, and deleting them.
-		 * Data coverage : From 4 editable attributes we tried to edit 1 attribute (banner) with invalid data.
-		 * Exception expected: ConstraintViolationException .The Sponsorship Banner must be a valid url.
+		 * Negative: A provider tries to edit a sponsorship from another sponsor
+		 * Requisite tested: Functional requirement 30.1. An actor who is authenticated as a sponsor must be able to:
+		 * Manage his or her sponsorships which includes listing, showing, creating and updating them.
+		 * Data coverage : From 4 editable attributes we tried to edit 1 attribute (banner) with valid data.
+		 * Exception expected: ConstraintViolationException .A sponsor can not edit a sponsorship from another sponsor.
 		 */
 
 		};

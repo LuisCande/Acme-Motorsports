@@ -38,36 +38,36 @@ public class AnswerServiceTest extends AbstractTest {
 	@Test
 	public void AnswerPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.5% | Covered Instructions 104 | Missed Instructions 6 | Total Instructions 110
 
 			{
 				"teamManager1", "Test reason", "announcement2", "create", null
 			},
 			/*
-			 * Positive test: A rider creates a answer.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create answers.
+			 * Positive test: A team manager creates an answer.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
+			 * Data coverage : We created an answer with 4 out of 4 valid parameters.
+			 * Exception expected: None. A Team manager can create answers.
 			 */
 			{
 				"teamManager1", null, "answer1", "edit", null
 			},
 			/*
-			 * Positive test: A rider edits his answer and also sing a rider to it.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
+			 * Positive test: A team manager edits his answer.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his answers.
+			 * Exception expected: None. A team manager can edit his answers.
 			 */
 			{
 				"teamManager1", null, "answer1", "delete", null
 			},
 		/*
-		 * Negative: A rider deletes his answer.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange answers with other actors and manage them.
-		 * Data coverage : A rider deletes a answer
+		 * Positive test: A team manager deletes his answer.
+		 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+		 * List and display announcements and answers and also, answer announcements
+		 * Data coverage : A team manager deletes an answer
 		 * Exception expected: None. A Rider can delete his answers.
 		 */
 
@@ -87,44 +87,44 @@ public class AnswerServiceTest extends AbstractTest {
 	@Test
 	public void AnswerNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 97.0% | Covered Instructions 191 | Missed Instructions 6 | Total Instructions 197
 			{
 				"teamManager2", "", "announcement2", "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a answer with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
-			 * Data coverage : We tried to create a answer with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create answers.
+			 * Negative test: A team manager tries to create an answer with a blank reason.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
+			 * Data coverage : We tried to create an answer with 3 out of 4 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Reason cannot be blank.
 			 */
 			{
 				"teamManager1", "TestNotFinalAnnouncement", "announcement1", "create", IllegalArgumentException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a answer with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
+			 * Negative test: A rider tries to create an answer for an announcement which is not in final mode.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
 			 * Data coverage : We tried to create a answer with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create answers.
+			 * Exception expected: IllegalArgumentException.class. Announcements must be in final mode to be answered.
 			 */
 			{
 				"teamManager1", "", "answer1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his answer.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
+			 * Negative test: A team manager tries to edits his answer with invalid data.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his answers.
+			 * Exception expected: ConstraintViolationException.class. Reason cannot be blank.
 			 */
 			{
 				"teamManager2", "rider1", "answer1", "edit", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his answer.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
+			 * Negative test: A team manager tries to edit another team manager's answer.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
 			 * Exception expected: None. A Rider can edit his answers.
 			 */
@@ -132,21 +132,21 @@ public class AnswerServiceTest extends AbstractTest {
 				"teamManager1", null, "answer3", "delete", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A rider tries to delete a answer that not owns.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange answers with other actors and manage them.
-			 * Data coverage : A rider tries to delete a answer that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not delete answers from another rider.
+			 * Negative test: A team manager tries to delete an answer that not owns.
+			 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+			 * List and display announcements and answers and also, answer announcements
+			 * Data coverage : A team manager tries to delete a answer that not owns
+			 * Exception expected: IllegalArgumentException. A team manager can not delete answers from another team manager.
 			 */
 			{
 				"rider1", null, "answer1", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a answer that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange answers with other actors and manage them.
+		 * Negative: A rider tries to delete an answer.
+		 * Requisite tested: Functional requirement 27.1. An actor who is authenticated as a team manager must be able to:
+		 * List and display announcements and answers and also, answer announcements
 		 * Data coverage : A rider tries to delete a answer that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete answers from another rider.
+		 * Exception expected: IllegalArgumentException. A Rider can not delete answers.
 		 */
 		};
 
@@ -190,19 +190,6 @@ public class AnswerServiceTest extends AbstractTest {
 				final Answer answer = this.answerService.findOne(this.getEntityId(id));
 
 				this.answerService.delete(answer);
-
-			} else if (operation.equals("createNegative")) {
-				final Answer oldAnswer = this.answerService.findOne(this.getEntityId(id));
-				this.answerService.delete(oldAnswer);
-
-				final Answer answer = this.answerService.create();
-				answer.setReason(st);
-				answer.setComment("The comment is even less real");
-				answer.setAgree(true);
-				final Announcement announcement = this.announcementService.findOne(this.getEntityId(id));
-				answer.setAnnouncement(announcement);
-
-				this.answerService.save(answer);
 
 			} else if (operation.equals("editNegative")) {
 				final Answer answer = this.answerService.findOne(this.getEntityId(id));

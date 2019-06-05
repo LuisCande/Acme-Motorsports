@@ -34,16 +34,16 @@ public class FastestLapServiceTest extends AbstractTest {
 	@Test
 	public void FastestLapPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.3% | Covered Instructions 100 | Missed Instructions 6 | Total Instructions 106
 
 			{
 				"rider1", "Test fastestLap", null, "create", null
 			},
 			/*
 			 * Positive test: A rider creates a fastestLap.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fastestLaps with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We created a miscellaneousRecord with 6 out of 6 valid parameters.
 			 * Exception expected: None. A Rider can create fastestLaps.
 			 */
 			{
@@ -51,19 +51,19 @@ public class FastestLapServiceTest extends AbstractTest {
 			},
 			/*
 			 * Positive test: A rider edits his fastestLap.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fastestLaps with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (year) with valid data.
 			 * Exception expected: None. A Rider can edit his fastestLaps.
 			 */
 			{
 				"rider1", null, "fastestLap2", "delete", null
 			},
 		/*
-		 * Negative: A rider deletes his fastestLap.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange fastestLaps with other actors and manage them.
-		 * Data coverage : A rider deletes a fastestLap
+		 * Positive test: A rider deletes his fastestLap.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+		 * Data coverage : A rider deletes his fastestLap
 		 * Exception expected: None. A Rider can delete his fastestLaps.
 		 */
 
@@ -83,56 +83,56 @@ public class FastestLapServiceTest extends AbstractTest {
 	@Test
 	public void FastestLapNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.3% | Covered Instructions 158 | Missed Instructions 6 | Total Instructions 164
 			{
 				"rider1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a fastestLap with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fastestLaps with other actors and manage them.
-			 * Data coverage : We tried to create a fastestLap with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create fastestLaps.
+			 * Negative test: A rider tries to create a fastestLap with a blank team.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a fastestLap with 5 out of 6 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Team can not be blank.
 			 */
 			{
 				"raceDirector1", "TestNegativeFastestLap", null, "create", ClassCastException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a fastestLap with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fastestLaps with other actors and manage them.
-			 * Data coverage : We tried to create a fastestLap with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create fastestLaps.
+			 * Negative test: A race director tries to create a fastestLap.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a fastestLap with 6 out of 6 valid parameters.
+			 * Exception expected: ClassCastException.class. A Race director can not create fastestLaps.
 			 */
 			{
 				"rider1", null, "fastestLap1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his fastestLap and sets a year too small.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fastestLaps with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his fastestLaps.
+			 * Negative test: A rider tries to edit his fastestLap with negative milliseconds.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (milliseconds) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. Milliseconds must be a positive number.
 			 */
 			{
 				"rider2", "Not your lap", "fastestLap1", "editNegative2", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his fastestLap.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange fastestLaps with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his fastestLaps.
+			 * Negative test: A rider tries to edit another rider's fastestLap.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (team) with valid data.
+			 * Exception expected: IllegalArgumentException.class. A Rider can not edit another rider's fastestLap.
 			 */
 			{
 				"rider3", null, "fastestLap3", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a fastestLap that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange fastestLaps with other actors and manage them.
+		 * Negative test: A rider tries to delete a fastestLap that not owns.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider tries to delete a fastestLap that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete fastestLaps from another rider.
+		 * Exception expected: IllegalArgumentException. A Rider can not edit another rider's fastestLap.
 		 */
 
 		};

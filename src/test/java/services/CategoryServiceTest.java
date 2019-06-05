@@ -34,37 +34,37 @@ public class CategoryServiceTest extends AbstractTest {
 	@Test
 	public void CategoryPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.7% | Covered Instructions 108 | Missed Instructions 6 | Total Instructions 114
 
 			{
 				"admin", "testCategory", "category1", "create", null
 			},
 			/*
-			 * Positive test: A rider creates a category.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create categorys.
+			 * Positive test: An administrator creates a category.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them
+			 * Data coverage : We created a miscellaneousRecord with 2 out of 2 valid parameters.
+			 * Exception expected: None. An administrator can create categories.
 			 */
 			{
 				"admin", "Name2", "category2", "edit", null
 			},
 			/*
-			 * Positive test: A rider edits his category.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
+			 * Positive test: An administrator edits a category.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his categorys.
+			 * Exception expected: None. An administrator can edit categories.
 			 */
 			{
 				"admin", null, "category3", "delete", null
 			},
 		/*
-		 * Negative: A rider deletes his category.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange categorys with other actors and manage them.
+		 * Positive test: A rider deletes a category.
+		 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+		 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them
 		 * Data coverage : A rider deletes a category
-		 * Exception expected: None. A Rider can delete his categorys.
+		 * Exception expected: None. An administrator can delete categories.
 		 */
 
 		};
@@ -83,68 +83,68 @@ public class CategoryServiceTest extends AbstractTest {
 	@Test
 	public void CategoryNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.9% | Covered Instructions 187 | Missed Instructions 6 | Total Instructions 193
 			{
 				"admin", " ", "category1", "createNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a category with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
-			 * Data coverage : We tried to create a category with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create categorys.
+			 * Negative test: An administrator tries to create a category with a blank name.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them.
+			 * Data coverage : We tried to create a category with 1 invalid parameter (name).
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank.
 			 */
 			{
 				"admin", "TestCategory ", null, "createNegative2", IllegalArgumentException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a category without a parent category.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
-			 * Data coverage : We tried to create a category with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create categorys.
+			 * Negative test: An administrator tries to create a category without a parent category.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them.
+			 * Data coverage : We tried to create a category with 1 invalid parameter (parent)
+			 * Exception expected: IllegalArgumentException.class. Categories must have a parent category.
 			 */
 			{
 				"admin", " ", "category2", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his category.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his categorys.
+			 * Negative test: An administrator edits a category with a blank name.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them.
+			 * Data coverage : From 2 editable attributes we tried to edit 1 attribute (name) with valid data.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank.
 			 */
 
 			{
 				"rider1", "TestCategory", "category2", "editNegative", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his category.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
+			 * Negative test: A rider tries to edit a category.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them.
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his categorys.
+			 * Exception expected: IllegalArgumentException.class. A Rider can not edit categories.
 			 */
 
 			{
 				"admin", null, "category1", "delete", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A rider tries to delete the root category.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange categorys with other actors and manage them.
+			 * Negative test: An administrator tries to delete the root category.
+			 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+			 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them.
 			 * Data coverage : A rider tries to delete a category that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not delete categorys from another rider.
+			 * Exception expected: IllegalArgumentException. Root category can not be deleted.
 			 */
 			{
 				"admin", null, "category2", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a category which is already related to a grand prix.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange categorys with other actors and manage them.
-		 * Data coverage : A rider tries to delete a category that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete categorys from another rider.
+		 * Negative test: An administrator tries to delete a category which is already related to a grand prix.
+		 * Requisite tested: Functional requirement - 31.2. An actor who is authenticated as an administrator must be able to:
+		 * Manage the catalogue of categories, which includes listing, showing, creating, updating, and deleting them.
+		 * Data coverage : A rider tries to delete a category already related to a grand prix.
+		 * Exception expected: IllegalArgumentException. categories can not be deleted if related to a grand prix.
 		 */
 		};
 

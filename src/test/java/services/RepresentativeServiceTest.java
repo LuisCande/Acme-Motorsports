@@ -42,20 +42,20 @@ public class RepresentativeServiceTest extends AbstractTest {
 			/*
 			 * 
 			 * Positive test: An user registers as a new representative
-			 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a representative.
-			 * Data coverage : We created a new representative with valid data.
-			 * Exception expected: None.
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new representative with 10 out of 10 valid parameters.
+			 * Exception expected: None.An user can register as a representative
 			 */
 			{
-				"representative1", null, "representative1", "editPositive", null
+				"representative1", null, "representative1", "edit", null
 			}
 
 		/*
-		 * Positive test: A representative edit its makeP.
-		 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a representative.
-		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (makeP) with valid data.
+		 * Positive test: A representative edit its score.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (score) with valid data.
 		 * Exception expected: None. A representative can edit his data.
 		 */
 
@@ -75,26 +75,36 @@ public class RepresentativeServiceTest extends AbstractTest {
 	@Test
 	public void RepresentativeNegativeTest() {
 		final Object testingData[][] = {
-			//Total Sentence Coverage: Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total Sentence Coverage: Coverage 94.7% | Covered Instructions 108 | Missed Instructions 6 | Total Instructions 114
 			{
-				"representative1", null, "representative2", "editNegative", IllegalArgumentException.class
+				null, " ", null, "create", ConstraintViolationException.class
+			},
+			/*
+			 * Negative test: An user tries to register as a new Representative with a blank name
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new representative with 9 out of 10 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank
+			 */
+			{
+				"representative1", null, "representative2", "edit", IllegalArgumentException.class
 			},
 			/*
 			 * Negative test: A representative tries to edit the another representative personal data.
-			 * Requisite tested: Functional requirement 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a representative.
+			 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+			 * Edit his or her personal data.
 			 * Data coverage: From 11 editable attributes we tried to edit 1 attribute (makeP) of another user.
 			 * Exception expected: IllegalArgumentException A representative cannot edit others personal data.
 			 */
 
 			{
-				"representative2", "", null, "editNegative1", ConstraintViolationException.class
+				"representative2", "", null, "editNegative", ConstraintViolationException.class
 			},
 
 		/*
 		 * Negative test: A representative tries to edit its profile with invalid data.
-		 * Requisite tested: Functional requirement -9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a representative.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
 		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (name) with invalid data.
 		 * Exception expected: ConstraintViolationException. Name cannot be blank.
 		 */
@@ -133,22 +143,16 @@ public class RepresentativeServiceTest extends AbstractTest {
 
 				this.representativeService.save(representative);
 
-			} else if (operation.equals("editPositive")) {
+			} else if (operation.equals("edit")) {
 				final Representative representative = this.representativeService.findOne(this.getEntityId(id));
 				representative.setScore(2.0);
 
 				this.representativeService.save(representative);
-			} else if (operation.equals("editNegative")) {
-				final Representative representative = this.representativeService.findOne(this.getEntityId(id));
-				representative.setName("Test negative name");
-				representative.setSurnames("Test negative surnames");
-				representative.setScore(1.0);
-				representative.setAddress("Test address");
-				this.representativeService.save(representative);
 
-			} else if (operation.equals("editNegative1")) {
+			} else if (operation.equals("editNegative")) {
 				final Representative representative = this.representativeService.findOne(this.getEntityId(username));
 				representative.getUserAccount().setUsername(st);
+
 				this.representativeService.save(representative);
 			}
 			this.representativeService.flush();

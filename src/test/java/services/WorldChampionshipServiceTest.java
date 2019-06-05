@@ -35,37 +35,37 @@ public class WorldChampionshipServiceTest extends AbstractTest {
 	@Test
 	public void WorldChampionshipPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.3% | Covered Instructions 100 | Missed Instructions 6 | Total Instructions 106
 
 			{
 				"raceDirector1", "Test worldChampionship", null, "create", null
 			},
 			/*
-			 * Positive test: A rider creates a worldChampionship.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create worldChampionships.
+			 * Positive test: A race director creates a worldChampionship.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
+			 * Data coverage : We created a world championship with 2 out of 2 valid parameters.
+			 * Exception expected: None. A race director can create worldChampionships.
 			 */
 			{
 				"raceDirector1", null, "worldChampionship1", "edit", null
 			},
 			/*
-			 * Positive test: A rider edits his worldChampionship.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his worldChampionships.
+			 * Positive test: A race director edits his worldChampionship.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
+			 * Data coverage : From 2 editable attributes we tried to edit 1 attribute (description) with valid data.
+			 * Exception expected: None. A Race director can edit his worldChampionships.
 			 */
 			{
 				"raceDirector1", null, "worldChampionship2", "delete", null
 			},
 		/*
-		 * Negative: A rider deletes his worldChampionship.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange worldChampionships with other actors and manage them.
+		 * Negative: A race director deletes his worldChampionship.
+		 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+		 * Create a world championship.
 		 * Data coverage : A rider deletes a worldChampionship
-		 * Exception expected: None. A Rider can delete his worldChampionships.
+		 * Exception expected: None. A Race director can delete his worldChampionships.
 		 */
 
 		};
@@ -84,34 +84,34 @@ public class WorldChampionshipServiceTest extends AbstractTest {
 	@Test
 	public void WorldChampionshipNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.8% | Covered Instructions 179 | Missed Instructions 6 | Total Instructions 185
 			{
 				"raceDirector1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a worldChampionship with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
-			 * Data coverage : We tried to create a worldChampionship with 3 out of 4 valid parameters.
+			 * Negative test: A rider tries to create a worldChampionship with a blank name.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
+			 * Data coverage : We tried to create a worldChampionship with 1 out of 2 valid parameters.
 			 * Exception expected: None. A Rider can create worldChampionships.
 			 */
 			{
-				"rider1", "TestNegativeWorldChampionship", null, "createNegative", ClassCastException.class
+				"rider1", "TestNegativeWorldChampionship", null, "create", ClassCastException.class
 			},
 			/*
 			 * Negative test: A rider tries to create a worldChampionship.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
-			 * Data coverage : We tried to create a worldChampionship with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create worldChampionships.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
+			 * Data coverage : We tried to create a worldChampionship with 2 out of 2 valid parameters.
+			 * Exception expected: ClassCastException.class. A Rider can not create worldChampionships.
 			 */
 			{
 				"raceDirector2", null, "worldChampionship1", "editNegative", IllegalArgumentException.class
 			},
 			/*
 			 * Positive test: A rider edits his worldChampionship.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
 			 * Exception expected: None. A Rider can edit his worldChampionships.
 			 */
@@ -120,8 +120,8 @@ public class WorldChampionshipServiceTest extends AbstractTest {
 			},
 			/*
 			 * Positive test: A rider edits his worldChampionship.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
 			 * Exception expected: None. A Rider can edit his worldChampionships.
 			 */
@@ -130,8 +130,8 @@ public class WorldChampionshipServiceTest extends AbstractTest {
 			},
 			/*
 			 * Negative: A rider tries to delete a worldChampionship that not owns.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange worldChampionships with other actors and manage them.
+			 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+			 * Create a world championship.
 			 * Data coverage : A rider tries to delete a worldChampionship that not owns
 			 * Exception expected: IllegalArgumentException. A Rider can not delete worldChampionships from another rider.
 			 */
@@ -140,10 +140,10 @@ public class WorldChampionshipServiceTest extends AbstractTest {
 			},
 		/*
 		 * Negative: A rider tries to delete a worldChampionship that already has grand prixes related to it.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange worldChampionships with other actors and manage them.
+		 * Requisite tested: Functional requirement - 26.1. An actor who is authenticated as a race director must be able to:
+		 * Create a world championship.
 		 * Data coverage : A rider tries to delete a worldChampionship that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete worldChampionships from another rider.
+		 * Exception expected: DataIntegrityViolationException.class. A Race director can not delete worldChampionships that already has grand prixes related to them.
 		 */
 		};
 
@@ -182,14 +182,6 @@ public class WorldChampionshipServiceTest extends AbstractTest {
 				final WorldChampionship worldChampionship = this.worldChampionshipService.findOne(this.getEntityId(id));
 
 				this.worldChampionshipService.delete(worldChampionship);
-
-			} else if (operation.equals("createNegative")) {
-				final WorldChampionship worldChampionship = this.worldChampionshipService.create();
-
-				worldChampionship.setName(st);
-				worldChampionship.setDescription("Testing the test ");
-
-				this.worldChampionshipService.save(worldChampionship);
 
 			} else if (operation.equals("editNegative")) {
 				final WorldChampionship worldChampionship = this.worldChampionshipService.findOne(this.getEntityId(id));

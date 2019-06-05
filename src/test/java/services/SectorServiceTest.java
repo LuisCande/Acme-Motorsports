@@ -38,27 +38,27 @@ public class SectorServiceTest extends AbstractTest {
 	@Test
 	public void SectorPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 93.5% | Covered Instructions 87 | Missed Instructions 6 | Total Instructions 93
 
 			{
 				"admin", "Test sector", "circuit1", "create", null
 			},
 			/*
 			 * Positive test: A rider creates a sector.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange sectors with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create sectors.
+			 * Requisite tested: Functional requirement - 31.5. An actor who is authenticated as an administrator must be able to:
+			 * Manage the sectors of a circuit which includes listing, showing, creating and updating them.
+			 * Data coverage : We created a miscellaneousRecord with 4 out of 4 valid parameters.
+			 * Exception expected: None. An administrator can create sectors.
 			 */
 			{
 				"admin", null, "sector1", "edit", null
 			},
 		/*
 		 * Positive test: A rider edits his sector.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange sectors with other actors and manage them.
-		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-		 * Exception expected: None. A Rider can edit his sectors.
+		 * Requisite tested: Functional requirement - 31.5. An actor who is authenticated as an administrator must be able to:
+		 * Manage the sectors of a circuit which includes listing, showing, creating and updating them.
+		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (Stand) with valid data.
+		 * Exception expected: None. An administrator can edit sectors.
 		 */
 
 		};
@@ -77,46 +77,46 @@ public class SectorServiceTest extends AbstractTest {
 	@Test
 	public void SectorNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.0% | Covered Instructions 145 | Missed Instructions 6 | Total Instructions 151
 			{
 				"rider3", "sector3", "circuit3", "create", IllegalArgumentException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a sector with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange sectors with other actors and manage them.
-			 * Data coverage : We tried to create a sector with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create sectors.
+			 * Negative test: A rider tries to create a sector.
+			 * Requisite tested: Functional requirement - 31.5. An actor who is authenticated as an administrator must be able to:
+			 * Manage the sectors of a circuit which includes listing, showing, creating and updating them.
+			 * Data coverage : We tried to create a sector with 4 out of 4 valid parameters.
+			 * Exception expected: IllegalArgumentException.class. A Rider can not create sectors.
 			 */
 			{
 				"admin", "", "circuit2", "createNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a sector with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange sectors with other actors and manage them.
+			 * Negative test: An administrator tries to create a sector with a blank stand.
+			 * Requisite tested: Functional requirement - 31.5. An actor who is authenticated as an administrator must be able to:
+			 * Manage the sectors of a circuit which includes listing, showing, creating and updating them.
 			 * Data coverage : We tried to create a sector with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create sectors.
+			 * Exception expected: ConstraintViolationException.class. Stand can not be blank.
 			 */
 			{
 				"admin", "", "sector1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his sector.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange sectors with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his sectors.
+			 * Negative test: A rider edits his sector with a blank stand.
+			 * Requisite tested: Functional requirement - 31.5. An actor who is authenticated as an administrator must be able to:
+			 * Manage the sectors of a circuit which includes listing, showing, creating and updating them.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (stand) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. Stand can not be blank.
 			 */
 			{
-				"raceDirector2", null, "sector1", "editNegative2", IllegalArgumentException.class
+				"raceDirector2", null, "sector1", "editNegative", IllegalArgumentException.class
 			},
 		/*
-		 * Positive test: A rider edits his sector.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange sectors with other actors and manage them.
+		 * Negative test: A race directror tries to edits a sector.
+		 * Requisite tested: Functional requirement - 31.5. An actor who is authenticated as an administrator must be able to:
+		 * Manage the sectors of a circuit which includes listing, showing, creating and updating them.
 		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-		 * Exception expected: None. A Rider can edit his sectors.
+		 * Exception expected: IllegalArgumentException.class. A Rider can not create sectors.
 		 */
 
 		};
@@ -166,12 +166,6 @@ public class SectorServiceTest extends AbstractTest {
 				this.sectorService.save(sector);
 
 			} else if (operation.equals("editNegative")) {
-				final Sector sector = this.sectorService.findOne(this.getEntityId(id));
-				sector.setStand(st);
-
-				this.sectorService.save(sector);
-
-			} else if (operation.equals("editNegative2")) {
 				final Sector sector = this.sectorService.findOne(this.getEntityId(id));
 				sector.setStand(st);
 

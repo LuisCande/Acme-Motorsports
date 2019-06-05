@@ -38,37 +38,37 @@ public class TeamServiceTest extends AbstractTest {
 	@Test
 	public void TeamPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.7% | Covered Instructions 108 | Missed Instructions 6 | Total Instructions 114
 
 			{
 				"teamManager1", "Test team", "team1", "create", null
 			},
 			/*
-			 * Positive test: A rider creates a team.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create teams.
+			 * Positive test: A team manager creates a team.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+			 * Data coverage : We created a team with 6 out of 6 valid parameters.
+			 * Exception expected: None. A team manager can create teams.
 			 */
 			{
 				"teamManager1", "rider1", "team1", "edit", null
 			},
 			/*
-			 * Positive test: A rider edits his team and also sing a rider to it.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his teams.
+			 * Positive test: A team manager edits his team and also sing a rider to it.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them. Also, he or she may sign and sign out riders.
+			 * Data coverage : From 6 editable attributes we edited 1 attribute (colors) with valid data and signed a rider in.
+			 * Exception expected: None. A team manager can edit his teams.
 			 */
 			{
 				"teamManager1", null, "team1", "delete", null
 			},
 		/*
-		 * Negative: A rider deletes his team.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange teams with other actors and manage them.
-		 * Data coverage : A rider deletes a team
-		 * Exception expected: None. A Rider can delete his teams.
+		 * Negative: A team manager deletes his team.
+		 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+		 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+		 * Data coverage : A team manager deletes a team
+		 * Exception expected: None. A team manager can delete his teams.
 		 */
 
 		};
@@ -87,66 +87,66 @@ public class TeamServiceTest extends AbstractTest {
 	@Test
 	public void TeamNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.9% | Covered Instructions 187 | Missed Instructions 6 | Total Instructions 193
 			{
 				"teamManager2", "", "team2", "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a team with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
-			 * Data coverage : We tried to create a team with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create teams.
+			 * Negative test: A team manager tries to create a team with a blank name.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+			 * Data coverage : We tried to create a team with 5 out of 6 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name cannot be blank.
 			 */
 			{
 				"teamManager1", "TestCreateInvalidURL", "team1", "createNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a team with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
-			 * Data coverage : We tried to create a team with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create teams.
+			 * Negative test: A team manager tries to create a team with a wrong url.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+			 * Data coverage : We tried to create a team with 5 out of 6 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Invalid URL
 			 */
 			{
 				"teamManager1", null, "team1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his team.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his teams.
+			 * Positive test: A team manager tries to edit his team with invalid data.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+			 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (year budget) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. Year budget must be positive
 			 */
 			{
 				"teamManager2", "rider1", "team1", "editNegative2", IllegalArgumentException.class
 			},
 			/*
-			 * Positive test: A rider edits his team.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his teams.
+			 * Positive test: A team manager edits his team.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (name) with valid data and tried to sign a rider in.
+			 * Exception expected: IllegalArgumentException.class. A team manager can not edit other team manager's teams.
 			 */
 			{
 				"teamManager1", null, "team2", "delete", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A rider tries to delete a team that not owns.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange teams with other actors and manage them.
+			 * Negative: A team manager tries to delete a team that not owns.
+			 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+			 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
 			 * Data coverage : A rider tries to delete a team that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not delete teams from another rider.
+			 * Exception expected: IllegalArgumentException. A team manager can not delete teams from another team manager.
 			 */
 			{
-				"rider1", "testDeleteTeam", "team1", "delete", IllegalArgumentException.class
+				"rider1", null, "team1", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a team that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange teams with other actors and manage them.
-		 * Data coverage : A rider tries to delete a team that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete teams from another rider.
+		 * Negative: A rider tries to delete a team.
+		 * Requisite tested: Functional requirement - 27.2. An actor who is authenticated as a team manager must be able to:
+		 * Manage their racing team which includes creating, updating, showing or deleting them.Also, he or she may sign and sign out riders.
+		 * Data coverage : A rider tries to delete a team.
+		 * Exception expected: IllegalArgumentException. A rider can not delete teams.
 		 */
 		};
 

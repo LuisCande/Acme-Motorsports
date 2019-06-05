@@ -44,8 +44,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 			}
 		/*
 		 * Positive test: A actor(rider) registers his socialProfile.
-		 * Requisite tested: Functional requirement - 11.1 An actor who is authenticated as a rider must be able to manage his or her socialProfiles to march on a procession, which includes listing them by status, showing, creating them, and deleting
-		 * them.
+		 * Requisite tested: Functional requirement - XXX
 		 * Data coverage : We created a socialProfile by providing 3 out of 3 editable attributes.
 		 * Exception expected: None. A actor (Rider) can create socialProfiles.
 		 */
@@ -72,8 +71,7 @@ public class SocialProfileServiceTest extends AbstractTest {
 			}
 		/*
 		 * Negative test: Creating a socialProfile with invalid profileLink.
-		 * Requisite tested: Functional requirement - 11.1 An actor who is authenticated as a rider must be able to manage his or her socialProfiles to march on a procession, which includes listing them by status, showing, creating them, and deleting
-		 * them.
+		 * Requisite tested: Functional requirement - XXX
 		 * Data coverage : We created a socialProfile with 1 invalid out of 3 attribute.
 		 * Exception expected: ConstraintViolationException. ProfileLink must be an url.
 		 */

@@ -43,21 +43,23 @@ public class RaceServiceTest extends AbstractTest {
 			//				"raceDirector1", "race3", "grandPrix3", "create", null
 			//			},
 			/*
-			 * Positive test: A rider creates a race.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange races with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create races.
+			 * Positive test: A race director creates a race.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
+			 * Data coverage : We created a race with 3 out of 3 valid parameters.
+			 * Exception expected: None. A Race director can create races.
 			 */
 			{
 				"raceDirector1", null, "race1", "edit", null
 			},
 		/*
-		 * Positive test: A rider edits his race.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange races with other actors and manage them.
-		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-		 * Exception expected: None. A Rider can edit his races.
+		 * Positive test: A race director edits his race.
+		 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+		 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+		 * and updating them as long as their grand prix is not saved on final mode or cancelled.
+		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (laps) with valid data.
+		 * Exception expected: None. A race director can edit his races.
 		 */
 
 		};
@@ -78,44 +80,47 @@ public class RaceServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
 			//			{
-			//				"raceDirector1", "race3", "grandPrix3", "create", ConstraintViolationException.class
+			//				"raceDirector1", null, "grandPrix3", "create", IllegalArgumentException.class
 			//			},
 			/*
-			 * Negative test: A rider tries to create a race with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange races with other actors and manage them.
+			 * Negative test: A race director tries to create a race for a grand prix which already has one.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a race with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create races.
+			 * Exception expected: IllegalArgumentException.class. There can only be one race per grand prix.
 			 */
 			//			{
 			//				"raceDirector1", "TestNegativeRace", null, "createNegative", ConstraintViolationException.class
 			//			},
 			/*
-			 * Negative test: A rider tries to create a race with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange races with other actors and manage them.
+			 * Negative test: A race director tries to create a race with negative laps.
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : We tried to create a race with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create races.
+			 * Exception expected: ConstraintViolationException.class. Laps must be a positive number.
 			 */
 			{
 				"raceDirector1", null, "race1", "editNegative", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his race.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange races with other actors and manage them.
+			 * Negative test: A rider edits his race with negative laps
+			 * Requisite tested: Functional requirement - 26. 4. An actor who is authenticated as a race director must be able to:
+			 * Manage the qualifying and the race associated to his or her grand prix which includes creating, showing
+			 * and updating them as long as their grand prix is not saved on final mode or cancelled.
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his races.
+			 * Exception expected: ConstraintViolationException.clas. A Rider can edit his races.
 			 */
 			{
-				"raceDirector2", null, "race1", "editNegative2", IllegalArgumentException.class
+				"raceDirector2", null, "race1", "edit", IllegalArgumentException.class
 			},
 		/*
-		 * Positive test: A rider edits his race.
+		 * Negative test: A rider edits his race that not owns.
 		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
 		 * Exchange races with other actors and manage them.
 		 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-		 * Exception expected: None. A Rider can edit his races.
+		 * Exception expected: IllegalArgumentException.class.A race director can not edit another race director's race.
 		 */
 
 		};
@@ -177,14 +182,7 @@ public class RaceServiceTest extends AbstractTest {
 
 				this.raceService.save(race);
 
-			} else if (operation.equals("editNegative2")) {
-				final Race race = this.raceService.findOne(this.getEntityId(id));
-				race.setLaps(15);
-
-				this.raceService.save(race);
-
 			}
-
 			this.raceService.flush();
 			super.unauthenticate();
 		} catch (final Throwable oops) {

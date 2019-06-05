@@ -34,37 +34,37 @@ public class VictoryServiceTest extends AbstractTest {
 	@Test
 	public void VictoryPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.3% | Covered Instructions 100 | Missed Instructions 6 | Total Instructions 106
 
 			{
 				"rider1", "Test victory", null, "create", null
 			},
 			/*
 			 * Positive test: A rider creates a victory.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange victorys with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
-			 * Exception expected: None. A Rider can create victorys.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We created a miscellaneousRecord with 4 out of 4 valid parameters.
+			 * Exception expected: None. A Rider can create victories.
 			 */
 			{
 				"rider1", null, "victory1", "edit", null
 			},
 			/*
 			 * Positive test: A rider edits his victory.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange victorys with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his victorys.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 4 editable attributes we tried to edit 1 attribute (year) with valid data.
+			 * Exception expected: None. A Rider can edit his victories.
 			 */
 			{
 				"rider1", null, "victory1", "delete", null
 			},
 		/*
 		 * Negative: A rider deletes his victory.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange victorys with other actors and manage them.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider deletes a victory
-		 * Exception expected: None. A Rider can delete his victorys.
+		 * Exception expected: None. A Rider can delete his victories.
 		 */
 
 		};
@@ -83,56 +83,56 @@ public class VictoryServiceTest extends AbstractTest {
 	@Test
 	public void VictoryNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.3% | Covered Instructions 158 | Missed Instructions 6 | Total Instructions 164
 			{
 				"rider1", "", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a victory with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange victorys with other actors and manage them.
+			 * Negative test: A rider tries to create a victory with a blank team.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 			 * Data coverage : We tried to create a victory with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create victorys.
+			 * Exception expected: ConstraintViolationException.class. Team can not be blank.
 			 */
 			{
 				"raceDirector1", "TestNegativeVictory", null, "create", ClassCastException.class
 			},
 			/*
-			 * Negative test: A rider tries to create a victory with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange victorys with other actors and manage them.
-			 * Data coverage : We tried to create a victory with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create victorys.
+			 * Negative test: A rider tries to create a victory.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : We tried to create a victory with 4 out of 4 valid parameters.
+			 * Exception expected: ClassCastException.class. A Rider can not create victories.
 			 */
 			{
 				"rider1", null, "victory1", "editNegative", ConstraintViolationException.class
 			},
 			/*
 			 * Positive test: A rider edits his victory and sets a year too small.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange victorys with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his victorys.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (year) with invalid data.
+			 * Exception expected: None. A Rider can edit his victories.
 			 */
 			{
 				"rider1", "", "victory1", "editNegative2", ConstraintViolationException.class
 			},
 			/*
-			 * Positive test: A rider edits his victory.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-			 * Exchange victorys with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his victorys.
+			 * Positive test: A rider edits his victory with a blank subject.
+			 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+			 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (team) with invalid data.
+			 * Exception expected: None. A Rider can edit his victories.
 			 */
 			{
 				"rider1", null, "victory3", "delete", IllegalArgumentException.class
 			},
 		/*
 		 * Negative: A rider tries to delete a victory that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
-		 * Exchange victorys with other actors and manage them.
+		 * Requisite tested: Functional requirement - 29.8. An actor who is authenticated as a rider must be able to:
+		 * Manage his or her palmares which includes listing, showing, updating, deleting and creating it.
 		 * Data coverage : A rider tries to delete a victory that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete victorys from another rider.
+		 * Exception expected: IllegalArgumentException. A Rider can not delete victories from another rider.
 		 */
 
 		};
