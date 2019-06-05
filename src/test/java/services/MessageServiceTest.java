@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
@@ -11,7 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
+import domain.Box;
 import domain.Message;
+import domain.Priority;
 import domain.Rider;
 
 @ContextConfiguration(locations = {
@@ -34,38 +39,41 @@ public class MessageServiceTest extends AbstractTest {
 	@Autowired
 	private RiderService	riderService;
 
+	@Autowired
+	private BoxService		boxService;
+
 
 	@Test
 	public void MessagePositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 94.5% | Covered Instructions 104 | Missed Instructions 6 | Total Instructions 110
 
 			{
 				"rider1", null, "rider2", "create", null
 			},
 			/*
 			 * Positive test: A rider creates a message.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
+			 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
 			 * Exchange messages with other actors and manage them.
-			 * Data coverage : We created a miscellaneousRecord with 5 out of 5 valid parameters.
+			 * Data coverage : We created a miscellaneousRecord with 7 out of 7 valid parameters.
 			 * Exception expected: None. A Rider can create messages.
 			 */
 			{
-				"rider3", null, "message1", "edit", null
+				"rider2", "trashBox4", "message1", "move", null
 			},
 			/*
 			 * Positive test: A rider edits his message.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
+			 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
 			 * Exchange messages with other actors and manage them.
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A Rider can edit his messages.
+			 * Data coverage : We moved a message to trashBox.
+			 * Exception expected: None. A Rider can move his messages.
 			 */
 			{
-				"rider1", null, "message1", "delete", null
+				"rider2", null, "message1", "delete", null
 			},
 		/*
 		 * Negative: A rider deletes his message.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
+		 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
 		 * Exchange messages with other actors and manage them.
 		 * Data coverage : A rider deletes a message
 		 * Exception expected: None. A Rider can delete his messages.
@@ -87,37 +95,47 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void MessageNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 96.1% | Covered Instructions 149 | Missed Instructions 6 | Total Instructions 155
 			{
 				"rider1", "", "rider2", "createNegative", ConstraintViolationException.class
 			},
 			/*
 			 * Negative test: A rider tries to create a message with a blank subject.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
+			 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
 			 * Exchange messages with other actors and manage them.
-			 * Data coverage : We tried to create a message with 3 out of 4 valid parameters.
-			 * Exception expected: None. A Rider can create messages.
+			 * Data coverage : We tried to create a message with 6 out of 7 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Subject can not be blank.
+			 */
+			{
+				"rider1", "mssg no priority", "rider2", "createNegative", ConstraintViolationException.class
+			},
+			/*
+			 * Negative test: A rider tries to create a message without priority.
+			 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
+			 * Exchange messages with other actors and manage them.
+			 * Data coverage : We tried to create a message with 6 out of 7 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Messages must have priority.
 			 */
 
 			{
-				"rider1", null, "message1", "edit", IllegalArgumentException.class
+				"rider1", "not your msg", "message1", "edit", IllegalArgumentException.class
 			},
 			/*
 			 * Negative: A rider tries to edit a message that not owns.
-			 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
+			 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
 			 * Exchange messages with other actors and manage them.
-			 * Data coverage : A rider tries to edit a message that not owns
-			 * Exception expected: IllegalArgumentException. A Rider can not edit messages from another rider.
+			 * Data coverage : A rider tries to delete a message that not owns
+			 * Exception expected: IllegalArgumentException. A Rider can not delete messages from another rider.
 			 */
 			{
-				"rider1", null, "message1", "delete", IllegalArgumentException.class
+				"rider2", " ", "message1", "edit", ConstraintViolationException.class
 			},
 		/*
-		 * Negative: A rider tries to delete a message that not owns.
-		 * Requisite tested: Functional requirement - 11.3 An actor who is authenticated must be able to:
+		 * Negative: A rider tries to edit a message with a blank subject.
+		 * Requisite tested: Functional requirement - 25.3 An actor who is authenticated must be able to:
 		 * Exchange messages with other actors and manage them.
 		 * Data coverage : A rider tries to delete a message that not owns
-		 * Exception expected: IllegalArgumentException. A Rider can not delete messages from another rider.
+		 * Exception expected: ConstraintViolationException.class. Subject can not be blank.
 		 */
 		};
 
@@ -148,17 +166,26 @@ public class MessageServiceTest extends AbstractTest {
 				final Rider riderR = this.riderService.findOne(this.getEntityId(id));
 				message.setRecipient(riderR);
 				message.setTags("Test tags");
+				final Collection<Box> boxes = new ArrayList<Box>();
+				message.setPriority(Priority.HIGH);
+				message.setBoxes(boxes);
 
 				this.messageService.save(message);
+
+			} else if (operation.equals("move")) {
+				final Message message = this.messageService.findOne(this.getEntityId(id));
+				final Box box = this.boxService.findOne(this.getEntityId(st));
+
+				this.messageService.move(message, box);
 
 			} else if (operation.equals("edit")) {
 				final Message message = this.messageService.findOne(this.getEntityId(id));
-				message.setBody("Testing body edition");
+				message.setSubject(st);
+				message.setBody("Not you");
 
 				this.messageService.save(message);
 
-			}
-			if (operation.equals("createNegative")) {
+			} else if (operation.equals("createNegative")) {
 				final Message message = this.messageService.create();
 
 				message.setSubject(st);
@@ -168,6 +195,8 @@ public class MessageServiceTest extends AbstractTest {
 				final Rider riderR = this.riderService.findOne(this.getEntityId(id));
 				message.setRecipient(riderR);
 				message.setTags("Test tags");
+				final Collection<Box> boxes = new ArrayList<Box>();
+				message.setBoxes(boxes);
 
 				this.messageService.save(message);
 

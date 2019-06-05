@@ -42,19 +42,19 @@ public class TeamManagerServiceTest extends AbstractTest {
 			/*
 			 * 
 			 * Positive test: An user registers as a new team TeamManager
-			 * Requisite tested: Functional requirement - 38.1. An actor who is not authenticated must be able to:
-			 * Register to the system as a representative or team manager.
-			 * Data coverage : We created a new teamTeamManager with valid data.
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new teamTeamManager with 9 out of 9 valid parameters.
 			 * Exception expected: None.
 			 */
 			{
-				"teamManager1", null, "teamManager1", "editPositive", null
+				"teamManager1", null, "teamManager1", "edit", null
 			}
 
 		/*
 		 * Positive test: A teamTeamManager edit its name.
-		 * Requisite tested: Functional requirement - 38.1. An actor who is not authenticated must be able to:
-		 * Register to the system as a representative or team manager
+		 * * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
 		 * Data coverage : From 9 editable attributes we tried to edit 1 attributes (name) with valid data.
 		 * Exception expected: None. A teamTeamManager can edit his data.
 		 */
@@ -75,26 +75,36 @@ public class TeamManagerServiceTest extends AbstractTest {
 	@Test
 	public void TeamManagerNegativeTest() {
 		final Object testingData[][] = {
-			//Total Sentence Coverage: Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total Sentence Coverage: Coverage 94.7% | Covered Instructions 108 | Missed Instructions 6 | Total Instructions 114
 			{
-				"teamManager1", null, "teamManager2", "editNegative", IllegalArgumentException.class
+				null, " ", null, "create", ConstraintViolationException.class
+			},
+			/*
+			 * Negative test: An user tries to register as a new Sponsor with a blank name
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new sponsor with 8 out of 9 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank
+			 */
+			{
+				"teamManager1", null, "teamManager2", "edit", IllegalArgumentException.class
 			},
 			/*
 			 * Negative test: A team TeamManager tries to edit another teamTeamManager personal data.
-			 * Requisite tested: Functional requirement - 38.1. An actor who is not authenticated must be able to:
-			 * Register to the system as a representative or team manager
+			 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+			 * Edit his or her personal data.
 			 * Data coverage: From 9 editable attributes we tried to edit 1 attribute (name) of another user.
 			 * Exception expected: IllegalArgumentException A teamTeamManager cannot edit others personal data.
 			 */
 
 			{
-				"teamManager2", "", null, "editNegative1", ConstraintViolationException.class
+				"teamManager2", "", null, "editNegative", ConstraintViolationException.class
 			},
 
 		/*
 		 * Negative test: A teamTeamManager tries to edit its profile with invalid data.
-		 * Requisite tested: Functional requirement - 38.1. An actor who is not authenticated must be able to:
-		 * Register to the system as a representative or team manager
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
 		 * Data coverage: From 9 editable attributes we tried to edit 1 attributes (username) with invalid data.
 		 * Exception expected: ConstraintViolationException. MakeP cannot be blank.
 		 */
@@ -132,19 +142,16 @@ public class TeamManagerServiceTest extends AbstractTest {
 
 				this.teamTeamManagerService.save(teamTeamManager);
 
-			} else if (operation.equals("editPositive")) {
+			} else if (operation.equals("edit")) {
 				final TeamManager teamManager = this.teamTeamManagerService.findOne(this.getEntityId(id));
 				teamManager.setName("New nombrecito");
 
 				this.teamTeamManagerService.save(teamManager);
-			} else if (operation.equals("editNegative")) {
-				final TeamManager teamManager = this.teamTeamManagerService.findOne(this.getEntityId(id));
-				teamManager.setName("Test negative name");
-				this.teamTeamManagerService.save(teamManager);
 
-			} else if (operation.equals("editNegative1")) {
+			} else if (operation.equals("editNegative")) {
 				final TeamManager teamManager = this.teamTeamManagerService.findOne(this.getEntityId(username));
 				teamManager.getUserAccount().setUsername(st);
+
 				this.teamTeamManagerService.save(teamManager);
 			}
 			this.teamTeamManagerService.flush();

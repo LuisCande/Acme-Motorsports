@@ -42,26 +42,26 @@ public class ForecastServiceTest extends AbstractTest {
 	@Test
 	public void ForecastPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 91.7% | Covered Instructions 66 | Missed Instructions 6 | Total Instructions 72
+			//Total sentence coverage : Coverage 93.5% | Covered Instructions 87 | Missed Instructions 6 | Total Instructions 93
 			{
-				"raceDirector2", null, "grandPrix3", "create", null
+				"raceDirector1", "forecast1", "grandPrix1", "create", null
 			},
 			/*
 			 * Positive test: A race director creates an forecast.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
+			 * Requisite tested: Functional requirement - 26.6. An actor who is authenticated as a raceDirector must be able to
 			 * Publish a forecast of his or her grand prixes, which includes showing, creating, updating them.
-			 * Data coverage : We created an forecast with 5 out of 5 valid parameters.
+			 * Data coverage : We created an forecast with 7 out of 7 valid parameters.
 			 * Exception expected: None. A RaceDirector can create forecasts.
 			 */
 
 			{
-				"raceDirector1", null, "forecast1", "editPositive", null
+				"raceDirector1", null, "forecast1", "edit", null
 			},
 		/*
 		 * Positive test: A race director edits his forecast.
-		 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
+		 * Requisite tested: Functional requirement - 26.6. An actor who is authenticated as a raceDirector must be able to
 		 * Publish a forecast of his or her grand prixes, which includes showing, creating, updating them.
-		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (AmbientTemperature) with valid data.
+		 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (AmbientTemperature) with valid data.
 		 * Exception expected: None. A RaceDirector can edit his forecasts.
 		 */
 
@@ -81,27 +81,48 @@ public class ForecastServiceTest extends AbstractTest {
 	@Test
 	public void ForecastNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total sentence coverage : Coverage 95.9% | Covered Instructions 141 | Missed Instructions 6 | Total Instructions 147
 			{
-				"raceDirector1", null, "grandPrix1", "createNegative", ConstraintViolationException.class
+				"raceDirector3", "forecast1", "grandPrix1", "createNegative", IllegalArgumentException.class
+			},
+			/*
+			 * Negative test: A race director tries to create an forecast for another race director's grand prix.
+			 * Requisite tested: Functional requirement - 26.6. An actor who is authenticated as a raceDirector must be able to
+			 * Publish a forecast of his or her grand prixes, which includes showing, creating, updating them.
+			 * Data coverage : We tried to create an forecast with 4 out of 5 valid parameters.
+			 * Exception expected:IllegalArgumentException.class. A race director can not create an forecast for another race director's grand prix.
+			 */
+
+			{
+				"raceDirector1", "forecast1", "grandPrix1", "createNegative2", ConstraintViolationException.class
 			},
 			/*
 			 * Negative test: A race director tries to create an forecast with a negative RainMm.
-			 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
+			 * Requisite tested: Functional requirement - 26.6. An actor who is authenticated as a raceDirector must be able to
 			 * Publish a forecast of his or her grand prixes, which includes showing, creating, updating them.
 			 * Data coverage : We tried to create an forecast with 4 out of 5 valid parameters.
 			 * Exception expected:ConstraintViolationException.RainMm must be positive.
 			 */
 
 			{
-				"raceDirector3", null, "forecast1", "editNegative", IllegalArgumentException.class
+				"raceDirector1", null, "forecast1", "editNegative", ConstraintViolationException.class
+			},
+			/*
+			 * Negative test: A race director tries to edit an forecast with a negative RainMm.
+			 * Requisite tested: Functional requirement - 26.6. An actor who is authenticated as a raceDirector must be able to
+			 * Publish a forecast of his or her grand prixes, which includes showing, creating, updating them.
+			 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
+			 * Exception expected: ConstraintViolationException.RainMm must be positive.
+			 */
+			{
+				"raceDirector3", null, "forecast1", "edit", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A race director tries to edit a forecast that not owns.
-		 * Requisite tested: Functional requirement - 12.6. An actor who is authenticated as a raceDirector must be able to
+		 * Negative test: A race director tries to edit a forecast that not owns.
+		 * Requisite tested: Functional requirement - 26.6. An actor who is authenticated as a raceDirector must be able to
 		 * Publish a forecast of his or her grand prixes, which includes showing, creating, updating them.
-		 * Data coverage : From 5 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
-		 * Exception expected: ConstraintViolationException.RainMm must be positive.
+		 * Data coverage : From 6 editable attributes we tried to edit 1 attribute (RainMm) with invalid data.
+		 * Exception expected: CIllegalArgumentException.class. A race director can not edit another race director's forecasts.
 		 */
 
 		};
@@ -123,6 +144,8 @@ public class ForecastServiceTest extends AbstractTest {
 		try {
 			super.authenticate(username);
 			if (operation.equals("create")) {
+				final Forecast forecastOld = this.forecastService.findOne(this.getEntityId(st));
+				this.forecastService.delete(forecastOld);
 				final Forecast forecast = this.forecastService.create();
 
 				forecast.setAsphaltTemperature(50);
@@ -130,6 +153,30 @@ public class ForecastServiceTest extends AbstractTest {
 				forecast.setWindDirection("North");
 				forecast.setRainMm(15);
 				forecast.setCloudPercentage(15);
+				forecast.setWindSpeed(10);
+				//				final RaceDirector raceDirector = this.raceDirectorService.findOne(this.getEntityId(username));
+				//				forecast.setRaceDirector(raceDirector);
+				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
+				forecast.setGrandPrix(grandPrix);
+
+				this.forecastService.save(forecast);
+
+			} else if (operation.equals("edit")) {
+				final Forecast forecast = this.forecastService.findOne(this.getEntityId(id));
+				forecast.setAmbientTemperature(15);
+				this.forecastService.save(forecast);
+
+			} else if (operation.equals("createNegative")) {
+				final Forecast forecastOld = this.forecastService.findOne(this.getEntityId(st));
+				this.forecastService.delete(forecastOld);
+				final Forecast forecast = this.forecastService.create();
+
+				forecast.setAsphaltTemperature(50);
+				forecast.setAmbientTemperature(35);
+				forecast.setWindDirection("North");
+				forecast.setRainMm(15);
+				forecast.setCloudPercentage(15);
+				forecast.setWindSpeed(10);
 				final RaceDirector raceDirector = this.raceDirectorService.findOne(this.getEntityId(username));
 				forecast.setRaceDirector(raceDirector);
 				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));
@@ -137,12 +184,9 @@ public class ForecastServiceTest extends AbstractTest {
 
 				this.forecastService.save(forecast);
 
-			} else if (operation.equals("editPositive")) {
-				final Forecast forecast = this.forecastService.findOne(this.getEntityId(id));
-				forecast.setAmbientTemperature(15);
-				this.forecastService.save(forecast);
-
-			} else if (operation.equals("createNegative")) {
+			} else if (operation.equals("createNegative2")) {
+				final Forecast forecastOld = this.forecastService.findOne(this.getEntityId(st));
+				this.forecastService.delete(forecastOld);
 				final Forecast forecast = this.forecastService.create();
 
 				forecast.setAsphaltTemperature(50);
@@ -150,6 +194,7 @@ public class ForecastServiceTest extends AbstractTest {
 				forecast.setWindDirection("North");
 				forecast.setRainMm(-15);
 				forecast.setCloudPercentage(15);
+				forecast.setWindSpeed(10);
 				final RaceDirector raceDirector = this.raceDirectorService.findOne(this.getEntityId(username));
 				forecast.setRaceDirector(raceDirector);
 				final GrandPrix grandPrix = this.grandPrixService.findOne(this.getEntityId(id));

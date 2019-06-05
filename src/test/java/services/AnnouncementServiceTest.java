@@ -42,30 +42,30 @@ public class AnnouncementServiceTest extends AbstractTest {
 	@Test
 	public void AnnoucementPositiveTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 94.1% | Covered Instructions 100 | Missed Instructions 6 | Total Instructions 106
+			//Total sentence coverage : Coverage 94.3% | Covered Instructions 100 | Missed Instructions 6 | Total Instructions 106
 			{
 				"raceDirector1", null, "grandPrix1", "create", null
 			},
 			/*
 			 * Positive test: A race director creates an announcement.
-			 * Requisite tested: Functional requirement - 12.3 An actor who is authenticated as a raceDirector must be able to
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
 			 * Issue official announcements of his or her grand prixes and manage them which
 			 * includes listing, showing, creating and updating or delete them as long as they are not
 			 * saved in final mode
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
+			 * Data coverage :We created an announcement with 6 out of 6 valid parameters.
 			 * Exception expected: None. A RaceDirector can create announcements.
 			 */
 
 			{
-				"raceDirector1", null, "announcement1", "editPositive", null
+				"raceDirector1", null, "announcement1", "edit", null
 			},
 			/*
 			 * Positive test: A race director edits his announcement.
-			 * Requisite tested: Functional requirement - 12.3 An actor who is authenticated as a raceDirector must be able to
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
 			 * Issue official announcements of his or her grand prixes and manage them which
 			 * includes listing, showing, creating and updating or delete them as long as they are not
 			 * saved in final mode
-			 * Data coverage : We created an announcement with 6 out of 6 valid parameters.
+			 * Data coverage : From 3 editable attributes we edited 1 attribute (description) with valid data.
 			 * Exception expected: None. A RaceDirector can edit his announcements.
 			 */
 			{
@@ -73,7 +73,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 			},
 		/*
 		 * Positive test: A race director deletes his announcement.
-		 * Requisite tested: Functional requirement - 12.3 An actor who is authenticated as a raceDirector must be able to
+		 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
 		 * Issue official announcements of his or her grand prixes and manage them which
 		 * includes listing, showing, creating and updating or delete them as long as they are not
 		 * saved in final mode
@@ -97,38 +97,74 @@ public class AnnouncementServiceTest extends AbstractTest {
 	@Test
 	public void AnnoucementNegativeTest() {
 		final Object testingData[][] = {
-			//Total sentence coverage : Coverage 95.1% | Covered Instructions 116 | Missed Instructions 6 | Total Instructions 122
+			//Total sentence coverage : Coverage 96.8% | Covered Instructions 183 | Missed Instructions 6 | Total Instructions 189
 			{
 				"raceDirector1", "", "grandPrix1", "createNegative", ConstraintViolationException.class
 			},
 			/*
 			 * Negative test: A race director tries to create an announcement with a blank title.
-			 * Requisite tested: Functional requirement - 12.3 An actor who is authenticated as a raceDirector must be able to
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
+			 * Issue official announcements of his or her grand prixes and manage them which
+			 * includes listing, showing, creating and updating or delete them as long as they are not
+			 * saved in final mode
+			 * Data coverage : We tried to create an announcement with 5 out of 6 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Title can not be blank.
+			 */
+			{
+				"raceDirector2", null, "grandPrix1", "create", IllegalArgumentException.class
+			},
+			/*
+			 * Negative test: A race director tries to create an announcement for another race director's grand prix.
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
 			 * Issue official announcements of his or her grand prixes and manage them which
 			 * includes listing, showing, creating and updating or delete them as long as they are not
 			 * saved in final mode
 			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (body) with valid data.
-			 * Exception expected: None. A RaceDirector can edit his announcements.
+			 * Exception expected:IllegalArgumentException.class. A RaceDirector can not issue announcements for another race director's grand prix.
 			 */
 
 			{
-				"raceDirector3", null, "announcement1", "editNegative", IllegalArgumentException.class
+				"raceDirector3", null, "announcement1", "edit", IllegalArgumentException.class
 			},
 			/*
-			 * Negative: A race director tries to edit a announcement that not owns.
-			 * Requisite tested: Functional requirement - 12.3 An actor who is authenticated as a raceDirector must be able to
+			 * Negative: A race director tries to edit an announcement that not owns.
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
 			 * Issue official announcements of his or her grand prixes and manage them which
 			 * includes listing, showing, creating and updating or delete them as long as they are not
 			 * saved in final mode
-			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (photos) with a user that is not the owner.
+			 * Data coverage : From 3 editable attributes we tried to edit 1 attribute (description) with a user that is not the owner.
 			 * Exception expected: IllegalArgumentException. A RaceDirector can not edit announcements from another raceDirector.
+			 */
+			{
+				"raceDirector1", "", "announcement1", "editNegative", ConstraintViolationException.class
+			},
+			/*
+			 * Negative: A race director tries to edit an announcement with a blank description.
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
+			 * Issue official announcements of his or her grand prixes and manage them which
+			 * includes listing, showing, creating and updating or delete them as long as they are not
+			 * saved in final mode
+			 * Data coverage : From 4 editable attributes we tried to edit 1 attribute (description) with invalid data.
+			 * Exception expected: ConstraintViolationException.class. Description can not be blank.
+			 */
+			{
+				"raceDirector1", null, "announcement3", "delete", IllegalArgumentException.class
+			},
+			/*
+			 * Negative: A raceDirector tries to delete a announcement that not owns.
+			 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
+			 * Issue official announcements of his or her grand prixes and manage them which
+			 * includes listing, showing, creating and updating or delete them as long as they are not
+			 * saved in final mode
+			 * Data coverage : A raceDirector tries to delete a announcement from another race director
+			 * Exception expected: IllegalArgumentException. A RaceDirector can not delete announcements from another race director.
 			 */
 			{
 				"raceDirector1", null, "announcement2", "delete", IllegalArgumentException.class
 			},
 		/*
-		 * Negative: A raceDirector tries to delete a announcement that not owns.
-		 * Requisite tested: Functional requirement - 12.3 An actor who is authenticated as a raceDirector must be able to
+		 * Negative: A raceDirector tries to delete a announcement that is in final mode.
+		 * Requisite tested: Functional requirement - 26.3 An actor who is authenticated as a raceDirector must be able to
 		 * Issue official announcements of his or her grand prixes and manage them which
 		 * includes listing, showing, creating and updating or delete them as long as they are not
 		 * saved in final mode
@@ -167,7 +203,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 
 				this.announcementService.save(announcement);
 
-			} else if (operation.equals("editPositive")) {
+			} else if (operation.equals("edit")) {
 				final Announcement announcement = this.announcementService.findOne(this.getEntityId(id));
 				announcement.setDescription("Easy change to test");
 				this.announcementService.save(announcement);
@@ -193,7 +229,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 
 			} else if (operation.equals("editNegative")) {
 				final Announcement announcement = this.announcementService.findOne(this.getEntityId(id));
-				announcement.setDescription("Easy change to test");
+				announcement.setDescription(st);
 				this.announcementService.save(announcement);
 
 			}

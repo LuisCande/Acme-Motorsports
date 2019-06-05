@@ -42,20 +42,20 @@ public class RaceDirectorServiceTest extends AbstractTest {
 			/*
 			 * 
 			 * Positive test: An user registers as a new raceDirector
-			 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a raceDirector.
-			 * Data coverage : We created a new raceDirector with valid data.
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new raceDirector with 9 out of 9 valid parameters.
 			 * Exception expected: None.
 			 */
 			{
-				"raceDirector1", null, "raceDirector1", "editPositive", null
+				"raceDirector1", null, "raceDirector1", "edit", null
 			}
 
 		/*
-		 * Positive test: A raceDirector edit its makeP.
-		 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a raceDirector.
-		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (makeP) with valid data.
+		 * Positive test: A raceDirector edit its name.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (Name) with valid data.
 		 * Exception expected: None. A raceDirector can edit his data.
 		 */
 
@@ -75,28 +75,39 @@ public class RaceDirectorServiceTest extends AbstractTest {
 	@Test
 	public void RaceDirectorNegativeTest() {
 		final Object testingData[][] = {
-			//Total Sentence Coverage: Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
+			//Total Sentence Coverage: Coverage 94.9% | Covered Instructions 112 | Missed Instructions 6 | Total Instructions 118
+
 			{
-				"raceDirector1", null, "raceDirector2", "editNegative", IllegalArgumentException.class
+				null, " ", null, "create", ConstraintViolationException.class
 			},
 			/*
-			 * Negative test: A raceDirector tries to edit the another raceDirector personal data.
-			 * Requisite tested: Functional requirement 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a raceDirector.
-			 * Data coverage: From 11 editable attributes we tried to edit 1 attribute (makeP) of another user.
+			 * Positive test: An user tries to register as a new raceDirector with a blank name
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new raceDirector with 8 out of 9 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank
+			 */
+			{
+				"raceDirector1", null, "raceDirector2", "edit", IllegalArgumentException.class
+			},
+			/*
+			 * Negative test: A raceDirector tries to edit another raceDirector personal data.
+			 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+			 * Edit his or her personal data.
+			 * Data coverage: From 9 editable attributes we tried to edit 1 attribute (name) of another user.
 			 * Exception expected: IllegalArgumentException A raceDirector cannot edit others personal data.
 			 */
 
 			{
-				"raceDirector2", "", null, "editNegative1", ConstraintViolationException.class
+				"raceDirector2", "", "raceDirector2", "editNegative", ConstraintViolationException.class
 			},
 
 		/*
-		 * Negative test: A raceDirector tries to edit its profile with invalid data.
-		 * Requisite tested: Functional requirement -9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a raceDirector.
-		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (makeP) with invalid data.
-		 * Exception expected: ConstraintViolationException. MakeP cannot be blank.
+		 * Negative test: A raceDirector tries to edit its profile with a blank username.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (username) with invalid data.
+		 * Exception expected: ConstraintViolationException. Username cannot be blank.
 		 */
 		};
 
@@ -132,19 +143,13 @@ public class RaceDirectorServiceTest extends AbstractTest {
 
 				this.raceDirectorService.save(raceDirector);
 
-			} else if (operation.equals("editPositive")) {
+			} else if (operation.equals("edit")) {
 				final RaceDirector raceDirector = this.raceDirectorService.findOne(this.getEntityId(id));
 				raceDirector.setName("Thanks god this is a String");
 
 				this.raceDirectorService.save(raceDirector);
-			} else if (operation.equals("editNegative")) {
-				final RaceDirector raceDirector = this.raceDirectorService.findOne(this.getEntityId(id));
-				raceDirector.setName("Test negative name");
-				raceDirector.setSurnames("Test negative surnames");
-				raceDirector.setAddress("Test address");
-				this.raceDirectorService.save(raceDirector);
 
-			} else if (operation.equals("editNegative1")) {
+			} else if (operation.equals("editNegative")) {
 				final RaceDirector raceDirector = this.raceDirectorService.findOne(this.getEntityId(username));
 				raceDirector.getUserAccount().setUsername(st);
 				this.raceDirectorService.save(raceDirector);

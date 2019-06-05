@@ -40,23 +40,22 @@ public class SponsorServiceTest extends AbstractTest {
 				null, "testSponsor1", null, "create", null
 			},
 			/*
-			 * 
-			 * Positive test: An user registers as a new sponsor
-			 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a sponsor.
-			 * Data coverage : We created a new sponsor with valid data.
-			 * Exception expected: None.
+			 * Positive test: An user registers as a new rider
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new representative with 10 out of 10 valid parameters.
+			 * Exception expected: None.An user can register as a rider
 			 */
 			{
-				"sponsor1", null, "sponsor1", "editPositive", null
+				"sponsor1", null, "sponsor1", "edit", null
 			}
 
 		/*
-		 * Positive test: A sponsor edit its makeP.
-		 * Requisite tested: Functional requirement - 9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a sponsor.
-		 * Data coverage : From 12 editable attributes we tried to edit 1 attributes (makeP) with valid data.
-		 * Exception expected: None. A sponsor can edit his data.
+		 * Positive test: A rider edit its Name.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage : From 10 editable attributes we tried to edit 1 attributes (name) with valid data.
+		 * Exception expected: None. A rider can edit his data.
 		 */
 
 		};
@@ -77,25 +76,35 @@ public class SponsorServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			//Total Sentence Coverage: Coverage 93.8% | Covered Instructions 91 | Missed Instructions 6 | Total Instructions 97
 			{
-				"sponsor1", null, "sponsor2", "editNegative", IllegalArgumentException.class
+				null, " ", null, "create", ConstraintViolationException.class
+			},
+			/*
+			 * Negative test: An user tries to register as a new Sponsor with a blank name
+			 * Requisite tested: Functional requirement - 24.1. An actor who is not authenticated must be able to:
+			 * Register to the system as a race director, as a rider, as a representative, as sponsor or as a team manager
+			 * Data coverage : We created a new sponsor with 9 out of 10 valid parameters.
+			 * Exception expected: ConstraintViolationException.class. Name can not be blank
+			 */
+			{
+				"sponsor1", null, "sponsor2", "edit", IllegalArgumentException.class
 			},
 			/*
 			 * Negative test: A sponsor tries to edit the another sponsor personal data.
-			 * Requisite tested: Functional requirement 9.3. An actor who is not authenticated must be able to:
-			 * Register to the system as a sponsor.
-			 * Data coverage: From 11 editable attributes we tried to edit 1 attribute (makeP) of another user.
+			 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+			 * Edit his or her personal data..
+			 * Data coverage: From 10 editable attributes we tried to edit 1 attribute (name) of another user.
 			 * Exception expected: IllegalArgumentException A sponsor cannot edit others personal data.
 			 */
 
 			{
-				"sponsor2", "", null, "editNegative1", ConstraintViolationException.class
+				"sponsor2", "", null, "editNegative", ConstraintViolationException.class
 			},
 
 		/*
 		 * Negative test: A sponsor tries to edit its profile with invalid data.
-		 * Requisite tested: Functional requirement -9.3. An actor who is not authenticated must be able to:
-		 * Register to the system as a sponsor.
-		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (makeP) with invalid data.
+		 * Requisite tested: Functional requirement - 25.2. An actor who is authenticated must be able to:
+		 * Edit his or her personal data.
+		 * Data coverage: From 11 editable attributes we tried to edit 1 attributes (name) with invalid data.
 		 * Exception expected: ConstraintViolationException. MakeP cannot be blank.
 		 */
 		};
@@ -132,20 +141,12 @@ public class SponsorServiceTest extends AbstractTest {
 
 				this.sponsorService.save(sponsor);
 
-			} else if (operation.equals("editPositive")) {
+			} else if (operation.equals("edit")) {
 				final Sponsor sponsor = this.sponsorService.findOne(this.getEntityId(id));
 				sponsor.setName("Thanks god this is a String");
 
 				this.sponsorService.save(sponsor);
 			} else if (operation.equals("editNegative")) {
-				final Sponsor sponsor = this.sponsorService.findOne(this.getEntityId(id));
-				sponsor.setName("eeee");
-				sponsor.setSurnames("Test negative surnames");
-				sponsor.setAddress("Test address");
-
-				this.sponsorService.save(sponsor);
-
-			} else if (operation.equals("editNegative1")) {
 				final Sponsor sponsor = this.sponsorService.findOne(this.getEntityId(username));
 				sponsor.getUserAccount().setUsername(st);
 				this.sponsorService.save(sponsor);

@@ -90,6 +90,9 @@ public class MeetingService {
 
 		return saved;
 	}
+	public void flush() {
+		this.meetingRepository.flush();
+	}
 
 	//Reconstruct
 	public Meeting reconstruct(final Meeting m, final BindingResult binding) {

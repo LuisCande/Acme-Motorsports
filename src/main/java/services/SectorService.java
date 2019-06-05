@@ -91,6 +91,9 @@ public class SectorService {
 		return result;
 
 	}
+	public void flush() {
+		this.sectorRepository.flush();
+	}
 
 	//Other methods
 

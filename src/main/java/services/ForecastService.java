@@ -65,7 +65,7 @@ public class ForecastService {
 		//Assertion that the user modifying this education record has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == f.getRaceDirector().getId());
 
-		//Assertion the forecast published for a grand prix is contained in Race Director WordChampionship grand prixes list
+		//		//Assertion the forecast published for a grand prix is contained in Race Director WordChampionship grand prixes list
 		if (f.getId() == 0)
 			Assert.isTrue(gps.contains(f.getGrandPrix()));
 
@@ -74,6 +74,11 @@ public class ForecastService {
 		return saved;
 	}
 
+	public void delete(final Forecast f) {
+		Assert.notNull(f);
+
+		this.forecastRepository.delete(f);
+	}
 	//Other methods--------------------------
 
 	//Reconstruct

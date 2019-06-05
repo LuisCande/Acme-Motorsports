@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.CategoryRepository;
+import security.Authority;
 import domain.Category;
 import exceptions.GenericException;
 
@@ -29,6 +30,9 @@ public class CategoryService {
 
 	@Autowired
 	private GrandPrixService	grandPrixService;
+
+	@Autowired
+	private ActorService		actorService;
 
 	@Autowired
 	private Validator			validator;
@@ -57,6 +61,12 @@ public class CategoryService {
 
 		//Since the only category without parent must be the root "CATEGORY", all others must have c parent ID.
 		Assert.notNull(c.getParent());
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+
+		//Assertion that the user modifying this task has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getAuthorities().contains(a));
 
 		final Category saved = this.categoryRepository.save(c);
 
